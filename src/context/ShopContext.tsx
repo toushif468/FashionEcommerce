@@ -1,7 +1,14 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { ProductType, Size } from "../types/assets";
 import { products } from "../assets/assets";
+import { toast } from "react-toastify";
 // import { products, type Product } from "../assets/assets";
+
+type CartItemsType = {
+  [productId: string]: {
+    [size: string]: number;
+  };
+};
 
 interface ShopContextType {
   products: ProductType[];
@@ -13,6 +20,9 @@ interface ShopContextType {
 
   showSearch: boolean;
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+
+  cartItems: CartItemsType;
+  addToCart: (itemId: string, size: Size) => void;
 
 }
 export const ShopContext = createContext<ShopContextType>({
@@ -26,6 +36,9 @@ export const ShopContext = createContext<ShopContextType>({
   showSearch: false,
   setShowSearch: () => { },
 
+  cartItems: {},
+  addToCart: () => { },
+
 });
 
 
@@ -35,15 +48,45 @@ interface ShopContextProviderProps {
 
 
 
+
+
+
 const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
-  const [search, setSearch] = useState('');
-  const [showSearch, setShowSearch] = useState(false);
-  const [cartItems, setCartItems] = useState({});
+  const [search, setSearch] = useState<string>('');
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+
+  const [cartItems, setCartItems] = useState<CartItemsType>({});
+
+  const addToCart = async (itemId: string, size: Size) => {
+    let cartData = structuredClone(cartItems);
+
+    if (!size) {
+      toast.error("Select Product Size");
+      return;
+    }
+
+    if (cartData[itemId]) {
+      if (cartData[itemId][size]) {
+        cartData[itemId][size] += 1;
+      }
+      else {
+        cartData[itemId][size] = 1
+      }
+    }
+    else {
+      cartData[itemId] = {}
+      cartData[itemId][size] = 1;
+    }
 
 
 
+    setCartItems(cartData);
+  }
 
+  useEffect(() => {
+    console.log(cartItems)
+  }, [cartItems])
 
   const value: ShopContextType = {
     products,
@@ -55,6 +98,10 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
     showSearch,
     setShowSearch,
+
+
+    cartItems,
+    addToCart,
   }
 
   return (

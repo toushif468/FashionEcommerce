@@ -5,7 +5,7 @@ import type { ProductType } from '../types/assets';
 import ProductItem from './ProductItem';
 
 const LatestCollection = () => {
-  //let se if it works ?
+
 
   const { products } = useContext(ShopContext);
 
