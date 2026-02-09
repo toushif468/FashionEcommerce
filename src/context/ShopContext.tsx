@@ -24,6 +24,8 @@ interface ShopContextType {
   cartItems: CartItemsType;
   addToCart: (itemId: string, size: Size) => void;
   getCartCount: () => number;
+  updateQuantity: (itemId: string, size: Size, quantity: number) => void;
+  getCartAmount: () => Promise<number>;
 
 }
 export const ShopContext = createContext<ShopContextType>({
@@ -40,6 +42,8 @@ export const ShopContext = createContext<ShopContextType>({
   cartItems: {},
   addToCart: () => { },
   getCartCount: () => 0,
+  updateQuantity: () => { },
+  getCartAmount: async () => 0,
 
 });
 
@@ -94,18 +98,50 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   const getCartCount = () => {
     let totalCount = 0;
     for (const items in cartItems) {
-      for (const item in cartItems[items]){
-          try
-          {
-            if (cartItems[items][item] > 0)
-              totalCount += cartItems[items][item];
-          } catch (error) {
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0)
+            totalCount += cartItems[items][item];
+        } catch (error) {
 
-          }
+        }
       }
     }
     return totalCount;
   }
+
+  const updateQuantity = async (itemId: string, size: Size, quantity: number) => {
+    let cartData = structuredClone(cartItems);
+
+    if (size && cartData[itemId]) {
+      cartData[itemId][size] = quantity;
+
+      setCartItems(cartData);
+    }
+
+  }
+
+const getCartAmount =  async() => {
+  let totalAmount = 0;
+
+  for (const items in cartItems) {
+    let itemInfo = products.find((product) => product._id === items);
+
+    
+    for (const item in cartItems[items]) {
+      try {
+        
+        if (cartItems[items][item] > 0 && itemInfo) {
+          totalAmount += itemInfo.price * cartItems[items][item];
+        }
+      } catch (error) {
+        console.error("Error calculating amount", error);
+      }
+    }
+  }
+  
+  return totalAmount;
+};
 
   const value: ShopContextType = {
     products,
@@ -121,7 +157,9 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
     cartItems,
     addToCart,
-    getCartCount
+    getCartCount,
+    updateQuantity,
+    getCartAmount
   }
 
   return (

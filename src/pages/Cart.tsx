@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
+import { assets } from '../assets/assets';
+import type { Size } from '../types/assets';
 
 interface CartItemEntry {
   _id: string;
-  size: string;
+  size: Size;
   quantity: number;
 }
 
 const Cart = () => {
 
-  const { products, currency, cartItems } = useContext(ShopContext)
+  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext)
   const [cartData, setCartData] = useState<CartItemEntry[]>([])
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const Cart = () => {
         if (cartItems[items][item] > 0) {
           tempData.push({
             _id: items,
-            size: item,
+            size: item as Size,
             quantity: cartItems[items][item]
           })
         }
@@ -49,8 +51,24 @@ const Cart = () => {
                     <img className='w-16 sm:w-20' src={productData.image[0]} alt="" />
                     <div>
                       <p className='text-xs sm:text-lg font-medium'>{productData.name}</p>
+                      <div className='flex items-center gap-5 mt-2'>
+                        <p>{currency} {productData.price}</p>
+                        <p className='px-2 sm:px-3 sm:py-1 border bg-slate-50'>{item.size}</p>
+                      </div>
                     </div>
                   </div>
+                  <input
+                    onChange={(e) =>
+                      e.target.value === '' || e.target.value === '0'
+                        ? null
+                        : updateQuantity(item._id, item.size, Number(e.target.value))
+                    }
+                    className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1'
+                    type="number"
+                    min={1}
+                    defaultValue={item.quantity}
+                  />
+                  <img onClick={() => updateQuantity(item._id, item.size, 0)} className='w-4 mr-4 sm:w-5 cursor-pointer' src={assets.bin_icon} alt="" />
                 </div>
               )
             })
