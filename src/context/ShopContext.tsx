@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { ProductType, Size } from "../types/assets";
 import { products } from "../assets/assets";
 import { toast } from "react-toastify";
+import { useNavigate, type NavigateFunction } from "react-router-dom";
 // import { products, type Product } from "../assets/assets";
 
 type CartItemsType = {
@@ -25,7 +26,8 @@ interface ShopContextType {
   addToCart: (itemId: string, size: Size) => void;
   getCartCount: () => number;
   updateQuantity: (itemId: string, size: Size, quantity: number) => void;
-  getCartAmount: () => Promise<number>;
+  getCartAmount: () => number;
+  navigate: NavigateFunction;
 
 }
 export const ShopContext = createContext<ShopContextType>({
@@ -43,7 +45,8 @@ export const ShopContext = createContext<ShopContextType>({
   addToCart: () => { },
   getCartCount: () => 0,
   updateQuantity: () => { },
-  getCartAmount: async () => 0,
+  getCartAmount: () => 0,
+  navigate: () => { },
 
 });
 
@@ -63,7 +66,7 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
   const [cartItems, setCartItems] = useState<CartItemsType>({});
-
+  const navigate = useNavigate();
   const addToCart = async (itemId: string, size: Size) => {
     let cartData = structuredClone(cartItems);
 
@@ -121,27 +124,26 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
   }
 
-const getCartAmount =  async() => {
-  let totalAmount = 0;
+ const getCartAmount = () => {
+    let totalAmount = 0;
+    for (const items in cartItems) {
+      let itemInfo = products.find((product) => product._id === items);
 
-  for (const items in cartItems) {
-    let itemInfo = products.find((product) => product._id === items);
+      // if (!itemInfo) continue; //TS safegaurd
 
-    
-    for (const item in cartItems[items]) {
-      try {
-        
-        if (cartItems[items][item] > 0 && itemInfo) {
-          totalAmount += itemInfo.price * cartItems[items][item];
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
+            totalAmount += itemInfo!.price * cartItems[items][item];
+          }
+        } catch (error) {
+
         }
-      } catch (error) {
-        console.error("Error calculating amount", error);
       }
     }
+
+    return totalAmount;
   }
-  
-  return totalAmount;
-};
 
   const value: ShopContextType = {
     products,
@@ -159,7 +161,8 @@ const getCartAmount =  async() => {
     addToCart,
     getCartCount,
     updateQuantity,
-    getCartAmount
+    getCartAmount,
+    navigate
   }
 
   return (
