@@ -1,24 +1,37 @@
-# Logs
-logs
-*.log
+# --- Dependencies ---
+# Ignores node_modules in root, frontend, and backend
+node_modules/
+**/node_modules/
+
+# --- Environment & Secrets ---
+# Ignores all .env files (very important for your backend keys)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env
+
+# --- Build Outputs ---
+# Ignores Vite/React build folders
+dist/
+build/
+out/
+
+# --- Logs ---
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+logs/
+*.log
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# --- OS & Editor Files ---
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Backend Specifics ---
+# If you use Multer for local uploads before Cloudinary
+uploads/
+temp/
