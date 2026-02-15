@@ -68,15 +68,15 @@ const removeProduct = async (req, res) => {
     }
 }
 
-// function for single product
+
 // function for single product
 const singleProduct = async (req, res) => {
     try {
         const { productId } = req.body;
         const product = await productModel.findById(productId);
-        
+
         // You missed this line:
-        res.json({ success: true, product }); 
+        res.json({ success: true, product });
 
     } catch (error) {
         console.log(error);
