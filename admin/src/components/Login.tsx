@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState, type Dispatch } from 'react'
-import { backendUrl } from '../App';
+
 import { toast } from 'react-toastify';
+import { backendUrl } from '../App';
 
 interface LoginPropsType {
   setToken: Dispatch<React.SetStateAction<string>>;
@@ -14,9 +15,13 @@ const Login = ({ setToken }: LoginPropsType) => {
 
   const onSubmitHandler = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     try {
+      // event.preventDefault();
       event.preventDefault();
       console.log(email, password)
+      // Temporary test
+      console.log(backendUrl)
       const response = await axios.post(backendUrl + '/api/user/admin', { email, password });
+      console.log(response.data)
       if (response.data.success) {
         setToken(response.data.token)
       }
@@ -25,13 +30,15 @@ const Login = ({ setToken }: LoginPropsType) => {
       }
     } catch (error) {
       console.log(error);
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Something went wrong");
-      }
+      toast.error("something went wrong")
+      // if (error instanceof Error) {
+      //   toast.error(error.message);
+      // } else {
+      //   toast.error("Something went wrong");
+      // }
     }
   }
+
   return (
     <div className='min-h-screen flex items-center justify-center w-full'>
       <div className='bg-white shadow-md rounded-lg px-8 py-6 max-w-md'>
