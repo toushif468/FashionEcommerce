@@ -26,25 +26,25 @@ const Add = () => {
 
         <div className='flex  gap-2'>
           <label htmlFor="image1">
-            <img className='w-20' src={assets.upload_area} alt="" />
+            <img className='w-20' src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt="" />
             {/* typescript assume that if you write (e)=>setImage1(e.target.files[0])} as null and that generate and error if we rewrite this as onchange{setImage(e.target.files && e.target.files[0] ? etarget.files[0] : null)}. we are essentailly telling typescript that if the e,target.value doesnot have a file in it then donot trigger the codintion. */}
             <input onChange={(e) => setImage1(e.target.files && e.target.files[0] ? e.target.files[0] : null)}
               type="file" id='image1' hidden />
           </label>
 
           <label htmlFor="image2">
-            <img className='w-20' src={assets.upload_area} alt="" />
-            <input onChange={(e) => setImage1(e.target.files && e.target.files[0] ? e.target.files[0] : null)} type="file" id='image2' hidden />
+            <img className='w-20' src={!image2 ? assets.upload_area : URL.createObjectURL(image2)} alt="" />
+            <input onChange={(e) => setImage2(e.target.files && e.target.files[0] ? e.target.files[0] : null)} type="file" id='image2' hidden />
           </label>
 
           <label htmlFor="image3">
-            <img className='w-20' src={assets.upload_area} alt="" />
-            <input onChange={(e) => setImage1(e.target.files && e.target.files[0] ? e.target.files[0] : null)} type="file" id='image3' hidden />
+            <img className='w-20' src={!image3 ? assets.upload_area : URL.createObjectURL(image3)} alt="" />
+            <input onChange={(e) => setImage3(e.target.files && e.target.files[0] ? e.target.files[0] : null)} type="file" id='image3' hidden />
           </label>
 
           <label htmlFor="image4">
-            <img className='w-20' src={assets.upload_area} alt="" />
-            <input onChange={(e) => setImage1(e.target.files && e.target.files[0] ? e.target.files[0] : null)} type="file" id='image4' hidden />
+            <img className='w-20' src={!image4 ? assets.upload_area : URL.createObjectURL(image4)} alt="" />
+            <input onChange={(e) => setImage4(e.target.files && e.target.files[0] ? e.target.files[0] : null)} type="file" id='image4' hidden />
           </label>
         </div>
       </div>
@@ -56,42 +56,44 @@ const Add = () => {
 
       <div className='w-full'>
         <p className='mb-2'>Product name</p>
-        <input className='w-full max-w-[500px] px-3 py-2' type="text" placeholder='write content here' required />
+        <input onChange={(e) => setName(e.target.value)} value={name} className='w-full max-w-[500px] px-3 py-2' type="text" placeholder='write content here' required />
       </div>
 
-      <div>
+      <div className='w-full'>
+        <p className='mb-2'>Product description</p>
+        <textarea onChange={(e) => setDescription(e.target.value)} value={description} className='w-full max-w-[500px] px-3 py-2' placeholder='Write content here'></textarea>
+      </div>
+
+      <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8'>
         <div>
-          <p className='mb-2'>Product catgory</p>
-          <select className='w-full px-3 py-2' name="" id="">
-            <option value="Men"></option>
-            <option value="Women"></option>
-            <option value="kids"></option>
+          <p className='mb-2'>Product category</p>
+          <select value={category} onChange={(e) => setCategory(e.target.value as Category)} className='w-full px-3 py-2'>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Kids">Kids</option>
           </select>
         </div>
-      </div>
-
-      <div>
         <div>
-          <p className='mb-2'>Sub catgory</p>
-          sel
-          <select className='w-full px-3 py-2' name="" id="">
-            <option value="Topwear ">Topwear</option>
-            <option value="Bottom wear">Bottomwear</option>
-            <option value="Winter wear">Winterwear</option>
+          <p className='mb-2'>Sub category</p>
+          <select value={subCategory} onChange={(e) => setSubCategory(e.target.value as SubCategory)} className='w-full px-3 py-2'>
+            <option value="Topwear">Topwear</option>
+            <option value="Bottomwear">Bottomwear</option>
+            <option value="Winterwear">Winterwear</option>
           </select>
         </div>
-      </div>
 
-      <div>
-        <p className='mb-2'>Product price</p>
-        <input className='w-full px-3 py-2 sm:w-[120px]' type="Number" placeholder='25' />
+        <div>
+          <p className='mb-2'>Product Price</p>
+          <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' type="Number" placeholder='$' />
+        </div>
       </div>
 
       <div>
         <p className='mb-2'>Product Sizes</p>
         <div className='flex gap-3'>
-          <div>
-            <p className={' bg-slate-200 cursor-pointer px-3 py-1 '} >S</p>
+          <div onClick={()=> setSizes(prev => prev.includes("S") ? prev.filter( item => item !== "S") : [... prev, "S"]) }>
+
+            <p className={'bg-slate-200 cursor-pointer px-3 py-1 '}>S</p>
           </div>
 
           <div>
@@ -118,7 +120,7 @@ const Add = () => {
 
       </div>
       <button type='submit' className='w-28 py-3 mt-4 bg-black text-white' >ADD</button>
-    </form>
+    </form >
   )
 }
 
