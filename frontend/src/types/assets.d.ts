@@ -46,6 +46,7 @@ export interface ProductType {
   date: number;
   bestseller: boolean;
 }
+export default products;
 
 type CartDataItem = {
   _id: string;
