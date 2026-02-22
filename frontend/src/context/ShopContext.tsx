@@ -47,7 +47,7 @@ export const ShopContext = createContext<ShopContextType>({
   showSearch: false,
   setShowSearch: () => { },
   cartItems: {},
-  setCartItems: () => {},
+  setCartItems: () => { },
   addToCart: async () => { },
   getCartCount: () => 0,
   updateQuantity: async () => { },
@@ -71,7 +71,7 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   const [token, setToken] = useState('');
   const [products, setProducts] = useState<ProductType[]>([]);
   const navigate = useNavigate();
-const getProductsData = async () => {
+  const getProductsData = async () => {
     try {
       const response = await axios.get(backendUrl + '/api/product/list')
       if (response.data.success) {
@@ -86,7 +86,7 @@ const getProductsData = async () => {
   }
 
 
-useEffect(() => {
+  useEffect(() => {
     getProductsData()
   }, [])
 
@@ -118,6 +118,15 @@ useEffect(() => {
     }
 
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
+      } catch (error) {
+        console.log(error)
+        // toast.error(error.message)`
+      }
+    }
   };
 
   const getCartCount = () => {
