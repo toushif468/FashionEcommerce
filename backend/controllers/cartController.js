@@ -44,6 +44,13 @@ const updateCart = async (req, res) => {
         await userModel.findByIdAndUpdate(userId, { cartData });
         res.json({ success: true, message: "Cart Updated" });
 
+        if (token) {
+            try {
+                await axios.post(backendUrl + 'api/cart/update', {})
+            } catch (error) {
+
+            }
+        }
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message });
@@ -59,6 +66,7 @@ const getUserCart = async (req, res) => {
         let cartData = userData.cartData || {};
 
         res.json({ success: true, cartData });
+
 
     } catch (error) {
         console.log(error);

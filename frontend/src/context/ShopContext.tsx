@@ -27,9 +27,9 @@ interface ShopContextType {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItemsType;
   setCartItems: React.Dispatch<React.SetStateAction<CartItemsType>>;
-  addToCart: (itemId: string, size: Size) => Promise<void>;
+  addToCart: (itemId: string, size: Size | null) => void;
   getCartCount: () => number;
-  updateQuantity: (itemId: string, size: Size, quantity: number) => Promise<void>;
+  updateQuantity: (itemId: string, size: Size, quantity: number) => void;
   getCartAmount: () => number;
 
   token: string;
@@ -68,9 +68,11 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   const [search, setSearch] = useState<string>('');
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<CartItemsType>({});
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState<string>('');
   const [products, setProducts] = useState<ProductType[]>([]);
   const navigate = useNavigate();
+
+
   const getProductsData = async () => {
     try {
       const response = await axios.get(backendUrl + '/api/product/list')
@@ -92,9 +94,11 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
   useEffect(() => {
     // FIXED: Added a null check and provided a fallback empty string
+     
     const storedToken = localStorage.getItem('token');
     if (!token && storedToken) {
       setToken(storedToken);
+      getUserCart(storedToken); 
     }
   }, [token]); // Added token dependency for safety
 
@@ -149,8 +153,44 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     if (size && cartData[itemId]) {
       cartData[itemId][size] = quantity;
       setCartItems(cartData);
+
+      if (token) {
+        try {
+          await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } })
+
+        } catch (error) {
+          console.log(error)
+          if (error instanceof Error) {
+
+            toast.error(error.message);
+          } else {
+            toast.error("Something went wrong")
+          }
+        }
+      }
+
     }
   };
+
+
+  const getUserCart = async (token: string) => {
+    try {
+      const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
+
+      if (response.data.success) {
+        setCartItems(response.data.cartData)
+      }
+    } catch (error) {
+      console.log(error)
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
+  }
+
+
 
   const getCartAmount = () => {
     let totalAmount = 0;
