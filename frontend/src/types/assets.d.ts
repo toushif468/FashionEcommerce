@@ -48,7 +48,7 @@ export interface ProductType {
 }
 export default products;
 
-type CartDataItem = {
+export type CartDataItem = {
   _id: string;
   size: Size;
   quantity: number;
