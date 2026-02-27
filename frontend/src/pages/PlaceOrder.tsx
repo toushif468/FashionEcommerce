@@ -59,7 +59,6 @@ export const PlaceOrder = () => {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
             const itemInfo = structuredClone(products.find(product => product._id === items))
-            console.log(itemInfo)
             if (itemInfo) {
               orderItems.push({
                 ...itemInfo,
@@ -86,9 +85,16 @@ export const PlaceOrder = () => {
                 }
                 break;
               case 'stripe':
-
-
-
+                console.log("stripe works")
+                console.log("before hit to backend",orderData)
+                const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } })
+                console.log("after hit to backend", responseStripe.data)
+                if (responseStripe.data.success) {
+                  const {session_url} = responseStripe.data;
+                  window.location.replace(session_url)
+                } else {
+                  toast.error(responseStripe.data.message)
+                }
                 break;
               default:
                 break;

@@ -62,7 +62,7 @@ const Orders = ({ token }: { token: string }) => {
       }
     } catch (error: any) {
       console.log(error)
-      toast.error(response.data.message);
+      // toast.error(response.data.message);
     }
   };
 

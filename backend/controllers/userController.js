@@ -12,7 +12,7 @@ const createToken = (id) => {
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email, password);
+        // console.log(email, password);
         const user = await userModel.findOne({ email });
 
         if (!user) {
@@ -82,7 +82,7 @@ const registrationUser = async (req, res) => {
 const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email, password);
+        // console.log(email, password);
 
         if (email == process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
             const token = jwt.sign(email + password, process.env.JWT_SECRET);

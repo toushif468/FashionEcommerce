@@ -11,15 +11,12 @@ const Product = () => {
   const [productData, setProductData] = useState<ProductType | null>(null);
   const [image, setImage] = useState<string>('');
   const [size, setSize] = useState<Size | null>(null);
-  // console.log(`prodcut data: ${productData?.sizes}`);
-  // console.log(`size: ${size}`);
+
 
   const fetchProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
-        // console.log(item)
         setProductData(item);
-        // console.log(productData)
         setImage(item.image[0]);
         return null;
       }

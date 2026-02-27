@@ -15,13 +15,10 @@ const Login = ({ setToken }: LoginPropsType) => {
 
   const onSubmitHandler = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     try {
-      // event.preventDefault();
+
       event.preventDefault();
-      console.log(email, password)
-      // Temporary test
-      console.log(backendUrl)
+
       const response = await axios.post(backendUrl + '/api/user/admin', { email, password });
-      console.log(response.data)
       if (response.data.success) {
         setToken(response.data.token)
       }
@@ -31,11 +28,7 @@ const Login = ({ setToken }: LoginPropsType) => {
     } catch (error) {
       console.log(error);
       toast.error("something went wrong")
-      // if (error instanceof Error) {
-      //   toast.error(error.message);
-      // } else {
-      //   toast.error("Something went wrong");
-      // }
+
     }
   }
 

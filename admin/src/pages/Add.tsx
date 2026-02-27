@@ -27,7 +27,6 @@ const Add = ({ token }: { token: string }) => {
         toast.error("Token missing. Please login again.");
         return;
       }
-      console.log("token passed")
       formData.append("name", name)
       formData.append("description", description)
       formData.append("price", price);
@@ -43,7 +42,6 @@ const Add = ({ token }: { token: string }) => {
 
 
       const response = await axios.post(backendUrl + "/api/product/add", formData, { headers: { token } })
-      console.log(response.data)
       if (response.data.success) {
         toast.success(response.data.message)
         setName("");

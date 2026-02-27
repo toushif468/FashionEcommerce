@@ -56,8 +56,7 @@ const Orders = () => {
         orders: OrderType[];
       }>(backendUrl + '/api/order/userorders', {}, { headers: { token } })
 
-      // console.log(response.data.orders[0].amount);
-      // console.log(response.data.orders);
+
 
       if (response.data.success) {
 
@@ -74,7 +73,6 @@ const Orders = () => {
 
           })
         })
-        // console.log(allOrdersItem);
         setOrderData(allOrdersItem.reverse());
 
       }
