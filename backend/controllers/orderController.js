@@ -1,7 +1,7 @@
 import orderModel from '../models/orderModel.js'
 import userModel from '../models/userModel.js'
 import Stripe from 'stripe'
-// import razorpay from 'razorpay'
+import razorpay from 'razorpay'
 
 
 //global variables
@@ -11,10 +11,10 @@ const deliveryCharge = 10
 //gatway initialize
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-// const razorpayInstance = new razorpay({
-//   key_id: process.env.RAZORPAY_KEY_ID,
-//   key_secret: process.env.RAZORPAY_KEY_SECRET
-// })
+const razorpayInstance = new razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+})
 
 //placing order using COD - Method
 const placeOrder = async (req, res) => {
@@ -104,74 +104,71 @@ const placeOrderStripe = async (req, res) => {
 const verifyStripe = async (req, res) => {
     const { orderId, success, userId } = req.body
 
-    //   try {
-    //     if (success === "true") {
-    //       await orderModel.findByIdAndUpdate(orderId, { payment: true })
-    //       await userModel.findByIdAndUpdate(userId, { cartData: {} })
-
-    //       res.json({ success: true })
-    //     } else {
-    //       await orderModel.findByIdAndDelete(orderId)
-    //       res.json({ success: false })
-    //     }
-
-    //   } catch (error) {
-    //     console.log(error)
-    //     res.json({ success: false, message: error.message });
-    //   }
+    try {
+        if (success === 'true') {
+            await orderModel.findByIdAndUpdate(orderId, { payment: true })
+            await userModel.findByIdAndUpdate(userId, { cartData: {} })
+            res.json({ success: true })
+        } else {
+            await orderModel.findByIdAndDelete(orderId)
+            res.json({ success: false })
+        }
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
 }
-
 //placing order using Rezopay - Method
 const placeOrderRazorpay = async (req, res) => {
-    //   try {
-    //     const { userId, items, amount, address } = req.body;
+    try {
+        const { userId, items, amount, address } = req.body;
 
 
-    //     const orderData = {
-    //       userId,
-    //       items,
-    //       address,
-    //       amount,
-    //       paymentMethod: "Razorpay",
-    //       payment: false,
-    //       date: Date.now()
-    //     }
+        const orderData = {
+            userId,
+            items,
+            address,
+            amount,
+            paymentMethod: "Razorpay",
+            payment: false,
+            date: Date.now()
+        }
 
-    //     const newOrder = new orderModel(orderData)
-    //     await newOrder.save();
+        const newOrder = new orderModel(orderData)
+        await newOrder.save();
 
-    //     const options = {
-    //       amount: amount * 100,
-    //       currency: currency.toUpperCase(),
-    //       receipt: newOrder._id.toString()
-    //     }
+        const options = {
+            amount: amount * 100,
+            currency: currency.toUpperCase(),
+            receipt: newOrder._id.toString()
+        }
 
-    //     const order = await razorpayInstance.orders.create(options);
-    //     res.json({ success: true, order });
+        const order = await razorpayInstance.orders.create(options);
+        res.json({ success: true, order });
 
-    //   } catch (error) {
-    //     console.log(error)
-    //     res.json({ success: false, message: error.message });
-    //   }
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message });
+    }
 }
 
 //verify rezorpay
 const verifyRazorpay = async (req, res) => {
-    //   try {
-    //     const { userId, razorpay_order_id } = req.body
+    try {
+        const { userId, razorpay_order_id } = req.body
 
-    //     const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
-    //     if (orderInfo.status === 'paid') {
-    //       await orderModel.findByIdAndUpdate(orderInfo.receipt, { payment: true })
-    //       await userModel.findByIdAndUpdate(userId, {cartData:{}})
-    //       res.json({success: true, message: "Payment Successful"})
-    //     } else {
-    //       res.json({success: false, message: 'Payment Failed'})
-    //     }
-    //   } catch (error) {
-    //         console.log(error)
-    //     res.json({ success: false, message: error.message });
-    //   }
+        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
+        if (orderInfo.status === 'paid') {
+            await orderModel.findByIdAndUpdate(orderInfo.receipt, { payment: true })
+            await userModel.findByIdAndUpdate(userId, { cartData: {} })
+            res.json({ success: true, message: "Payment Successful" })
+        } else {
+            res.json({ success: false, message: 'Payment Failed' })
+        }
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message });
+    }
 }
 
 //All orders date for Admin Panel
