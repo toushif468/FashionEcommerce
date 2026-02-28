@@ -157,8 +157,8 @@ const Add = ({ token }: { token: string }) => {
 
       <div className='flex gap-2 mt-2'>
         <input onChange={() => setBestseller(prev => !prev)}
-          checked={bestseller} type="checkbox" id='bestseller ' />
-        <label className='cursor-pointer' htmlFor="bestseller">  ADD TO BESTSELLER</label>
+          checked={bestseller} type="checkbox" id='bestseller' />
+        <label className='cursor-pointer' htmlFor="bestseller"> ADD TO BESTSELLER</label>
 
       </div>
       <button type='submit' className='w-28 py-3 mt-4 bg-black text-white' >ADD</button>

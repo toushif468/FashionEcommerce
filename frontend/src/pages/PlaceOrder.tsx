@@ -66,43 +66,39 @@ export const PlaceOrder = () => {
                 quantity: cartItems[items][item],
               });
             }
-            let orderData = {
-              address: formData,
-              items: orderItems,
-              amount: getCartAmount() + delivery_fee,
-            }
-            switch (method) {
-              //api calls for COD
-
-              case 'cod':
-                const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
-                console.log(response.data.success)
-                if (response.data.success) {
-                  setCartItems({})
-                  navigate('/orders')
-                } else {
-                  toast.error(response.data.message)
-                }
-                break;
-              case 'stripe':
-                console.log("stripe works")
-                console.log("before hit to backend",orderData)
-                const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } })
-                console.log("after hit to backend", responseStripe.data)
-                if (responseStripe.data.success) {
-                  const {session_url} = responseStripe.data;
-                  window.location.replace(session_url)
-                } else {
-                  toast.error(responseStripe.data.message)
-                }
-                break;
-              default:
-                break;
-            }
           }
         }
       }
 
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee,
+      }
+      switch (method) {
+        //api calls for COD
+
+        case 'cod':
+          const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
+          if (response.data.success) {
+            setCartItems({})
+            navigate('/orders')
+          } else {
+            toast.error(response.data.message)
+          }
+          break;
+        case 'stripe':
+          const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } })
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url)
+          } else {
+            toast.error(responseStripe.data.message)
+          }
+          break;
+        default:
+          break;
+      }
     } catch (error) {
       console.log(error)
       if (error instanceof Error) {

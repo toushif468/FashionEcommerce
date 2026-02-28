@@ -74,7 +74,6 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
 
   const getProductsData = async () => {
-    // console.log("getProductsData called");
     try {
       const response = await axios.get(backendUrl + '/api/product/list')
       if (response.data.success) {
@@ -88,23 +87,7 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     }
   }
 
-
-  useEffect(() => {
-    getProductsData()
-  }, [])
-
-  useEffect(() => {
-    // FIXED: Added a null check and provided a fallback empty string
-
-    const storedToken = localStorage.getItem('token');
-    if (!token && storedToken) {
-      setToken(storedToken);
-      getUserCart(storedToken);
-    }
-  }, [token]); // Added token dependency for safety
-
-  const addToCart = async (itemId: string, size: Size) => {
-    // console.log(`Adding to cart: itemId=${itemId}, size=${size}`);
+  const addToCart = async (itemId: string, size: Size | null) => {
     if (!size) {
       toast.error("Select Product Size");
       return;
@@ -122,7 +105,6 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
       cartData[itemId] = {};
       cartData[itemId][size] = 1;
     }
-    // console.log("Updated cart data:", cartData);
     setCartItems(cartData);
 
     if (token) {
@@ -210,6 +192,23 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
     return totalAmount;
   }
+
+
+  useEffect(() => {
+    getProductsData()
+  }, [])
+
+  useEffect(() => {
+    // FIXED: Added a null check and provided a fallback empty string
+
+    const storedToken = localStorage.getItem('token');
+    if (!token && storedToken) {
+      setToken(storedToken);
+      getUserCart(storedToken);
+    }
+  }, [token]); // Added token dependency for safety
+
+
 
   const value: ShopContextType = {
     products,
