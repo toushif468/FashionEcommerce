@@ -39,7 +39,7 @@ export interface Assets {
   cross_icon: string;
 }
 
-interface RelatedProductsProps {
+export interface RelatedProductsProps {
   category: Category;
   subCategory: SubCategory;
 }

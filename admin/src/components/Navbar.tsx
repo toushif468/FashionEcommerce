@@ -1,4 +1,4 @@
-import React, { type Dispatch } from 'react'
+import { type Dispatch } from 'react'
 import logo from '../assets/logo.png'
 
 interface LogoutPropsType {

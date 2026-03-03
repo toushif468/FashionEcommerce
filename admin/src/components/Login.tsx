@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, type Dispatch } from 'react'
+import { useState, type Dispatch } from 'react'
 
 import { toast } from 'react-toastify';
 import { backendUrl } from '../App';

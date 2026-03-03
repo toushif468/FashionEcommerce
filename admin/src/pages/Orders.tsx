@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { backendUrl, currency } from '../App';
 import type { ProductType } from '../types/adminTypes';
 import { toast } from 'react-toastify';
 import { assets } from '../assets/assets';
-import { data } from 'react-router-dom';
+// import { data } from 'react-router-dom';
 
 const Orders = ({ token }: { token: string }) => {
 
