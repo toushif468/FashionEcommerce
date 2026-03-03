@@ -14,7 +14,7 @@ import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 import Product from './pages/Product'
 import { ToastContainer, toast } from 'react-toastify';
-import Verify from './pages/verify'
+import Verify from './pages/Verify'
 
 const App = () => {
   const notify = () => toast("Wow so easy!");
