@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Collection from './pages/Collection'
 import About from './pages/About'

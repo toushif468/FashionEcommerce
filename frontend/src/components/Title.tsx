@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 interface TitleType {
   text1: string;
   text2: string;
