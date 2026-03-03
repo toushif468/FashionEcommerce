@@ -57,7 +57,7 @@ export interface ProductType {
   bestseller: boolean;
 }
 
-type CartDataItem = {
+export type CartDataItem = {
   _id: string;
   size: Size;
   quantity: number;
