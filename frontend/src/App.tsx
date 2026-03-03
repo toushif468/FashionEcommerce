@@ -17,7 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Verify from './pages/Verify'
 
 const App = () => {
-  const notify = () => toast("Wow so easy!");
+  // const notify = () => toast("Wow so easy!");
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] '>
       <ToastContainer />
