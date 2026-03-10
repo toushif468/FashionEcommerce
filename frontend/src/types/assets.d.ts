@@ -5,6 +5,7 @@ declare module "*.svg";
 
 
 export interface Assets {
+  [x: string]: string | undefined;
   logo: string;
   hero_img: string;
   cart_icon: string;
