@@ -1,4 +1,3 @@
-import React from 'react'
 import { assets } from '../assets/assets'
 
 const Hero = () => {
@@ -13,23 +12,19 @@ const Hero = () => {
 
           {/* --- ABSOLUTE SUMMER TAG --- */}
           {/* -top-8: moves it exactly above the "Best Seller" line */}
-          <div className='absolute -top-10 left-0 w-full flex justify-center sm:justify-start'>
-            <div className='flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border border-gray-200 shadow-sm'>
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="w-3 h-3 text-brown-700"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-              <span className='text-brown-600 text-[20px] md:text-xs font-bold uppercase tracking-widest whitespace-nowrap'>
-                <span className='font-black'>50% OFF</span> Summer Super Sale
-              </span>
+          <div className='absolute -top-15 left-0 w-full flex justify-center sm:justify-start'>
+            <div className='flex items-center gap-2 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200 shadow-sm transition-transform hover:scale-105'>
+
+              {/* Check Badge Icon from your Assets */}
+              <img
+                src={assets.quality_icon}
+                className='w-6 h-6 object-contain brightness-110'
+                alt="quality-badge"
+              />
+
+              <p className='text-[#3d2b1f] text-[10px] md:text-xs uppercase tracking-widest whitespace-nowrap'>
+                <span className='font-black text-[#3d2b1f]'>50% OFF</span> Summer Super Sale
+              </p>
             </div>
           </div>
 
