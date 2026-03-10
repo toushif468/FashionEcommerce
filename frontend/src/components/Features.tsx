@@ -2,10 +2,10 @@ import { assets } from '../assets/assets'
 
 const Features = () => {
     return (
-        <div className='flex flex-col lg:flex-row justify-between gap-10 lg:gap-4 py-12 border-t border-b border-gray-200 bg-white'>
+        <div className='flex flex-col lg:flex-row justify-center gap-12 lg:gap-4 py-12 border-t border-b border-gray-200 bg-white'>
 
             {/* Free Shipping */}
-            <div className='flex items-center gap-4 flex-1 justify-center lg:justify-start'>
+            <div className='flex flex-col items-center text-center lg:flex-row lg:items-center lg:text-left gap-4 flex-1 justify-center'>
                 <img src={assets.exchange_icon} className='w-10 lg:w-12' alt="Package Icon" />
                 <div>
                     <p className='text-sm sm:text-base font-bold text-gray-800 uppercase'>Free shipping</p>
@@ -14,7 +14,7 @@ const Features = () => {
             </div>
 
             {/* Flexible Payment */}
-            <div className='flex items-center gap-4 flex-1 justify-center'>
+            <div className='flex flex-col items-center text-center lg:flex-row lg:items-center lg:text-left gap-4 flex-1 justify-center'>
                 <img src={assets.quality_icon} className='w-10 lg:w-12' alt="Wallet Icon" />
                 <div>
                     <p className='text-sm sm:text-base font-bold text-gray-800 uppercase'>Flexible Payment</p>
@@ -23,7 +23,7 @@ const Features = () => {
             </div>
 
             {/* 24x7 Support */}
-            <div className='flex items-center gap-4 flex-1 justify-center lg:justify-end'>
+            <div className='flex flex-col items-center text-center lg:flex-row lg:items-center lg:text-left gap-4 flex-1 justify-center'>
                 <img src={assets.support_img} className='w-10 lg:w-12' alt="Support Icon" />
                 <div>
                     <p className='text-sm sm:text-base font-bold text-gray-800 uppercase'>24x7 support</p>

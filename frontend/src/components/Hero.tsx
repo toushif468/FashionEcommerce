@@ -9,13 +9,13 @@ const Hero = () => {
 
         <div className='text-[#414141]'>
           <div className='flex items-center gap-2'>
-            <p className='w-8 md:w-11 h-[2px] bg-[#414141]'></p>
-            <p className='font-medium text-sm md:text-base'>OUR BEST SELLER</p>
+            <p className='w-10 md:w-14 h-[2px] bg-[#414141]'></p>
+            <p className='font-medium text-base md:text-lg tracking-widest'>OUR BEST SELLER</p>
           </div>
-          <h1 className='prata-regular text-3xl sm:py-3 lg:text-5xl leading-relaxed'>Latest Arivals</h1>
+          <h1 className='prata-regular text-4xl sm:py-4 lg:text-7xl leading-relaxed'>Latest Arivals</h1>
           <div className='flex items-center gap-2'>
-            <p className='font-semibold text-sm md:text-base'>SHOP NOW</p>
-            <p className='w-8 md:w-11 h-[1px] bg-[#414141]'></p>
+            <p className='font-semibold text-lg md:text-xl cursor-pointer hover:text-black transition'>SHOP NOW</p>
+            <p className='w-10 md:w-14 h-[2px] bg-[#414141]'></p>
           </div>
         </div>
       </div>
