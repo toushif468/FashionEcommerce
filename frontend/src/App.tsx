@@ -15,10 +15,13 @@ import SearchBar from './components/SearchBar'
 import Product from './pages/Product'
 import { ToastContainer } from 'react-toastify';
 import Verify from './pages/Verify'
+import TopBar from './components/TopBar'
 
 const App = () => {
-  // const notify = () => toast("Wow so easy!");
+
   return (
+  <div className='overflow-hidden'> {/* Parent wrapper */}
+      <TopBar />
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] '>
       <ToastContainer />
       <Navbar />
@@ -38,6 +41,7 @@ const App = () => {
         
       </Routes>
       <Footer />
+    </div>
     </div>
   )
 }
