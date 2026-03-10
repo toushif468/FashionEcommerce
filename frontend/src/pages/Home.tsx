@@ -3,16 +3,16 @@ import LatestCollection from '../components/LatestCollection'
 import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsletterBox from '../components/NewsletterBox'
-import Features from '../components/Features'
+// import Features from '../components/Features'
 
 const Home = () => {
   return (
     <div>
       <Hero />
-      <Features />
+      <OurPolicy />
+      {/* <Features /> */}
       <LatestCollection />
       <BestSeller />
-      <OurPolicy />
       <NewsletterBox />
     </div>
   )
