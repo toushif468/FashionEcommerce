@@ -39,6 +39,10 @@ const Navbar = () => {
           <p>CONTACT</p>
           <hr className='w-2/4 border-none h-[1.5px] bg-[#3d2b1f] hidden' />
         </NavLink>
+        <NavLink to='/blog' className='flex flex-col items-center gap-1'>
+          <p>Blog</p>
+          <hr className='w-2/4 border-none h-[1.5px] bg-[#3d2b1f] hidden' />
+        </NavLink>
       </ul>
 
       <div className='flex items-center gap-6'>
@@ -79,6 +83,7 @@ const Navbar = () => {
 
           <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-gray-300' to='/collection'>COLLECTION</NavLink>
           <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-gray-300' to='/about'>ABOUT</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-gray-300' to='/blog'>BLOG</NavLink>
           <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-gray-300' to='/contact'>CONTACT</NavLink>
           <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-gray-300' to='/'>HOME</NavLink>
         </div>

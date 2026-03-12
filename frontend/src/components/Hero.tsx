@@ -2,54 +2,68 @@ import { assets } from '../assets/assets'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight } from "lucide-react"
+
 const Hero = () => {
   const navigate = useNavigate();
+
   return (
     <div className='flex flex-col sm:flex-row border border-gray-400 -mx-4 sm:-mx-[5vw] md:-mx-[7vw] lg:-mx-[9vw]'>
 
       {/* Hero Left */}
-      <div className='w-full sm:w-1/2 flex items-center justify-center py-10 sm:py-0'>
+      <div className='w-full sm:w-1/2 flex items-center justify-center py-16 sm:py-0'>
 
-        {/* We make this container relative so the tag can be absolute inside it */}
-        <div className='text-[#3d2b1f] relative'>
+        {/* Text Container */}
+        <div className='text-[#3e1800] relative px-6 sm:px-0 flex flex-col items-center sm:items-start'>
 
           {/* --- ABSOLUTE SUMMER TAG --- */}
-          {/* -top-8: moves it exactly above the "Best Seller" line */}
-          <div className='absolute -top-15 left-0 w-full flex justify-center sm:justify-start'>
+          <div className='w-full flex justify-center sm:justify-start'>
             <div className='flex items-center gap-2 bg-amber-50 px-3 py-1.5 rounded-full border border-[#f4bd62] shadow-sm transition-transform hover:scale-105'>
-
-              {/* Check Badge Icon from your Assets */}
               <img
                 src={assets.quality_icon}
                 className='w-6 h-6 object-contain brightness-110'
                 alt="quality-badge"
               />
-
-              <p className='text-[#3d2b1f] text-[10px] md:text-xs uppercase tracking-widest whitespace-nowrap'>
-                <span className='font-black text-[#3d2b1f]'>50% OFF</span> Summer Super Sale
+              <p className='text-[#3e1800] text-[10px] md:text-xs uppercase tracking-widest whitespace-nowrap'>
+                <span className='font-black text-[#3e1800]'>50% OFF</span> Summer Super Sale
               </p>
             </div>
           </div>
 
-          {/* This is the "Anchor" line */}
-          <div className='flex items-center gap-2'>
-            <p className='w-10 md:w-14 h-[2px] bg-[#3e1800]'></p>
-            <p className='font-medium text-base md:text-lg tracking-widest'>OUR BEST SELLER</p>
+          {/* --- MAIN HEADINGS --- */}
+          {/* Note: 'font-sans' is used here; replace with your specific Maison Neue class if defined in tailwind.config */}
+          <div className='flex flex-col gap-1 mt-4 text-center sm:text-left'>
+            <h1 className='text-lg md:text-2xl lg:text-5xl font-semibold tracking-tight leading-tight ' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+              Step into Style: Your
+            </h1>
+            <div className='w-full max-w-2xl'>
+              <h1 className=' text-lg md:text-2xl lg:text-5xl font-semibold tracking-tight leading-tight ' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+                Ultimate Fashion Destination
+              </h1>
+            </div>
+
+          </div>
+          <div className='w-full max-w-2xl'>
+            {/* --- DESCRIPTION --- */}
+            <p className='mt-4 text-base md:text-lg text-gray-500  leading-relaxed text-center sm:text-left ' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore.
+            </p>
           </div>
 
-          <h1 className='prata-regular text-4xl sm:py-4 lg:text-7xl leading-relaxed'>Latest Arrivals</h1>
 
-          <div className='flex items-center gap-2'>
-            <p className='font-semibold text-lg md:text-xl cursor-pointer hover:text-black transition'>SHOP NOW</p>
-            <p className='w-10 md:w-14 h-[2px] bg-[#3e1800]'></p>
+          {/* --- SHOP NOW BUTTON --- */}
+          <Button
+            className='mt-10 bg-[#3e1800] hover:bg-black text-white px-10 py-8 text-lg rounded-none group w-fit'
+            onClick={() => navigate('/collection')}
+          >
+            Shop Now <ArrowRight className="ml-2 h-6 w-6 transition-transform group-hover:translate-x-2" />
+          </Button>
 
-          </div >
-          <Button className='my-8 bg-[#3e1800] hover:bg-black text-white px-8 py-6 rounded-none group' onClick={() => navigate('/collection m-20')}>Shop Now <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" /></Button>
         </div>
       </div>
 
       {/* Hero right side */}
-      <img className='w-full sm:w-1/2' src={assets.hero_img1} alt="Summer Collection" />
+      <img className='w-full sm:w-1/2 object-cover' src={assets.hero_img1} alt="Summer Collection" />
 
     </div>
   )

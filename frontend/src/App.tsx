@@ -16,6 +16,7 @@ import Product from './pages/Product'
 import { ToastContainer } from 'react-toastify';
 import Verify from './pages/Verify'
 import TopBar from './components/TopBar'
+import Blog from './pages/Blog'
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
         <Route path='/collection' element={<Collection />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/blog' element={<Blog />} />
         <Route path='/product/:productId' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />

@@ -14,7 +14,7 @@ const TopBar = () => {
     }
 
     return (
-        <div className='bg-[#3d2b1f] text-white text-[10px] sm:text-xs py-2 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] transition-all duration-500'>
+        <div className='bg-[#3e1800] text-white text-[10px] sm:text-xs py-2 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] transition-all duration-500'>
             <div className='flex justify-between items-center w-full relative'>
 
                 {/* Left Side: Support */}
