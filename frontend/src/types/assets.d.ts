@@ -8,6 +8,10 @@ export interface Assets {
   [x: string]: string | undefined;
   logo: string;
   hero_img: string;
+  Heroupdated: string;
+  HeroV2:string,
+  HeroV3png: string,
+  HEROV4:string,
   cart_icon: string;
   dropdown_icon: string;
   exchange_icon: string;

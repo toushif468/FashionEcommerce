@@ -9,14 +9,14 @@ const Hero = () => {
   return (
     <div className='flex flex-col sm:flex-row border border-gray-400 -mx-4 sm:-mx-[5vw] md:-mx-[7vw] lg:-mx-[9vw]'>
 
-      {/* Hero Left */}
-      <div className='w-full sm:w-1/2 flex items-center justify-center py-16 sm:py-0'>
+      {/* Hero Left need to work on padding x*/}
+      <div className='w-full sm:w-1/2 flex items-center justify-center py-16 sm:py-0 sm:px-12 md:px-16 lg:px-24'>
 
         {/* Text Container */}
         <div className='text-[#3e1800] relative px-6 sm:px-0 flex flex-col items-center sm:items-start'>
 
           {/* --- ABSOLUTE SUMMER TAG --- */}
-          <div className='w-full flex justify-center sm:justify-start'>
+          <div className='w-full flex justify-center sm:justify-start '>
             <div className='flex items-center gap-2 bg-amber-50 px-3 py-1.5 rounded-full border border-[#f4bd62] shadow-sm transition-transform hover:scale-105'>
               <img
                 src={assets.quality_icon}
@@ -63,7 +63,7 @@ const Hero = () => {
       </div>
 
       {/* Hero right side */}
-      <img className='w-full sm:w-1/2 object-cover' src={assets.hero_img1} alt="Summer Collection" />
+      <img className='w-full sm:w-1/2 object-cover' src={assets.HEROV4} alt="Summer Collection" />
 
     </div>
   )

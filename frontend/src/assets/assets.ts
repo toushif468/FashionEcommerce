@@ -58,6 +58,10 @@ import p_img52 from './p_img52.png'
 import logo from './logo.png'
 import hero_img from './hero_img.png'
 import hero_img1 from './hero_img1.png'
+import Heroupdated from './Heroupdated.png'
+import HeroV2 from './HeroV2.png'
+import HeroV3png from './HeroV3png.png'
+import HEROV4 from './HEROV4.png'
 import cart_icon from './cart_icon.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
@@ -83,6 +87,10 @@ export const assets: Assets = {
     logo,
     hero_img,
     hero_img1,
+    Heroupdated,
+    HeroV2,
+    HeroV3png,
+    HEROV4,
     cart_icon,
     dropdown_icon,
     exchange_icon,
@@ -98,7 +106,7 @@ export const assets: Assets = {
     contact_img,
     razorpay_logo,
     stripe_logo,
-    cross_icon
+    cross_icon,
 }
 
 

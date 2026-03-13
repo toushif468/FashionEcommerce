@@ -21,29 +21,29 @@ import Blog from './pages/Blog'
 const App = () => {
 
   return (
-  <div className='overflow-hidden'> {/* Parent wrapper */}
+    <div className='overflow-hidden'> {/* Parent wrapper */}
       <TopBar />
-    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] '>
-      <ToastContainer />
-      <Navbar />
-      <SearchBar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/collection' element={<Collection />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/product/:productId' element={<Product />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/place-order' element={<PlaceOrder />} />
-        <Route path='/orders' element={<Orders />} />
-        <Route path='/verify' element={<Verify />} />
+      <div className='px-4 sm:px-[2vw] md:px-[3vw] lg:px-[5vw]'>
+        <ToastContainer />
+        <Navbar />
+        <SearchBar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/collection' element={<Collection />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/product/:productId' element={<Product />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/place-order' element={<PlaceOrder />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/verify' element={<Verify />} />
 
-        
-      </Routes>
-      <Footer />
-    </div>
+
+        </Routes>
+        <Footer />
+      </div>
     </div>
   )
 }
