@@ -8,7 +8,7 @@ const OurPolicy = () => {
             <div className='flex items-center gap-4'>
                 <div className='relative shrink-0'>
                     {/* Offset Amber Background */}
-                    <div className='absolute -bottom-1 -right-1 bg-amber-200 w-10 h-10 rounded-full -z-10 opacity-70'></div>
+                    <div className='absolute -bottom-1 -right-1 bg-[#f4bd62] w-10 h-10 rounded-full -z-10 opacity-70'></div>
                     <RiBox3Line className='w-10 h-10 lg:w-12 lg:h-12 text-[#3e1800] opacity-90' />
                 </div>
                 <div>
@@ -20,7 +20,7 @@ const OurPolicy = () => {
             {/* Flexible Payment Policy */}
             <div className='flex items-center gap-4'>
                 <div className='relative shrink-0'>
-                    <div className='absolute -bottom-1 -right-1 bg-amber-200 w-10 h-10 rounded-full -z-10 opacity-70'></div>
+                    <div className='absolute -bottom-1 -right-1 bg-[#f4bd62] w-10 h-10 rounded-full -z-10 opacity-70'></div>
                     <RiWalletLine className='w-10 h-10 lg:w-12 lg:h-12 text-[#3e1800] opacity-90' />
                 </div>
                 <div>
@@ -32,7 +32,7 @@ const OurPolicy = () => {
             {/* Support Policy */}
             <div className='flex items-center gap-4'>
                 <div className='relative shrink-0'>
-                    <div className='absolute -bottom-1 -right-1 bg-amber-200 w-10 h-10 rounded-full -z-10 opacity-70'></div>
+                    <div className='absolute -bottom-1 -right-1 bg-[#f4bd62] w-10 h-10 rounded-full -z-10 opacity-70'></div>
                     <RiCustomerService2Line className='w-10 h-10 lg:w-12 lg:h-12 text-[#3e1800] opacity-90' />
                 </div>
                 <div>

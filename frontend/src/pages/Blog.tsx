@@ -1,4 +1,4 @@
-import { useState } from 'react' 
+import { useState } from 'react'
 import Title from '../components/Title'
 import NewsletterBox from '../components/NewsletterBox'
 import { assets } from '../assets/assets'
@@ -58,13 +58,13 @@ const Blog = () => {
                         </div>
 
                         <div className='flex flex-col gap-2'>
-                            <div className='flex items-center gap-3 text-xs uppercase tracking-widest text-amber-700 font-bold'>
+                            <div className='flex items-center gap-3 text-xs uppercase tracking-widest text-[#3e1800] font-bold'>
                                 <span>{post.category}</span>
-                                <span className='w-8 h-[1px] bg-amber-700'></span>
+                                <span className='w-8 h-[1px] bg-[#3e1800]'></span>
                                 <span className='text-gray-400 font-normal'>{post.date}</span>
                             </div>
 
-                            <h2 className='text-xl md:text-2xl font-semibold text-gray-800 leading-tight group-hover:text-[#3e1800] transition-colors' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+                            <h2 className='text-xl md:text-2xl font-semibold text-[#3e1800] leading-tight group-hover:text-[#f4bd62] transition-colors' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
                                 {post.title}
                             </h2>
 
@@ -74,9 +74,9 @@ const Blog = () => {
                             </p>
 
                             {/* 4. The Button with onClick */}
-                            <button 
+                            <button
                                 onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}
-                                className='mt-2 text-sm font-bold border-b-2 border-[#3e1800] w-fit pb-1 hover:text-amber-700 hover:border-amber-700 transition-all uppercase tracking-tighter'
+                                className='mt-2 text-sm font-bold border-b-2 border-[#3e1800] w-fit pb-1 hover:text-[#f4bd62] hover:border-[#f4bd62] transition-all uppercase tracking-tighter'
                             >
                                 {expandedPost === post.id ? "Show Less" : "Read More"}
                             </button>
@@ -87,7 +87,7 @@ const Blog = () => {
 
             <div className='bg-[#3e1800] text-white p-10 md:p-20 text-center my-20'>
                 <h3 className='text-2xl md:text-4xl font-light italic mb-6'>"Fashion is the armor to survive the reality of everyday life."</h3>
-                <p className='uppercase tracking-[0.2em] text-sm text-amber-200'>— Bill Cunningham</p>
+                <p className='uppercase tracking-[0.2em] text-sm text-[#f4bd62]'>— Bill Cunningham</p>
             </div>
 
             <NewsletterBox />

@@ -18,23 +18,23 @@ const TopBar = () => {
             <div className='flex justify-between items-center w-full relative'>
 
                 {/* Left Side: Support */}
-                <p className='flex-1 font-serif mr-2'>
-                    SUPPORT : <span className='font-medium'>0301729107</span>
+                <p className='flex-1 font-serif mr-2'  style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+                    SUPPORT : <span className='font-medium'  style={{ fontFamily: 'Maison Neue, sans-serif' }}>01301729107</span>
                 </p>
 
                 {/* Middle: Promo (Desktop) */}
-                <p className='hidden sm:block flex-[2] text-center'>
+                <p className='hidden sm:block flex-[2] text-center'  style={{ fontFamily: 'Maison Neue, sans-serif' }}>
                     Sign up and get 25% off.
                     <span
                         onClick={() => navigate('/login', { state: { signUp: true } })}
-                        className='underline cursor-pointer ml-1 font-semibold hover:text-gray-300 transition'
+                        className='underline cursor-pointer ml-1 font-semibold hover:text-[#f4bd62] transition'
                     >
                         SIGNUP NOW
                     </span>
                 </p>
 
                 {/* Mobile View: Promo */}
-                <p className='sm:hidden font-medium flex-1 text-center'>
+                <p className='sm:hidden font-medium flex-1 text-center'  style={{ fontFamily: 'Maison Neue, sans-serif' }}>
                     25% OFF <span onClick={() => navigate('/login', { state: { signUp: true } })} className='underline ml-1'>JOIN</span>
                 </p>
 
