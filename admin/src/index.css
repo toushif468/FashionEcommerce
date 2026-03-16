@@ -17,3 +17,16 @@
     background-color: #ffebf5;
     border-color: #c586A5;
   }
+
+  body, * {
+  font-family: 'Maison Neue', sans-serif;
+}
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
