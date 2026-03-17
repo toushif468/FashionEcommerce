@@ -1,4 +1,3 @@
-// import React from 'react'
 import Title from '../components/Title'
 import { assets } from '../assets/assets'
 import NewsletterBox from '../components/NewsletterBox'
@@ -7,7 +6,7 @@ const About = () => {
   return (
     <div>
       <div className='text-2xl text-center pt-8 border-t border-gray-300'>
-        <Title text1={'ABOUT'} text2={'US'} />
+        <Title text={'ABOUT US'} />
       </div>
 
       <div className='my-10 flex flex-col md:flex-row gap-16'>
@@ -22,7 +21,7 @@ const About = () => {
 
 
       <div className='text-xl py-4'>
-        <Title text1={'WHY'} text2={'CHOOSE US'} />
+        <Title text={'WHY CHOOSE US'} />
       </div>
 
       <div className='flex flex-col md:flex-row text-sm mb-20'>

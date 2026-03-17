@@ -147,7 +147,7 @@ const initPay = (order: any) => {
         {/* ----------left side-------- */}
         <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
           <div className='text-xl sm:text-2xl my-3'>
-            <Title text1={'DELIVERY'} text2={'INFORMATION'} />
+            <Title text={'DELIVERY INFORMATION'} />
           </div>
           <div className='flex gap-3'>
             <input required onChange={onChangeHandler} name='firstName' value={formData.firstName} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='First name' />
@@ -172,7 +172,7 @@ const initPay = (order: any) => {
             <CartTotal />
           </div>
           <div className='mt-12'>
-            <Title text1={'PAYMENT'} text2={'METHOD'} />
+            <Title text={'PAYMENT METHOD'} />
 
             {/* -------------------------Payment Method selection-------------------- */}
             <div className='flex gap-3 flex-col lg:flex-row'>

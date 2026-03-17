@@ -25,7 +25,7 @@ const BestSeller = () => {
         </div>
         <p className='max-w-md text-right text-xs sm:text-sm md:text-base text-gray-600' 
           style={{ fontFamily: 'Maison Neue, sans-serif' }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eaque architecto sed nulla? Expedita, distinctio?
+          sit amet consectetur adipisicing elit. Quos eaque architecto sed nulla? Expedita, distinctio?
         </p>
       </div>
 

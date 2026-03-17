@@ -40,6 +40,7 @@ export interface RelatedProductsProps {
 }
 
 export interface ProductType {
+  rating: string;
   _id: string;
   name: string;
   description: string;

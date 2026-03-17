@@ -155,7 +155,7 @@ const Collection = () => {
       {/* Right side */}
       <div className='flex-1'>
         <div className='flex justify-between text-base sm:text-2xl mb-4'>
-          <Title text1={'ALL'} text2={'COLLECTION'} />
+          <Title text={'ALL COLLECTION'} />
 
           {/* product sort */}
           <select onChange={(e) => setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2'>
@@ -170,7 +170,8 @@ const Collection = () => {
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
           {
             filterProducts.map((item, index) => (
-              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
+              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
+              description={item.description} rating={'4.8'}/>
             ))
           }
         </div>
