@@ -171,7 +171,7 @@ const Collection = () => {
           {
             filterProducts.map((item, index) => (
               <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
-              description={item.description} rating={'4.8'}/>
+              description={item.description} rating={item.rating || "4.8"}/>
             ))
           }
         </div>

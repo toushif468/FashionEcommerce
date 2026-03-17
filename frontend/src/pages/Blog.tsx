@@ -40,7 +40,7 @@ const Blog = () => {
     return (
         <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
             <div className='text-2xl text-center pt-10 border-t border-gray-300'>
-                <Title text1={'OUR'} text2={'BLOG'} />
+                <Title text={'OUR BLOG'} />
                 <p className='mt-3 text-gray-500 text-sm md:text-base max-w-xl mx-auto' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
                     Insights into the latest trends, styling tips, and the stories behind our collections.
                 </p>
