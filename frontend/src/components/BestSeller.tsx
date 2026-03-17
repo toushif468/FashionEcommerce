@@ -18,18 +18,23 @@ const BestSeller = () => {
 
 
   return (
-    <div className='my-10'>
-      <div className='text-center text-3xl py-8'>
-        <Title text1={'BEST'} text2={'SELLERS'} />
-        <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
+    <div className='my-10 px-4 sm:px-0'>
+      <div className='flex flex-col sm:flex-row justify-between items-end py-8 gap-4'>
+        <div className='text-3xl shrink-0'>
+          <Title text={'Deals of the Day'} />
+        </div>
+        <p className='max-w-md text-right text-xs sm:text-sm md:text-base text-gray-600' 
+          style={{ fontFamily: 'Maison Neue, sans-serif' }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eaque architecto sed nulla? Expedita, distinctio?
         </p>
       </div>
 
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
+      <div className='flex gap-5 overflow-x-auto pb-10 pt-2 scrollbar-hide touch-pan-x items-start'>
         {
           bestSellers.map((item, index) => (
-            <ProductItem key={index} id={item._id} name={item.name} image={item.image} price={item.price}/>
+            <div key={index} className='shrink-0 transition-all duration-500'>
+              <ProductItem key={index} id={item._id} name={item.name} image={item.image} price={item.price} category={item.category} description={item.description} rating={'4.8'} />
+            </div>
           ))
         }
       </div>
