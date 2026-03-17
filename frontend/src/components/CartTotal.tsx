@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from './Title';
-
+//  fixed 
 const CartTotal = () => {
 
   const { currency, delivery_fee, getCartAmount } = useContext(ShopContext);
