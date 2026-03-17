@@ -56,7 +56,7 @@ const LatestCollection = () => {
         onClick={() => scroll('left')}
         className='absolute left-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-[#3e1800] p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 lg:block hover:bg-[#3e1800] hover:text-white'
       >
-        <RiArrowLeftSLine size={30} />
+        <RiArrowLeftSLine size={24} />
       </button>
 
       {/* Right Button */}
@@ -64,7 +64,7 @@ const LatestCollection = () => {
         onClick={() => scroll('right')}
         className='absolute right-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-[#3e1800] p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300  lg:block hover:bg-[#3e1800] hover:text-white '
       >
-        <RiArrowRightSLine size={30} />
+        <RiArrowRightSLine size={24} />
       </button>
       {/* Rendering product */}
       {/* Adding the scroll fuction  */}
