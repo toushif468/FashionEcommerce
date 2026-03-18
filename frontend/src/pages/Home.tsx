@@ -4,7 +4,8 @@ import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsletterBox from '../components/NewsletterBox'
 import ClothingCollage from '../components/ClothingCollage'
-// import PromoBanner from '@/components/PromoBanner'
+import PromoBanner from '../components/PromoBanner'
+import DiscountAdvertisement from '../components/DiscountAdvertisement'
 
 
 const Home = () => {
@@ -14,8 +15,9 @@ const Home = () => {
       <OurPolicy />
       <ClothingCollage />
       <LatestCollection />
-      {/* <PromoBanner /> */}
+      <PromoBanner />
       <BestSeller />
+      <DiscountAdvertisement />
       <NewsletterBox />
     </div>
   )
