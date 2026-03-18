@@ -45,7 +45,7 @@ const LatestCollection = () => {
     }
   };
 
- /* ... existing imports and logic ... */
+  /* ... existing imports and logic ... */
 
   return (
     <div className='my-10 relative group'>
@@ -63,22 +63,19 @@ const LatestCollection = () => {
       </button>
 
       {/* --- CHANGED FROM GRID TO FLEX --- */}
-      <div 
-        ref={scrollRef} 
+      <div
+        ref={scrollRef}
         className='flex gap-4 overflow-x-auto pb-8 scroll-smooth scrollbar-hide touch-pan-x items-start'
       >
         {
           latestProducts.map((item, index) => (
             /* We use shrink-0 so flex doesn't squash the cards to fit the screen */
-            <div key={index} className='shrink-0 transition-all duration-500'>
+            <div key={index} className='shrink-0 w-[300px] gap-3 transition-all duration-500'>
               <ProductItem
                 id={item._id}
                 image={item.image}
                 name={item.name}
                 price={item.price}
-                category={item.category}
-                description={item.description} 
-                rating={'4.8'}                
               />
             </div>
           ))

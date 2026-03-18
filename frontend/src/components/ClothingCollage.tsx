@@ -86,7 +86,6 @@ const ClothingCollage: React.FC = () => {
                                 <li className="hover:pl-2 transition-all cursor-pointer">T-Shirts and shirts</li>
                                 <li className="hover:pl-2 transition-all cursor-pointer">Dresses</li>
                                 <li className="hover:pl-2 transition-all cursor-pointer">Jackets & Coats</li>
-                                <li className="hover:pl-2 transition-all cursor-pointer">Jeans</li>
 
                             </ul>
                         </div>
