@@ -10,7 +10,7 @@ const Hero = () => {
     <div className='flex flex-col sm:flex-row border border-[#f5f5f5] -mx-4 sm:-mx-[5vw] md:-mx-[7vw] lg:-mx-[9vw]'>
 
       {/* Hero Left need to work on padding x*/}
-      <div className='w-full sm:w-1/2 flex items-center justify-center py-16 sm:py-0 sm:px-12 md:px-16 lg:px-24'>
+      <div className='w-full sm:w-1/2 flex items-center justify-center py-16 sm:py-0 lg:pl-28 md:pl-17 sm:px-9'>
 
         {/* Text Container */}
         <div className='text-[#3e1800] relative px-6 sm:px-0 flex flex-col items-center sm:items-start'>
@@ -30,21 +30,22 @@ const Hero = () => {
           </div>
 
           {/* --- MAIN HEADINGS --- */}
-          {/* Note: 'font-sans' is used here; replace with your specific Maison Neue class if defined in tailwind.config */}
+
           <div className='flex flex-col gap-1 mt-4 text-center sm:text-left'>
-            <h1 className='text-lg md:text-2xl lg:text-5xl font-semibold tracking-tight leading-tight' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
-              Step into Style: Your
-            </h1>
-            <div className='w-full max-w-2xl'>
-              <h1 className=' text-lg md:text-2xl lg:text-5xl font-semibold tracking-tight leading-tight' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
-                Ultimate Fashion Destination
+            <div className='w-full max-w-4xl'>
+              <h1 className='text-3xl md:text-4xl sm:text-3xl lg:text-5xl font-semibold tracking-tight leading-tight' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+                Step into Style: Your
               </h1>
+
+            <h1 className='text-3xl md:text-4xl sm:text-3xl lg:text-5xl font-semibold tracking-tight leading-tight' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+              Ultimate Fashion Destination
+            </h1>
             </div>
 
           </div>
-          <div className='w-full max-w-2xl'>
+          <div className='w-full max-w-2=3xl'>
             {/* --- DESCRIPTION --- */}
-            <p className='mt-4 text-base md:text-lg text-gray-500  leading-relaxed text-center sm:text-left ' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
+            <p className='mt-4 text-base md:text-lg sm:text-lg text-gray-500  leading-relaxed text-center sm:text-left ' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
               tempor incididunt ut labore et dolore.
             </p>

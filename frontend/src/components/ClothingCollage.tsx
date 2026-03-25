@@ -18,7 +18,7 @@ const ClothingCollage: React.FC = () => {
                     <img
                         src={WomenImg}
                         alt="Women's Collection"
-                        className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-1000"
+                        className="absolute inset-0 w-full h-full object-cover object-left group-hover:scale-110 transition-transform duration-1000"
                     />
 
                     {/* Darker overlay on hover to make text readable */}
@@ -50,7 +50,7 @@ const ClothingCollage: React.FC = () => {
                         <img
                             src={MenImg}
                             alt="Men's Collection"
-                            className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-1000"
+                            className="absolute inset-0 w-full h-full object-cover object-top-left group-hover:scale-110 transition-transform duration-1000"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
 
@@ -75,7 +75,7 @@ const ClothingCollage: React.FC = () => {
                         <img
                             src={KidImg}
                             alt="Kids Collection"
-                            className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-1000"
+                            className="absolute inset-0 w-full h-full object-cover object-top-left group-hover:scale-110 transition-transform duration-1000"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
 
