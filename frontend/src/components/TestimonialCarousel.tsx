@@ -57,7 +57,7 @@ const TestimonialCarousel = () => {
             {/* --- HEADER & NAVIGATION --- */}
             <div className="flex justify-between items-end mb-10" style={maisonFont}>
                 <div>
-                    <p className="text-gray-500 text-sm tracking-widest uppercase mb-2">Testimonial</p>
+                    <p className="text-gray-800 text-sm tracking-widest uppercase mb-2">Testimonial</p>
                     <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a]">What Our Clients Say</h2>
                 </div>
 

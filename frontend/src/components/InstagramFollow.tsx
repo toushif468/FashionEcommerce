@@ -10,7 +10,7 @@ import { RiInstagramLine } from "react-icons/ri";
 
 const InstagramFollow: React.FC = () => {
     const scrollRef = useRef<HTMLDivElement>(null);
-    const maisonFont = { fontFamily: "'Maison Neue', sans-serif" };
+    // const maisonFont = { fontFamily: "'Maison Neue', sans-serif" };
 
     // Enable horizontal scroll with mouse wheel
     useEffect(() => {
@@ -34,9 +34,9 @@ const InstagramFollow: React.FC = () => {
     return (
         <div className="py-16 bg-gray-100">
             {/* --- HEADER SECTION --- */}
-            <div className="text-center mb-10" style={maisonFont}>
-                <p className="text-gray-500 text-sm tracking-widest uppercase mb-2">Follow Us</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a]">Follow Us On Instagram</h2>
+            <div className="text-center mb-10 font-maison">
+                <p className="text-gray-800 text-sm tracking-widest uppercase mb-2 font-maison">Follow Us</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] font-maison">Follow Us On Instagram</h2>
             </div>
 
             {/* --- HORIZONTAL SCROLL CONTAINER --- */}

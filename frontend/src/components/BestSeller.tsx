@@ -8,7 +8,7 @@ import BestProductItem from './BestProductItem';
 const BestSeller = () => {
   const { products } = useContext(ShopContext);
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+
   // Changed state name to bestSellers for clarity
   const [bestSellers, setBestSellers] = useState<ProductType[]>([]);
 
@@ -39,7 +39,7 @@ const BestSeller = () => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollAmount = clientWidth * 0.8; 
+      const scrollAmount = clientWidth * 0.8;
       scrollRef.current.scrollTo({
         left: direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
         behavior: 'smooth'
@@ -61,20 +61,20 @@ const BestSeller = () => {
       </div>
 
       {/* Navigation Buttons */}
-      <button 
-        onClick={() => scroll('left')} 
-        className='absolute left-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-[#3e1800] p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#3e1800] hover:text-white'>
+      <button
+        onClick={() => scroll('left')}
+        className='absolute left-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-brand-brown p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-brandtext-brand-brown hover:text-white'>
         <RiArrowLeftSLine size={24} />
       </button>
 
-      <button 
-        onClick={() => scroll('right')} 
-        className='absolute right-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-[#3e1800] p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#3e1800] hover:text-white'>
+      <button
+        onClick={() => scroll('right')}
+        className='absolute right-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-brand-brown p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-brandtext-brand-brown hover:text-white'>
         <RiArrowRightSLine size={24} />
       </button>
 
       {/* Product Row */}
-      <div 
+      <div
         ref={scrollRef}
         className='flex gap-6 overflow-x-auto pb-12 pt-4 scrollbar-hide touch-pan-x items-start'
       >

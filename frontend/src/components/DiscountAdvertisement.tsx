@@ -5,7 +5,7 @@ import WomenImg from '../assets/WOMEN_DISCOUNT.png';
 
 const DiscountAdvertisement: React.FC = () => {
     // Define the Maison Neue font style
-    const maisonFont = { fontFamily: "'Maison Neue', sans-serif" };
+    // const maisonFont = { fontFamily: "'Maison Neue', sans-serif" };
 
     return (
         <div className="max-w-7xl mx-auto p-4 lg:p-10">
@@ -22,15 +22,15 @@ const DiscountAdvertisement: React.FC = () => {
                     />
 
                     {/* Content Overlay */}
-                    <div className="relative z-10 p-8 lg:p-12 flex flex-col justify-center h-full" style={maisonFont}>
-                        <p className="text-gray-600 text-sm font-medium tracking-wide mb-2">Flat 20% Discount</p>
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight mb-4">Men's Latest <br />Collection</h2>
-                        <p className="text-gray-500 text-sm md:text-base max-w-sm leading-relaxed mb-6">
+                    <div className="relative z-10 p-8 lg:p-12 flex flex-col justify-center h-full font-maison">
+                        <p className="text-gray-800 text-sm font-medium tracking-wide mb-2 font-maison">Flat 20% Discount</p>
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight mb-4 font-maison">Men's Latest <br />Collection</h2>
+                        <p className="text-gray-500 text-sm md:text-base max-w-sm leading-relaxed mb-6 font-maison">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
 
                         {/* Shop Now Button with Arrow */}
-                        <button className="bg-[#f4bd62] text-black px-8 py-3.5 w-fit flex items-center gap-2.5 text-sm font-semibold rounded-sm shadow-md hover:bg-[#3e1800] hover:text-white transition-colors">
+                        <button className="bg-brand-amber text-black px-8 py-3.5 w-fit flex items-center gap-2.5 text-sm font-semibold rounded-sm shadow-md hover:bg-brand-brown hover:text-white transition-colors font-maison">
                             Shop Now
                             <span className="text-lg">→</span>
                         </button>
@@ -38,7 +38,7 @@ const DiscountAdvertisement: React.FC = () => {
                 </div>
 
                 {/* --- SECOND DIV: WOMEN'S FASHION --- */}
-                <div className="relative group overflow-hidden bg-[#FEDB9B] rounded-sm min-h-[450px]">
+                <div className="relative group overflow-hidden bg-brand-amber rounded-sm min-h-[450px]">
                     {/* Background Image */}
                     <img
                         src={WomenImg}
@@ -47,15 +47,15 @@ const DiscountAdvertisement: React.FC = () => {
                     />
 
                     {/* Content Overlay */}
-                    <div className="relative z-10 p-8 lg:p-12 flex flex-col justify-center h-full" style={maisonFont}>
-                        <p className="text-gray-700 text-sm font-medium tracking-wide mb-2">Flat 25% Discount</p>
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight mb-4">WOMEN's Latest <br />Fashion</h2>
-                        <p className="text-gray-600 text-sm md:text-base max-w-sm leading-relaxed mb-6">
+                    <div className="relative z-10 p-8 lg:p-12 flex flex-col justify-center h-full font-maison">
+                        <p className="text-gray-800 text-sm font-medium tracking-wide mb-2 font-maison">Flat 25% Discount</p>
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight mb-4 font-maison">WOMEN's Latest <br />Fashion</h2>
+                        <p className="text-gray-600 text-sm md:text-base max-w-sm leading-relaxed mb-6 font-maison">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
 
                         {/* Shop Now Button with Arrow */}
-                        <button className="bg-[#3e1800] text-white px-8 py-3.5 w-fit flex items-center gap-2.5 text-sm font-semibold rounded-sm shadow-md hover:bg-[#f4bd62] hover:text-[#3e1800] transition-colors">
+                        <button className="bg-brand-brown text-white px-8 py-3.5 w-fit flex items-center gap-2.5 text-sm font-semibold rounded-sm shadow-md hover:bg-brand-amber hover:text-brabg-brand-brown transition-colors">
                             Shop Now
                             <span className="text-lg">→</span>
                         </button>

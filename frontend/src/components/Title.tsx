@@ -7,7 +7,7 @@ const Title = ({ text}: TitleType) => {
   return (
     <div className='inline-flex gap-2 items-start
      mb-3'>
-      <p className='text-[#3e1800] font-semibold '>{text} </p>
+      <p className='text-brand-brown font-semibold font-maison'>{text} </p>
       
     </div>
   )

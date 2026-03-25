@@ -42,8 +42,8 @@ const App = () => {
 
 
         </Routes>
-        <Footer />
       </div>
+        <Footer />
     </div>
   )
 }

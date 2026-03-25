@@ -53,12 +53,12 @@ const LatestCollection = () => {
         <Title text={'Our Top Seller Product'} />
       </div>
 
-      {/* Buttons stay the same */}
-      <button onClick={() => scroll('left')} className='absolute left-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-[#3e1800] p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 lg:block hover:bg-[#3e1800] hover:text-white'>
+      {/* Buttons left */}
+      <button onClick={() => scroll('left')} className='absolute left-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-brand-bg-brand-brown p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 lg:block hover:bg-brand-brown hover:text-white'>
         <RiArrowLeftSLine size={24} />
       </button>
-
-      <button onClick={() => scroll('right')} className='absolute right-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-[#3e1800] p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 lg:block hover:bg-[#3e1800] hover:text-white '>
+      {/* Button right */}
+      <button onClick={() => scroll('right')} className='absolute right-2 top-[60%] -translate-y-1/2 z-20 bg-white/90 text-brand-bg-brand-brown p-3 rounded-full shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 lg:block hover:bg-brand-brown hover:text-white '>
         <RiArrowRightSLine size={24} />
       </button>
 

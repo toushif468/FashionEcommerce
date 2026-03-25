@@ -8,6 +8,7 @@ import PromoBanner from '../components/PromoBanner'
 import DiscountAdvertisement from '../components/DiscountAdvertisement'
 import InstagramFollow from '@/components/InstagramFollow'
 import TestimonialCarousel from '@/components/TestimonialCarousel'
+import Blog from './Blog'
 
 
 const Home = () => {
@@ -22,7 +23,9 @@ const Home = () => {
       <DiscountAdvertisement />
       <InstagramFollow />
       <TestimonialCarousel />
+      <Blog/>
       <NewsletterBox />
+
     </div>
   )
 }

@@ -7,7 +7,7 @@ const ClothingCollage: React.FC = () => {
     const maisonFont = { fontFamily: "'Maison Neue', sans-serif" };
 
     // Common style for the list items to keep code clean
-    const listItemStyle = "hover:pl-3 hover:text-[#f4bd62] transition-all duration-300 cursor-pointer flex items-center gap-2 group/item";
+    const listItemStyle = "hover:pl-3 hover:text-brand-amber transition-all duration-300 cursor-pointer flex items-center gap-2 group/item";
 
     return (
         <div className="max-w-7xl mx-auto p-4 lg:p-10">
@@ -25,9 +25,9 @@ const ClothingCollage: React.FC = () => {
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
 
                     <div className="relative z-10 p-8 lg:p-12 flex flex-col h-full justify-start" style={maisonFont}>
-                        <span className="bg-white px-3 py-1 text-[10px] font-bold w-fit mb-4 rounded-full shadow-sm">2500+ Items</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#3e1800] mb-4 hover:pl-3 hover:text-[#f4bd62] transition-all duration-300 cursor-pointer flex items-center gap-2 group/item">For WOMEN's</h2>
-                        <p className="text-gray-700 text-sm max-w-xs leading-relaxed mb-6">
+                        <span className="bg-white px-3 py-1 text-[10px] font-bold w-fit mb-4 rounded-full shadow-sm font-maison">2500+ Items</span>
+                        <h2 className="text-4xl md:text-5xl font-bold text-brand-brown mb-4 hover:pl-3 hover:text-brand-amber transition-all duration-300 cursor-pointer flex items-center gap-2 group/item font-maison">For WOMEN's</h2>
+                        <p className="text-gray-700 text-sm max-w-xs leading-relaxed mb-6 ">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                         </p>
 
@@ -56,12 +56,12 @@ const ClothingCollage: React.FC = () => {
 
                         <div className="relative z-10 p-8 lg:p-10 flex flex-col h-full" style={maisonFont}>
                             <span className="bg-white px-3 py-1 text-[10px] font-bold w-fit mb-4 rounded-full shadow-sm">2500+ Items</span>
-                            <h2 className="text-4xl font-bold text-[#3e1800] mb-2 hover:pl-3 hover:text-[#f4bd62] transition-all duration-300 cursor-pointer flex items-center gap-2 group/item">For MEN's</h2>
+                            <h2 className="text-4xl font-bold text-brand-brown mb-2 hover:pl-3 hover:text-brand-amber transition-all duration-300 cursor-pointer flex items-center gap-2 group/item">For MEN's</h2>
                             <p className="text-gray-700 text-sm max-w-xs leading-relaxed mb-4">
                                 High quality essentials for everyday wear.
                             </p>
 
-                            <ul className="space-y-2 text-sm text-[#3e1800] font-semibold">
+                            <ul className="space-y-2 text-sm text-brand-brown font-semibold">
                                 <li className={listItemStyle}>Blazers</li>
                                 <li className={listItemStyle}>T-Shirts and shirts</li>
                                 <li className={listItemStyle}>Jackets & Coats</li>
@@ -81,7 +81,7 @@ const ClothingCollage: React.FC = () => {
 
                         <div className="relative z-10 p-8 lg:p-10 flex flex-col h-full" style={maisonFont}>
                             <span className="bg-white px-3 py-1 text-[10px] font-bold w-fit mb-4 rounded-full shadow-sm">2500+ Items</span>
-                            <h2 className="text-4xl font-bold text-[#3e1800] mb-2 hover:pl-3 hover:text-[#f4bd62] transition-all duration-300 cursor-pointer flex items-center gap-2 group/item">For KID's</h2>
+                            <h2 className="text-4xl font-bold text-brand-brown mb-2 hover:pl-3 hover:text-brand-amber transition-all duration-300 cursor-pointer flex items-center gap-2 group/item">For KID's</h2>
                             <p className="text-gray-700 text-sm max-w-xs leading-relaxed mb-4">
                                 Comfy and stylish clothes for the little ones.
                             </p>

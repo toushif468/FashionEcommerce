@@ -1,98 +1,101 @@
-import { useState } from 'react'
-import Title from '../components/Title'
-import NewsletterBox from '../components/NewsletterBox'
-import { assets } from '../assets/assets'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Blog1 from '../assets/Blog1.jpg';
+import Blog2 from '../assets/Blog2.jpg';
+import Blog3 from '../assets/Blog3.jpg';
 
-const Blog = () => {
-    // 2. State to track which post is currently expanded
+const NewsBlogSection: React.FC = () => {
+    const navigate = useNavigate();
     const [expandedPost, setExpandedPost] = useState<number | null>(null);
 
     const blogPosts = [
         {
             id: 1,
-            title: "The Ultimate Guide to Summer Layering",
-            date: "March 10, 2026",
-            category: "Fashion",
-            image: assets.hero_img1,
-            excerpt: "How to stay cool and stylish even when the temperature rises with our new breathable fabrics.",
-            fullContent: "Summer layering is all about choosing the right materials. Opt for linen blends, open-knit crochet, and light cotton. Start with a basic silk camisole and add an unbuttoned oversized shirt for that effortless chic look that protects you from the sun while keeping you ventilated."
+            image: Blog1,
+            date: "22 March 2024",
+            title: "10 Fashion Trends for the Modern Woman",
+            desc: "Summer layering is all about choosing the right materials. Opt for linen blends, open-knit crochet, and light cotton. Start with a basic silk camisole and add an unbuttoned oversized shirt for that effortless chic look that protects you from the sun while keeping you ventilated."
         },
         {
             id: 2,
-            title: "5 Essential Pieces for a Capsule Wardrobe",
-            date: "March 05, 2026",
-            category: "Style Guide",
-            image: assets.about_img,
-            excerpt: "Invest in quality over quantity with these timeless pieces that never go out of style.",
-            fullContent: "A capsule wardrobe consists of a tailored blazer, a classic white tee, high-waisted denim, a versatile slip dress, and a pair of neutral loafers. By focusing on these five pillars, you can create over 30 unique outfits that transition perfectly from office to weekend."
+            image: Blog2,
+            date: "21 March 2024",
+            title: "Fashion Forward: Tips, Trends, and Inspiration",
+            desc: "A capsule wardrobe consists of a tailored blazer, a classic white tee, high-waisted denim, a versatile slip dress, and a pair of neutral loafers. By focusing on these five pillars, you can create over 30 unique outfits that transition perfectly from office to weekend."
         },
         {
             id: 3,
-            title: "Sustainable Fashion: Why it Matters",
-            date: "February 28, 2026",
-            category: "Eco-Conscious",
-            image: assets.hero_img1,
-            excerpt: "Discover how we are reducing our carbon footprint one garment at a time.",
-            fullContent: "Sustainability isn't just a trend; it's a commitment. We source organic cotton and use recycled water systems in our manufacturing. By choosing better fabrics, we ensure your clothes last years, not weeks, reducing the impact on global landfills."
+            image: Blog3,
+            date: "20 March 2024",
+            title: "Fall Fashion Frenzy: The Ultimate Style Guide",
+            desc: "Sustainability isn't just a trend; it's a commitment. We source organic cotton and use recycled water systems in our manufacturing. By choosing better fabrics, we ensure your clothes last years, not weeks, reducing the impact on global landfills."
         }
     ];
 
+    // --- NEW HELPER: LIMIT TO 10 WORDS ---
+    const getShortDesc = (text: string) => {
+        const words = text.split(' ');
+        if (words.length <= 10) return text;
+        return words.slice(0, 10).join(' ') + '...';
+    };
+
     return (
-        <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
-            <div className='text-2xl text-center pt-10 border-t border-gray-300'>
-                <Title text={'OUR BLOG'} />
-                <p className='mt-3 text-gray-500 text-sm md:text-base max-w-xl mx-auto' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
-                    Insights into the latest trends, styling tips, and the stories behind our collections.
-                </p>
+        <div className="max-w-7xl mx-auto py-20 px-4">
+            <div className="text-center mb-16 font-maison">
+                <p className="text-gray-800 text-sm tracking-widest uppercase mb-2">News & Blog</p>
+                <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a]">Our Latest News & Blogs</h2>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-16'>
-                {blogPosts.map((post) => (
-                    <div key={post.id} className='group flex flex-col'>
-                        <div className='overflow-hidden bg-gray-100 mb-4 aspect-[4/5]'>
-                            <img
-                                src={post.image}
-                                alt={post.title}
-                                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
-                            />
-                        </div>
-
-                        <div className='flex flex-col gap-2'>
-                            <div className='flex items-center gap-3 text-xs uppercase tracking-widest text-[#3e1800] font-bold'>
-                                <span>{post.category}</span>
-                                <span className='w-8 h-[1px] bg-[#3e1800]'></span>
-                                <span className='text-gray-400 font-normal'>{post.date}</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {blogPosts.map((post) => {
+                    const isExpanded = expandedPost === post.id;
+                    
+                    return (
+                        <div key={post.id} className="group flex flex-col">
+                            {/* Image with Date Badge */}
+                            <div 
+                                className="relative overflow-hidden aspect-square mb-6 cursor-pointer"
+                                onClick={() => navigate('/blog')}
+                            >
+                                <img
+                                    src={post.image}
+                                    alt={post.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute bottom-0 right-0 bg-brand-amber px-4 py-2 text-sm font-bold text-[#1a1a1a] border-t-4 border-l-4 border-white">
+                                    {post.date}
+                                </div>
                             </div>
 
-                            <h2 className='text-xl md:text-2xl font-semibold text-[#3e1800] leading-tight group-hover:text-[#f4bd62] transition-colors' style={{ fontFamily: 'Maison Neue, sans-serif' }}>
-                                {post.title}
-                            </h2>
+                            <div className='font-maison'>
+                                <h3 
+                                    className="text-2xl font-bold text-[#1a1a1a] mb-3 leading-tight group-hover:text-brand-brown transition-colors cursor-pointer"
+                                    onClick={() => navigate('/blog')}
+                                >
+                                    {post.title}
+                                </h3>
+                                
+                                {/* --- 10 WORD LIMIT LOGIC --- */}
+                                <p className="text-gray-500 text-sm leading-relaxed mb-4 transition-all duration-300">
+                                    {isExpanded ? post.desc : getShortDesc(post.desc)}
+                                </p>
 
-                            {/* 3. Conditional rendering for text content */}
-                            <p className={`text-gray-500 text-sm leading-relaxed transition-all duration-300 ${expandedPost === post.id ? '' : 'line-clamp-2'}`}>
-                                {expandedPost === post.id ? post.fullContent : post.excerpt}
-                            </p>
-
-                            {/* 4. The Button with onClick */}
-                            <button
-                                onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}
-                                className='mt-2 text-sm font-bold border-b-2 border-[#3e1800] w-fit pb-1 hover:text-[#f4bd62] hover:border-[#f4bd62] transition-all uppercase tracking-tighter'
-                            >
-                                {expandedPost === post.id ? "Show Less" : "Read More"}
-                            </button>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setExpandedPost(isExpanded ? null : post.id);
+                                    }}
+                                    className='mt-2 text-sm font-bold border-b-2 border-brand-brown w-fit pb-1 hover:text-brand-amber hover:border-brand-amber transition-all uppercase tracking-tighter'
+                                >
+                                    {isExpanded ? "Show Less" : "Read More"}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
-
-            <div className='bg-[#3e1800] text-white p-10 md:p-20 text-center my-20'>
-                <h3 className='text-2xl md:text-4xl font-light italic mb-6'>"Fashion is the armor to survive the reality of everyday life."</h3>
-                <p className='uppercase tracking-[0.2em] text-sm text-[#f4bd62]'>— Bill Cunningham</p>
-            </div>
-
-            <NewsletterBox />
         </div>
-    )
-}
+    );
+};
 
-export default Blog
+export default NewsBlogSection;
