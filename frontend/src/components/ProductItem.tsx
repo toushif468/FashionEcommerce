@@ -8,12 +8,12 @@ interface ProductItemProps {
     image: string[];
     name: string;
     price: number;
-    description?: string;
-    rating?: string;
-    category?: string;
+    // description?: string;
+    // rating?: string;
+    // category?: string;
 }
 
-const ProductItem = ({ id, image, name, price, description, rating, category }: ProductItemProps) => {
+const ProductItem = ({ id, image, name, price}: ProductItemProps) => {
     const { currency } = useContext(ShopContext);
 
     return (

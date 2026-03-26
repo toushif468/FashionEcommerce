@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, type ChangeEvent } from 'react'
 import { ShopContext } from '../context/ShopContext'
-import { assets} from '../assets/assets';
+import { assets } from '../assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 import type { ProductType } from '../types/assets';
@@ -92,7 +92,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products ]);
+  }, [category, subCategory, search, showSearch, products]);
 
 
   useEffect(() => {
@@ -170,8 +170,9 @@ const Collection = () => {
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
           {
             filterProducts.map((item, index) => (
-              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
-              description={item.description} rating={item.rating || "4.8"}/>
+              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
+              // <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
+              // description={item.description} rating={item.rating || "4.8"}/>
             ))
           }
         </div>
