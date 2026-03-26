@@ -8,12 +8,12 @@ interface ProductItemProps {
     image: string[];
     name: string;
     price: number;
-    description?: string;
-    rating?: string;
-    category?: string;
+    // description?: string;
+    // rating?: string;
+    // category?: string;
 }
 
-const ProductItem = ({ id, image, name, price, category, description, rating }: ProductItemProps) => {
+const ProductItem = ({ id, image, name, price, }: ProductItemProps) => {
     const { currency } = useContext(ShopContext);
 
     return (
@@ -53,7 +53,7 @@ const ProductItem = ({ id, image, name, price, category, description, rating }: 
             {/* Product Info */}
             <div className='pt-3 flex flex-col gap-1'>
                 <div className='flex justify-between items-center'>
-                    <p className='text-xs text-gray-500 font-maison uppercase tracking-wider'>Category</p>
+                    <p className='text-xs text-gray-500 font-maison uppercase tracking-wider'>category</p>
 
                     {/* --- STATIC RATING --- */}
                     <div className='flex items-center gap-1'>
