@@ -9,6 +9,7 @@ import DiscountAdvertisement from '../components/DiscountAdvertisement'
 import InstagramFollow from '@/components/InstagramFollow'
 import TestimonialCarousel from '@/components/TestimonialCarousel'
 import Blog from './Blog'
+import FAQ from '@/components/FAQ'
 
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
       <InstagramFollow />
       <TestimonialCarousel />
       <Blog/>
+      <FAQ />
       <NewsletterBox />
 
     </div>
