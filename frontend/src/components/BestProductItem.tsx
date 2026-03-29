@@ -13,7 +13,6 @@ interface BestProductItemProps {
 }
 const BestProductItem = ({ id, image, name, price, category, description, rating }: BestProductItemProps) => {
     const { currency } = useContext(ShopContext);
-    // const maisonFont = { fontFamily: 'Maison Neue, sans-serif' };
 
     return (
         /* The container starts at a fixed width and expands on hover */

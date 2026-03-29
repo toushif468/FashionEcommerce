@@ -50,7 +50,7 @@ const LatestCollection = () => {
   return (
     <div className='my-10 relative group'>
       <div className='text-center py-8 text-3xl'>
-        <Title text={'Our Top Seller Product'} />
+        <Title text={'Latest Collection Products'} />
       </div>
 
       {/* Buttons left */}

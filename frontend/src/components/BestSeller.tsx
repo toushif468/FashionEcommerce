@@ -52,7 +52,7 @@ const BestSeller = () => {
     <div className='my-10 px-4 sm:px-0 relative group'>
       <div className='flex flex-col sm:flex-row justify-between items-end py-8 gap-4'>
         <div className='text-3xl shrink-0'>
-          <Title text={'Deals of the Day'} />
+          <Title text={'Top Seller Products'} />
         </div>
         <p className='max-w-md text-right text-xs sm:text-sm md:text-base text-gray-600'
           style={{ fontFamily: 'Maison Neue, sans-serif' }}>
