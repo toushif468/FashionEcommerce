@@ -13,13 +13,14 @@ const Collection = () => {
 
   // Filtering States
   const [category, setCategory] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [visualMin, setVisualMin] = useState<number>(0);
+  const [visualMax, setVisualMax] = useState<number>(500);
   const [subCategory, setSubCategory] = useState<string[]>([]);
 
   const [sortType, setSortType] = useState<string>('relavent');
   // Pagination States
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const itemsPerPage = 12;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 12;
 
   const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -73,7 +74,7 @@ const Collection = () => {
       productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory));
     }
     // Filter by Price Range
-    productsCopy = productsCopy.filter(item => item.price >= priceRange[0] && item.price <= priceRange[1]);
+
 
     setFilterProducts(productsCopy);
   }
@@ -96,7 +97,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products, priceRange]);
+  }, [category, subCategory, search, showSearch, products, visualMin, visualMax]);
 
 
   useEffect(() => {
@@ -104,7 +105,11 @@ const Collection = () => {
   }, [sortType]);
 
 
-
+  // Logic for Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterProducts.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filterProducts.length / itemsPerPage);
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-gray-200 px-4 sm:px-[5vw]'>
@@ -139,6 +144,33 @@ const Collection = () => {
             ))}
           </div>
         </div>
+        {/* STATIC PRICE SLIDER UI */}
+        <div className={`border border-gray-300 px-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+          <p className='mb-3 text-sm font-bold font-maison uppercase'>Price</p>
+          <div className="relative h-5 w-full flex items-center">
+            <div className="absolute w-full h-1 bg-gray-200 rounded-lg"></div>
+            <input
+              type="range"
+              min="0"
+              max="500"
+              value={visualMin}
+              onChange={(e) => setVisualMin(Number(e.target.value))}
+              className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-[#3f1700] z-20"
+            />
+            <input
+              type="range"
+              min="0"
+              max="500"
+              value={visualMax}
+              onChange={(e) => setVisualMax(Number(e.target.value))}
+              className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-[#3f1700] z-10"
+            />
+          </div>
+          <div className="flex justify-between mt-4">
+            <p className='text-xs text-gray-600 font-maison'>${visualMin}.00</p>
+            <p className='text-xs text-gray-600 font-maison'>${visualMax}.00</p>
+          </div>
+        </div>
         {/* Static Color Filter */}
         <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
           <p className='mb-3 text-sm font-bold font-maison'>COLOR</p>
@@ -150,31 +182,69 @@ const Collection = () => {
             ))}
           </div>
         </div>
+        {/* Static Size Filter */}
+        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+          <p className='mb-3 text-sm font-bold font-maison'>SIZE</p>
+          <div className='flex flex-col gap-2 text-sm font-light text-gray-700 font-maison'>
+            {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map(size => (
+              <p key={size} className='flex gap-2'>
+                <input className='w-3 accent-[#3f1700]' type="checkbox" value={size} /> {size}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
+
+
 
       {/* Right side */}
       <div className='flex-1'>
         <div className='flex justify-between text-base sm:text-2xl mb-4'>
           <Title text={'ALL COLLECTION'} />
-
-          {/* product sort */}
-          <select onChange={(e) => setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2'>
+          <select onChange={(e) => setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2 font-maison'>
             <option value="relavent">Sort by: Relavent</option>
             <option value="low-high">Low to High</option>
             <option value="high-low">High to Low</option>
           </select>
         </div>
 
-        {/* map products */}
+        {/* 3 Column Grid with Hover Icons via ProductItem */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-10'>
+          {currentItems.map((item, index) => (
+            <ProductItem
+              key={index}
+              name={item.name}
+              id={item._id}
+              price={item.price}
+              image={item.image}
+            // rating={item.rating || '4.8'}
+            />
+          ))}
+        </div>
 
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
-          {
-            filterProducts.map((item, index) => (
-              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
-              // <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
-              // description={item.description} rating={item.rating || "4.8"}/>
-            ))
-          }
+        {/* Pagination Controls */}
+        <div className='flex justify-center items-center gap-2 mt-12 mb-10 font-maison'>
+          <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            className={`px-3 py-1 border rounded ${currentPage === 1 ? 'text-gray-300' : 'hover:bg-gray-100'}`}
+          >
+            &lt;
+          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-1 border rounded ${currentPage === i + 1 ? 'bg-[#fedb9b] font-bold' : 'hover:bg-gray-100'}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            className={`px-3 py-1 border rounded ${currentPage === totalPages ? 'text-gray-300' : 'hover:bg-gray-100'}`}
+          >
+            &gt;
+          </button>
         </div>
       </div>
     </div>
