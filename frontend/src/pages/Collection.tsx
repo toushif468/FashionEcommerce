@@ -139,6 +139,17 @@ const Collection = () => {
             ))}
           </div>
         </div>
+        {/* Static Color Filter */}
+        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+          <p className='mb-3 text-sm font-bold font-maison'>COLOR</p>
+          <div className='flex flex-col gap-2'>
+            {['Black', 'Grey', 'Green', 'Red', 'Orange', 'Blue', 'Pink', 'White'].map(color => (
+              <p key={color} className='flex items-center gap-2 text-sm font-light font-maison'>
+                <span className='w-3 h-3 rounded-full border border-gray-300' style={{ backgroundColor: color.toLowerCase() }}></span> {color}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Right side */}

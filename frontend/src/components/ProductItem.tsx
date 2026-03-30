@@ -13,7 +13,7 @@ interface ProductItemProps {
     // category?: string;
 }
 
-const ProductItem = ({ id, image, name, price}: ProductItemProps) => {
+const ProductItem = ({ id, image, name, price }: ProductItemProps) => {
     const { currency } = useContext(ShopContext);
 
     return (
@@ -23,12 +23,17 @@ const ProductItem = ({ id, image, name, price}: ProductItemProps) => {
 
                 {/* Product Image */}
                 <Link to={`/product/${id}`}>
+
                     <img
                         className='hover:scale-110 transition duration-500 ease-in-out w-full h-full object-cover'
                         src={image[0]}
                         alt={name}
                     />
                 </Link>
+                {/* 50% Off Badge */}
+                <div className='absolute top-3 left-3 bg-white px-2 py-1 text-[10px] text-green-600 font-bold shadow-sm font-maison'>
+                    50% off
+                </div>
 
                 {/* --- VERTICAL ICON BAR --- 
                     Changed: Initial opacity-0 and right-[-50px]. 
