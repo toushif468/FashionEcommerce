@@ -145,32 +145,66 @@ const Collection = () => {
           </div>
         </div>
         {/* STATIC PRICE SLIDER UI */}
+        {/* STATIC PRICE SLIDER UI */}
         <div className={`border border-gray-300 px-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-bold font-maison uppercase'>Price</p>
+          <p className='mb-3 text-sm font-bold font-maison uppercase tracking-widest'>Price</p>
+
           <div className="relative h-5 w-full flex items-center">
+            {/* 1. The Light Gray Background Track (full width) */}
             <div className="absolute w-full h-1 bg-gray-200 rounded-lg"></div>
+
+            {/* 2. The Dynamic Brown Line (sits between handles) */}
+            <div
+              className="absolute h-1 bg-[#3f1700] transition-all duration-75"
+              style={{
+                left: `${(Math.min(visualMin, visualMax) / 500) * 100}%`,
+                right: `${100 - (Math.max(visualMin, visualMax) / 500) * 100}%`
+              }}
+            ></div>
+
+            {/* 3. Minimum Price Slider Input */}
+
             <input
               type="range"
               min="0"
               max="500"
               value={visualMin}
               onChange={(e) => setVisualMin(Number(e.target.value))}
-              className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-[#3f1700] z-20"
+              className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-[#3f1700] z-10 pointer-events-none"
+              style={{
+                zIndex: visualMin > 250 ? 10 : 20,
+                pointerEvents: 'auto'
+              }}
             />
+
+            {/* 4. Maximum Price Slider Input */}
             <input
               type="range"
               min="0"
               max="500"
               value={visualMax}
               onChange={(e) => setVisualMax(Number(e.target.value))}
-              className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-[#3f1700] z-10"
+              className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-[#3f1700] z-10 pointer-events-none"
+              style={{
+                zIndex: visualMax < 249 ? 30 : 20,
+                pointerEvents: 'auto'
+              }}
             />
           </div>
+
+          {/* Display current selected price range */}
           <div className="flex justify-between mt-4">
-            <p className='text-xs text-gray-600 font-maison'>${visualMin}.00</p>
-            <p className='text-xs text-gray-600 font-maison'>${visualMax}.00</p>
+            <div className="flex flex-col">
+              <span className="text-[10px] text-gray-400 font-bold uppercase">Min</span>
+              <p className='text-sm text-gray-700 font-maison font-bold'>${Math.min(visualMin, visualMax)}.00</p>
+            </div>
+            <div className="flex flex-col text-right">
+              <span className="text-[10px] text-gray-400 font-bold uppercase">Max</span>
+              <p className='text-sm text-gray-700 font-maison font-bold'>${Math.max(visualMin, visualMax)}.00</p>
+            </div>
           </div>
         </div>
+
         {/* Static Color Filter */}
         <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
           <p className='mb-3 text-sm font-bold font-maison'>COLOR</p>
