@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 import { Link, NavLink } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { RiHeartLine } from 'react-icons/ri';
-import { FiShoppingCart, FiSearch, FiUser } from "react-icons/fi";
+import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
 
 const Navbar = () => {
 
@@ -17,105 +17,89 @@ const Navbar = () => {
     setCartItems({});
   }
 
-
-  // Helper component to avoid repeating the NavLink logic
-  const NavItem = ({ to, label, end = false }: { to: string, label: string, end?: boolean }) => (
-    <NavLink to={to} end={end} className='flex flex-col items-center gap-1 group'>
-      {({ isActive }) => (
-        <>
-          {/* text-base increases size to 16px, tracking-widest adds premium spacing */}
-          <p 
-            
-            className={`transition-colors duration-300 text-base lg:text-lg tracking-widest uppercase ${isActive ? 'text-black font-bold' : 'text-brand-brown font-maison hover:text-brand-amber'}`}
-          >
-            {label}
-          </p>
-          <hr className={`w-3/4 border-none h-[2px] bg-brand-amber transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
-        </>
-      )}
-    </NavLink>
-  );
-
   return (
-    <div className='flex items-center justify-between py-6 font-medium px-4 sm:px-[5vw]'>
+    <div className='flex items-center justify-between py-5 font-medium '>
       <Link to={'/'}>
-        {/* Slightly increased logo size to match larger text */}
-        <img src={assets.logo} className='w-36 md:w-48' alt="Logo" />
+        <img src={assets.logo} className='w-36' alt="" />
       </Link>
 
-      
-      <ul className='hidden sm:flex gap-8 text-base'>
-        <NavItem to='/' label='Home' end />
-        <NavItem to='/collection' label='Collection' />
-        <NavItem to='/about' label='About' />
-        <NavItem to='/contact' label='Contact' />
-        <NavItem to='/blog' label='Blog' />
+      <ul className='hidden sm:flex gap-5 text-lg text-brand-brown'>
+
+        <NavLink to='/' end className='flex flex-col items-center gap-1 group'>
+          <p>HOME</p>
+          <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
+        </NavLink>
+
+        <NavLink to='/collection' className='flex flex-col items-center gap-1 group'>
+          <p>COLLECTION</p>
+          <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
+        </NavLink>
+
+        <NavLink to='/about' className='flex flex-col items-center gap-1 group'>
+          <p>ABOUT</p>
+          <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
+        </NavLink>
+
+        <NavLink to='/contact' className='flex flex-col items-center gap-1 group'>
+          <p>CONTACT</p>
+          <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
+        </NavLink>
+
+        <NavLink to='/blog' className='flex flex-col items-center gap-1 group'>
+          <p>Blog</p>
+          <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
+        </NavLink>
       </ul>
 
-      <div className='flex items-center gap-4 sm:gap-5 md:gap-8'>
-        {/* Icons slightly enlarged for balance */}
-        <FiSearch 
-          onClick={() => setShowSearch(true)} 
-          className='w-6 h-6 cursor-pointer text-brand-brown hover:text-brand-amber transition-colors' 
-        />
+      <div className='flex items-center gap-6'>
+        <FiSearch onClick={() => setShowSearch(true)} className='w-5 h-5 md:w-6 md:h-6 cursor-pointer text-brand-brown' />
 
         <div className='group relative'>
-          <FiUser 
-            onClick={() => token ? null : navigate('/login')} 
-            className='w-6 h-6 cursor-pointer text-brand-brown hover:text-brand-amber transition-colors' 
-          />
-          {token && (
-            <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-50'>
-              <div className='flex flex-col gap-3 w-40 py-4 px-6 bg-white shadow-xl border border-gray-100 text-brand-brown rounded'>
-                <p className='cursor-pointer hover:text-brand-amber font-maison text-sm'>My profile</p>
-                <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-brand-amber font-maison text-sm'>Orders</p>
-                <hr className='border-gray-100' />
-                <p onClick={logout} className='cursor-pointer hover:text-brand-amber font-maison text-sm'>Logout</p>
+          <FiUser onClick={() => token ? null : navigate('/login')} className='w-5 h-5 md:w-6 md:h-6 cursor-pointer text-brand-brown' />
+          {
+            token && <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+              <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-brand-brown rounded'>
+                <p className='cursor-pointer hover:text-brand-amber font-maison'>My profile</p>
+                <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-brand-amber font-maison'>Orders</p>
+                <p onClick={logout} className='cursor-pointer hover:text-brand-amber font-maison'>Logout</p>
               </div>
             </div>
-          )}
+          }
         </div>
 
         <Link to='/wishlist' className='relative'>
-          <RiHeartLine className='w-6 h-6 text-brand-brown cursor-pointer hover:text-brand-amber transition-colors' />
+          <RiHeartLine className='w-5 h-5 md:w-6 md:h-6 text-brand-brown cursor-pointer' />
         </Link>
 
         <Link to='/cart' className='relative'>
-          <FiShoppingCart className='w-6 h-6 text-brand-brown hover:text-brand-amber transition-colors' />
+          <FiShoppingCart className='w-5 h-5 md:w-6 md:h-6 text-brand-brown' />
           {getCartCount() > 0 && (
-            <p  className='absolute -right-2 -bottom-2 w-5 h-5 text-center leading-5 bg-brand-brown text-white rounded-full text-[10px] font-bold font-maison'>
+          
+            <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-brand-brown text-white aspect-square rounded-full text-[8px] font-bold font-maison'>
               {getCartCount()}
             </p>
           )}
         </Link>
 
-        <img 
-          onClick={() => setVisible(true)} 
-          src={assets.menu_icon} 
-          className='w-6 cursor-pointer sm:hidden' 
-          alt="Menu" 
-        />
+        <img onClick={() => setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="" />
       </div>
 
-      {/* Sidebar menu for small screens */}
-      <div className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white z-[100] transition-all duration-300 ${visible ? 'w-full' : 'w-0'}`}>
-        <div className='flex flex-col text-brand-brown h-full'>
-          <div onClick={() => setVisible(false)} className='flex items-center gap-4 p-6 cursor-pointer border-b border-gray-100'>
-            <img src={assets.dropdown_icon} className='h-5 rotate-180' alt="" />
-            <p  className='font-bold text-xl font-maison'>Back</p>
+      {/* sidebar menu for small screen */}
+      <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
+        <div className='flex flex-col text-brand-brown'>
+          <div onClick={() => setVisible(false)} className='flex items-center gap-4 p-3 cursor-pointer'>
+            <img src={assets.dropdown_icon} className='h-4 rotate-180' alt="" />
+            <p>Back</p>
           </div>
-
-          <div className='flex flex-col text-2xl tracking-widest font-light'>
-            <NavLink onClick={() => setVisible(false)} className='py-5 pl-12 border-b border-gray-50 hover:bg-gray-50 text-sm' to='/'>HOME</NavLink>
-            <NavLink onClick={() => setVisible(false)} className='py-5 pl-12 border-b border-gray-50 hover:bg-gray-50 text-sm' to='/collection'>COLLECTION</NavLink>
-            <NavLink onClick={() => setVisible(false)} className='py-5 pl-12 border-b border-gray-50 hover:bg-gray-50 text-sm' to='/about'>ABOUT US</NavLink>
-            <NavLink onClick={() => setVisible(false)} className='py-5 pl-12 border-b border-gray-50 hover:bg-gray-50 text-sm' to='/blog'>BLOG</NavLink>
-            <NavLink onClick={() => setVisible(false)} className='py-5 pl-12 border-b border-gray-50 hover:bg-gray-50 text-sm' to='/contact'>CONTACT</NavLink>
-          </div>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/'>Home</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/collection'>Collection</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/about'>About Us</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/contact'>Contact Us</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/blog'>Blog</NavLink>
         </div>
       </div>
     </div>
   )
 }
 
-export default Navbar;
+export default Navbar
