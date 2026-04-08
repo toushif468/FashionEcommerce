@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext';
 import type { ProductType, RelatedProductsProps } from '../types/assets';
 import Title from './Title';
-// import ProductItem from './ProductItem';
-import BestProductItem from './BestProductItem';
+import ProductItem from './ProductItem';
+// import BestProductItem from './BestProductItem';
 
 const RelatedProducts = ({ category, subCategory }: RelatedProductsProps) => {
   const { products } = useContext(ShopContext);
@@ -18,7 +18,7 @@ const RelatedProducts = ({ category, subCategory }: RelatedProductsProps) => {
       setRelated(productsCopy.slice(0, 5));
     }
   }, [products])
-  
+
   return (
     <div className='my-24'>
       <div className='text-center text-3xl py-2'>
@@ -28,7 +28,7 @@ const RelatedProducts = ({ category, subCategory }: RelatedProductsProps) => {
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
         {
           related.map((item, index) => (
-            <BestProductItem  key={index} id={item._id} name={item.name} price={item.price} image={item.image} category={item.category} description={item.category} rating={item.rating || "4.5"}/>
+            <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.image}   />
           ))
         }
       </div>

@@ -19,8 +19,8 @@ const Collection = () => {
 
   const [sortType, setSortType] = useState<string>('relavent');
   // Pagination States
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 12;
+  // const [currentPage, setCurrentPage] = useState<number>(1);
+  // const itemsPerPage = 12;
 
   const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -106,10 +106,10 @@ const Collection = () => {
 
 
   // Logic for Pagination
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filterProducts.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filterProducts.length / itemsPerPage);
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = filterProducts.slice(indexOfFirstItem, indexOfLastItem);
+  // const totalPages = Math.ceil(filterProducts.length / itemsPerPage);
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-gray-200 px-4 sm:px-[5vw]'>
@@ -243,21 +243,19 @@ const Collection = () => {
         </div>
 
         {/* 3 Column Grid with Hover Icons via ProductItem */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-10'>
-          {currentItems.map((item, index) => (
-            <ProductItem
-              key={index}
-              name={item.name}
-              id={item._id}
-              price={item.price}
-              image={item.image}
-            // rating={item.rating || '4.8'}
-            />
-          ))}
+
+        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
+          {
+            filterProducts.map((item, index) => (
+              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
+              // <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
+              // description={item.description} rating={item.rating || "4.8"}/>
+            ))
+          }
         </div>
 
         {/* Pagination Controls */}
-        <div className='flex justify-center items-center gap-2 mt-12 mb-10 font-maison'>
+        {/* <div className='flex justify-center items-center gap-2 mt-12 mb-10 font-maison'>
           <button
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             className={`px-3 py-1 border rounded ${currentPage === 1 ? 'text-gray-300' : 'hover:bg-gray-100'}`}
@@ -279,7 +277,7 @@ const Collection = () => {
           >
             &gt;
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   )
