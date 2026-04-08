@@ -23,25 +23,25 @@ const Navbar = () => {
         <img src={assets.logo} className='w-36' alt="" />
       </Link>
 
-      <ul className='hidden sm:flex gap-5 text-lg text-brand-brown'>
+      <ul className='hidden md:flex items-start md:gap-6 lg:gap-10 text-[15px] font-semibold text-brand-brown'>
 
         <NavLink to='/' end className='flex flex-col items-center gap-1 group'>
-          <p>HOME</p>
+          <p>Home</p>
           <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
         </NavLink>
 
         <NavLink to='/collection' className='flex flex-col items-center gap-1 group'>
-          <p>COLLECTION</p>
+          <p>Collection</p>
           <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
         </NavLink>
 
         <NavLink to='/about' className='flex flex-col items-center gap-1 group'>
-          <p>ABOUT</p>
+          <p>About</p>
           <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
         </NavLink>
 
         <NavLink to='/contact' className='flex flex-col items-center gap-1 group'>
-          <p>CONTACT</p>
+          <p>Contact</p>
           <hr className='w-2/4 border-none h-[1.5px] bg-brand-amber hidden group-[.active]:block' />
         </NavLink>
 
@@ -74,14 +74,14 @@ const Navbar = () => {
         <Link to='/cart' className='relative'>
           <FiShoppingCart className='w-5 h-5 md:w-6 md:h-6 text-brand-brown' />
           {getCartCount() > 0 && (
-          
+
             <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-brand-brown text-white aspect-square rounded-full text-[8px] font-bold font-maison'>
               {getCartCount()}
             </p>
           )}
         </Link>
 
-        <img onClick={() => setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="" />
+        <img onClick={() => setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer md:hidden' alt="" />
       </div>
 
       {/* sidebar menu for small screen */}
