@@ -4,6 +4,7 @@ import { assets } from '../assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 import type { ProductType } from '../types/assets';
+// import { useCallback } from 'react';
 import PriceFilter from '@/components/Filters/PriceFilter';
 
 const Collection = () => {
@@ -14,8 +15,6 @@ const Collection = () => {
 
   // Filtering States
   const [category, setCategory] = useState<string[]>([]);
-  // const [visualMin, setVisualMin] = useState<number>(0);
-  // const [visualMax, setVisualMax] = useState<number>(500);
   const [subCategory, setSubCategory] = useState<string[]>([]);
 
   const [filters, setFilters] = useState({
@@ -27,6 +26,7 @@ const Collection = () => {
   // Pagination States
   // const [currentPage, setCurrentPage] = useState<number>(1);
   // const itemsPerPage = 12;
+
 
 
   const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +70,6 @@ const Collection = () => {
 
     if (showSearch && search) {
       productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
-
     }
 
     if (category.length > 0) {
@@ -80,8 +79,12 @@ const Collection = () => {
     if (subCategory.length > 0) {
       productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory));
     }
-    // Filter by Price Range
 
+    // ---Filter by Price Range ---
+    // console.log(filters.min, filters.max)
+    productsCopy = productsCopy.filter(item =>
+      item.price >= filters.min && item.price <= filters.max
+    );
 
     setFilterProducts(productsCopy);
   }
@@ -104,7 +107,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products]);
+  }, [category, subCategory, search, showSearch, products, filters.min, filters.max]);
 
 
   useEffect(() => {
@@ -154,7 +157,7 @@ const Collection = () => {
 
         {/* price slider filter */}
 
-        <PriceFilter />
+        <PriceFilter onFilterChange={(min, max) => setFilters({ min, max })} />
 
 
 
