@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, type ChangeEvent } from 'react'
+import { useContext, useEffect, useState, useCallback, type ChangeEvent } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets';
 import Title from '../components/Title';
@@ -17,32 +17,22 @@ const Collection = () => {
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
 
-  const [filters, setFilters] = useState({
+  const [priceRangefilters, setPriceRangeFilters] = useState({
     min: 0,
     max: 500
   });
 
   const [sortType, setSortType] = useState<string>('relavent');
-  // Pagination States
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const itemsPerPage = 12;
 
 
 
   const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    // if (category.includes(value)) {
-    //   setCategory((prev) => prev.filter(item => item !== value));
-    // }
-    // else {
-    //   setCategory(prev => [...prev, value]);
-    // }
-
     setCategory(curr =>
       curr.includes(value) ? curr.filter(item => item !== value) : [...curr, value]
     );
-    // setCurrentPage(1);
+
 
 
   }
@@ -50,19 +40,24 @@ const Collection = () => {
   const toggleSubCategory = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    //   if(subCategory.includes(value)) {
-    //     setCategory((curr) => curr.filter(item=> item !== value));
-    //   }
-    //   else{
-    //     setCategory((curr) => [...curr, value]);
-    //   }
-
     setSubCategory(curr =>
       curr.includes(value)
         ? curr.filter(item => item !== value) :
         [...curr, value]
     );
   }
+
+  const handlePriceChange = useCallback((min: number, max: number) => {
+    // setPriceRangeFilters({ min, max })
+    setPriceRangeFilters(
+      prev => {
+        if (prev.min === min && prev.max === max) {
+          return prev;
+        }
+        return { min, max };
+      }
+    )
+  }, [])
 
 
   const applyFilter = () => {
@@ -81,9 +76,8 @@ const Collection = () => {
     }
 
     // ---Filter by Price Range ---
-    // console.log(filters.min, filters.max)
     productsCopy = productsCopy.filter(item =>
-      item.price >= filters.min && item.price <= filters.max
+      item.price >= priceRangefilters.min && item.price <= priceRangefilters.max
     );
 
     setFilterProducts(productsCopy);
@@ -105,21 +99,16 @@ const Collection = () => {
     }
   }
 
+
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products, filters.min, filters.max]);
+  }, [category, subCategory, search, showSearch, products, priceRangefilters.min, priceRangefilters.max]);
 
 
   useEffect(() => {
     sortProduct();
   }, [sortType]);
 
-
-  // Logic for Pagination
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems = filterProducts.slice(indexOfFirstItem, indexOfLastItem);
-  // const totalPages = Math.ceil(filterProducts.length / itemsPerPage);
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-gray-200 px-4 sm:px-[5vw]'>
@@ -157,8 +146,8 @@ const Collection = () => {
 
         {/* price slider filter */}
 
-        <PriceFilter onFilterChange={(min, max) => setFilters({ min, max })} />
-
+        <PriceFilter onFilterChange={handlePriceChange} />
+        {/* <PriceFilter onFilterChange={(min, max) => setFilters({ min, max })} /> */}
 
 
 
