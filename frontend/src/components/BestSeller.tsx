@@ -18,22 +18,22 @@ const BestSeller = () => {
     setBestSellers(bestProduct.slice(0, 10));
   }, [products])
 
-  // Horizontal Scroll with Mouse Wheel
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (el) {
-      const onWheel = (e: WheelEvent) => {
-        if (e.deltaY === 0) return;
-        e.preventDefault();
-        el.scrollTo({
-          left: el.scrollLeft + e.deltaY * 3,
-          behavior: 'smooth'
-        });
-      };
-      el.addEventListener("wheel", onWheel);
-      return () => el.removeEventListener("wheel", onWheel);
-    }
-  }, [bestSellers]);
+  // // Horizontal Scroll with Mouse Wheel
+  // useEffect(() => {
+  //   const el = scrollRef.current;
+  //   if (el) {
+  //     const onWheel = (e: WheelEvent) => {
+  //       if (e.deltaY === 0) return;
+  //       e.preventDefault();
+  //       el.scrollTo({
+  //         left: el.scrollLeft + e.deltaY * 3,
+  //         behavior: 'smooth'
+  //       });
+  //     };
+  //     el.addEventListener("wheel", onWheel);
+  //     return () => el.removeEventListener("wheel", onWheel);
+  //   }
+  // }, [bestSellers]);
 
   // Added the missing scroll function
   const scroll = (direction: 'left' | 'right') => {
