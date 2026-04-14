@@ -107,7 +107,7 @@ cd server
 # CLOUDINARY_API_KEY=your_key
 
 npm install
-npm run dev
+npm run server
 ```
 
 -----
