@@ -51,7 +51,7 @@ const Navbar = () => {
         </NavLink>
       </ul>
 
-      <div className='flex items-center gap-6'>
+      <div className='flex items-center gap-4 md:gap-6'>
         <FiSearch onClick={() => setShowSearch(true)} className='w-5 h-5 md:w-6 md:h-6 cursor-pointer text-brand-brown' />
 
         <div className='group relative'>
@@ -85,17 +85,17 @@ const Navbar = () => {
       </div>
 
       {/* sidebar menu for small screen */}
-      <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white z-50 transition-all ${visible ? 'w-full' : 'w-0'}`}>
-        <div className='flex flex-col text-brand-brown'>
+      <div className={`absolute top-0 right-0  bottom-0 overflow-hidden bg-white z-50 transition-all ${visible ? 'w-full' : 'w-0'}`}>
+        <div className='flex flex-col text-brand-brown '>
           <div onClick={() => setVisible(false)} className='flex items-center gap-4 p-3 cursor-pointer'>
             <img src={assets.dropdown_icon} className='h-4 rotate-180' alt="" />
-            <p>Back</p>
+            <p className='text-primary'>Back</p>
           </div>
-          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/'>Home</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/collection'>Collection</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/about'>About Us</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/contact'>Contact Us</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-amber' to='/blog'>Blog</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-brown/30 text-base font-semibold' to='/'>Home</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-brown/30  text-base font-semibold' to='/collection'>Collection</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-brown/30  text-base font-semibold' to='/about'>About Us</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-brown/30  text-base font-semibold' to='/contact'>Contact Us</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-4 pl-6 border-b border-brand-brown/30  text-base font-semibold' to='/blog'>Blog</NavLink>
         </div>
       </div>
     </div>

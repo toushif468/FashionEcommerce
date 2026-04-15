@@ -92,7 +92,7 @@ a.active hr {
 
 @media (max-width: 640px) {
   a.active {
-    @apply bg-black text-white px-4 py-2 rounded-md;
+    @apply bg-brand-brown text-white;
   }
 }
 
