@@ -21,8 +21,8 @@ const PriceFilter = ({ onFilterChange }: PriceFilterProps) => {
     }, [actualMin, actualMax, onFilterChange]);
 
     return (
-        <div className="border border-gray-300 px-5 py-3 mt-6 w-full bg-white">
-            <p className="mb-6 text-sm font-bold uppercase tracking-widest text-gray-800">
+        <div>
+            <p className="mb-6 text-sm font-semibold tracking-wider text-primary uppercase">
                 Price
             </p>
 

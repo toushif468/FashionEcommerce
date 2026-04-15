@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-// Import your Instagram images here
 import Insta1 from '../assets/insta1.jpg'
-// import Insta1 from '../assets/insta1.jpg';
 import Insta2 from '../assets/insta2.jpg';
 import Insta3 from '../assets/insta3.jpg';
 import Insta4 from '../assets/insta4.jpg';
@@ -10,7 +8,6 @@ import { RiInstagramLine } from "react-icons/ri";
 
 const InstagramFollow: React.FC = () => {
     const scrollRef = useRef<HTMLDivElement>(null);
-    // const maisonFont = { fontFamily: "'Maison Neue', sans-serif" };
 
     // Enable horizontal scroll with mouse wheel
     useEffect(() => {
@@ -29,20 +26,21 @@ const InstagramFollow: React.FC = () => {
         }
     }, []);
 
-    const instaImages = [Insta1, Insta2, Insta3, Insta4, Insta5, Insta1, Insta2]; // Added extras for scroll depth
+    const instaImages = [Insta1, Insta2, Insta3, Insta4, Insta5, Insta1, Insta2];
 
     return (
         <div className="py-16 bg-gray-100">
             {/* --- HEADER SECTION --- */}
-            <div className="text-center mb-10 font-maison">
-                <p className="text-gray-800 text-sm tracking-widest uppercase mb-2 font-maison">Follow Us</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] font-maison">Follow Us On Instagram</h2>
+            <div className="text-center mb-10">
+                <p className="text-gray-800 text-sm tracking-widest uppercase mb-2">Follow Us</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a]">Follow Us On Instagram</h2>
             </div>
 
             {/* --- HORIZONTAL SCROLL CONTAINER --- */}
             <div
                 ref={scrollRef}
-                className="flex gap-4 overflow-x-auto pb-10 px-4 scrollbar-hide cursor-grab active:cursor-grabbing touch-pan-x"
+                /* Swapped scrollbar-hide for no-scrollbar */
+                className="flex gap-4 overflow-x-auto pb-10 px-4 no-scrollbar cursor-grab active:cursor-grabbing touch-pan-x"
             >
                 {instaImages.map((img, index) => (
                     <div

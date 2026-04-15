@@ -31,7 +31,7 @@ const ProductItem = ({ id, image, name, price }: ProductItemProps) => {
                     />
                 </Link>
                 {/* 50% Off Badge */}
-                <div className='absolute top-3 left-3 bg-white px-2 py-1 text-[10px] text-green-600 font-bold shadow-sm font-maison'>
+                <div className='absolute top-3 left-3 bg-white px-2 py-1 text-[10px] text-green-600 font-semibold shadow-sm'>
                     50% off
                 </div>
 
@@ -61,15 +61,15 @@ const ProductItem = ({ id, image, name, price }: ProductItemProps) => {
                     <p className='text-xs text-gray-500 font-maison uppercase tracking-wider'>category</p>
 
                     {/* --- STATIC RATING --- */}
-                    <div className='flex items-center gap-1'>
-                        <RiStarFill className='text-brand-amber' size={22} />
-                        <span className='text-3xs font-bold text-gray-800 font-maison'>4.8</span>
+                    <div className='flex items-center justify-between gap-1'>
+                        <RiStarFill className='text-brand-amber' size={18} />
+                        <span className='text-base font-semibold text-secondary-foreground font-maison'>4.8</span>
                     </div>
                 </div>
 
-                <p className='text-xl font-semibold font-maison text-brand-brown line-clamp-1'>{name}</p>
+                <p className='text-lg font-semibold text-brand-brown line-clamp-1'>{name}</p>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2 mt-2'>
                     <p className='text-base font-bold font-maison text-brand-brown'>
                         {currency}{price}
                     </p>

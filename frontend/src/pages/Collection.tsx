@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState, useCallback, type ChangeEvent } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets';
-import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 import type { ProductType } from '../types/assets';
-// import { useCallback } from 'react';
+import { IoMdClose } from "react-icons/io";
 import PriceFilter from '@/components/Filters/PriceFilter';
 
 const Collection = () => {
@@ -16,6 +15,7 @@ const Collection = () => {
   // Filtering States
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
+  const [size, setSize] = useState<string[]>([]);
 
   const [priceRangefilters, setPriceRangeFilters] = useState({
     min: 0,
@@ -57,7 +57,16 @@ const Collection = () => {
         return { min, max };
       }
     )
-  }, [])
+  }, []);
+
+  const toggleSize = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSize(curr =>
+      curr.includes(value)
+        ? curr.filter(item => item !== value) :
+        [...curr, value]
+    )
+  }
 
 
   const applyFilter = () => {
@@ -79,6 +88,10 @@ const Collection = () => {
     productsCopy = productsCopy.filter(item =>
       item.price >= priceRangefilters.min && item.price <= priceRangefilters.max
     );
+
+    // if (size.length > 0) {
+    //   productsCopy = productsCopy.filter(item => size.includes(item.sizes))
+    // }
 
     setFilterProducts(productsCopy);
   }
@@ -111,97 +124,164 @@ const Collection = () => {
 
 
   return (
-    <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-gray-200 px-4 sm:px-[5vw]'>
-      {/* Left side  */}
-      {/* Filter options */}
-      <div className='min-w-60'>
-        <p onClick={() => SetShowFilter((prev) => !prev)} className='my-2 text-lg flex items-center cursor-pointer gap-2 font-maison font-semibold'>Filter Options
-          <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" />
-        </p>
+    <div className='w-full border-t'>
 
-
-        {/* Category Filter */}
-        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-bold font-maison'>CATEGORIES</p>
-          <div className='flex flex-col gap-2 text-sm font-light text-gray-700 font-maison'>
-            {['Men', 'Women', 'Kids'].map((item) => (
-              <label key={item} className='flex gap-2 cursor-pointer hover:text-black'>
-                <input className='w-3' type="checkbox" value={item} onChange={toggleCategory} /> {item}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* subcategory filter */}
-        <div className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-bold font-maison'>TYPE</p>
-          <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-            {['Topwear', 'Bottomwear', 'Winterwear', 'T-shirts', 'Handbags', 'Jackets and Coats', 'Watches', 'Hats'].map((item) => (
-              <label key={item} className='flex gap-2 cursor-pointer hover:text-black'>
-                <input className='w-3' type="checkbox" value={item} onChange={toggleSubCategory} /> {item}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* price slider filter */}
-
-        <PriceFilter onFilterChange={handlePriceChange} />
-        {/* <PriceFilter onFilterChange={(min, max) => setFilters({ min, max })} /> */}
-
-
-
-        {/* Static Color Filter */}
-        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-bold font-maison'>COLOR</p>
-          <div className='flex flex-col gap-2'>
-            {['Black', 'Grey', 'Green', 'Red', 'Orange', 'Blue', 'Pink', 'White'].map(color => (
-              <p key={color} className='flex items-center gap-2 text-sm font-light font-maison'>
-                <span className='w-3 h-3 rounded-full border border-gray-300' style={{ backgroundColor: color.toLowerCase() }}></span> {color}
-              </p>
-            ))}
-          </div>
-        </div>
-        {/* Static Size Filter */}
-        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-bold font-maison'>SIZE</p>
-          <div className='flex flex-col gap-2 text-sm font-light text-gray-700 font-maison'>
-            {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map(size => (
-              <p key={size} className='flex gap-2'>
-                <input className='w-3 accent-[#3f1700]' type="checkbox" value={size} /> {size}
-              </p>
-            ))}
+      <div className='bg-gray-50 h-45 w-full flex items-center justify-center'>
+        <div className='text-center'>
+          <h1 className='font-bold text-4xl md:text-4xl mb-3 text-primary tracking-tight'>
+            Shop
+          </h1>
+          <div className='flex gap-3 items-center justify-center text-sm font-medium text-muted-foreground'>
+            <p className='text-muted-foreground hover:text-brand-brown cursor-pointer transition-colors'>Home</p>
+            <span className='text-muted-foreground/50 text-sm'>/</span>
+            <p className='text-muted-foreground'>Shop</p>
           </div>
         </div>
       </div>
+      <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10  border-gray-200 '>
+        {/* Left side  */}
+        {/* Filter options */}
+        <div className='min-w-60'>
+          <p onClick={() => SetShowFilter((prev) => !prev)} className='my-2 text-lg flex items-center cursor-pointer gap-2 font-maison font-semibold text-primary'>Filter Options
+            <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" />
+          </p>
+
+
+          {/* Category Filter */}
+          <div className={`border border-gray-300 px-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
+            <p className='mb-3 text-sm font-semibold tracking-wider text-primary uppercase'>Category</p>
+            <div className='flex flex-col gap-2 text-sm font-light text-muted-background'>
+              {['Men', 'Women', 'Kids'].map((item) => (
+                <label key={item} className='flex gap-2 cursor-pointer hover:text-black items-center'>
+                  <input className='w-3 h-3 accent-brand-brown cursor-pointer' type="checkbox" value={item} onChange={toggleCategory} /> {item}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* subcategory filter */}
+          <div className={`border border-gray-300 px-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
+            <p className='mb-3 text-sm font-semibold tracking-wider text-primary uppercase'>Type</p>
+            <div className='flex flex-col gap-2 text-sm font-light text-muted-background'>
+              {['Topwear', 'Bottomwear', 'Winterwear', 'T-shirts', 'Handbags', 'Jackets and Coats', 'Watches', 'Hats'].map((item) => (
+                <label key={item} className='flex gap-2 cursor-pointer  hover:text-black items-center'>
+                  <input className='w-3 h-3 accent-brand-brown cursor-pointer' type="checkbox" value={item} onChange={toggleSubCategory} /> {item}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* price slider filter */}
+
+          <div className={`border border-gray-300 px-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
+            <PriceFilter onFilterChange={handlePriceChange} />
+          </div>
+          {/* <PriceFilter onFilterChange={(min, max) => setFilters({ min, max })} /> */}
 
 
 
-      {/* Right side */}
-      <div className='flex-1'>
-        <div className='flex justify-between text-base sm:text-2xl mb-4'>
-          <Title text={'ALL COLLECTION'} />
-          <select onChange={(e) => setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2 font-maison'>
-            <option value="relavent">Sort by: Relavent</option>
-            <option value="low-high">Low to High</option>
-            <option value="high-low">High to Low</option>
-          </select>
+          {/* Static Color Filter */}
+          <div className={`border border-gray-300 px-5 py-3 my-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+            <p className='mb-3 text-sm font-semibold tracking-wider text-primary'>COLOR</p>
+            <div className='flex flex-col gap-2'>
+              {['Black', 'Grey', 'Green', 'Red', 'Orange', 'Blue', 'Pink', 'White'].map(color => (
+                <p key={color} className='flex items-center gap-2 text-sm font-light font-maison'>
+                  <span className='w-3 h-3 rounded-full border border-gray-300' style={{ backgroundColor: color.toLowerCase() }}></span> {color}
+                </p>
+              ))}
+            </div>
+          </div>
+          {/* Static Size Filter */}
+          <div className={`border border-gray-300 px-5 py-3 my-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+            <p className='mb-3 text-sm font-semibold tracking-wider text-primary uppercase'>Size</p>
+            <div className='flex flex-col gap-2 text-sm font-light text-muted-background'>
+              {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((size) => (
+
+                <label key={size} className='flex gap-2 cursor-pointer hover:text-black items-center'>
+                  <input className='w-3 h-3 accent-brand-brown' type="checkbox" value={size} onChange={toggleSize} /> {size}
+                </label>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* 3 Column Grid with Hover Icons via ProductItem */}
 
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
-          {
-            filterProducts.map((item, index) => (
-              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
-              // <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
-              // description={item.description} rating={item.rating || "4.8"}/>
-            ))
-          }
-        </div>
 
-        {/* Pagination Controls */}
-        {/* <div className='flex justify-center items-center gap-2 mt-12 mb-10 font-maison'>
+        {/* Right side */}
+        <div className='flex-1'>
+          <div className='flex  justify-between items-center text-base sm:text-2xl mb-4'>
+            <p className='text-sm text-primary'>Showing 1-12 of 240 results</p>
+            {/* <Title text={'ALL COLLECTION'} /> */}
+            <div>
+              <select onChange={(e) => setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2 py-1.5  '>
+                <option value="relavent">Default Sorting</option>
+                <option value="low-high">Low to High</option>
+                <option value="high-low">High to Low</option>
+              </select>
+            </div>
+          </div>
+
+          {/* all filters list */}
+          <div className='flex flex-wrap items-center gap-y-3 gap-x-4 my-5'>
+            <p className='text-sm font-semibold whitespace-nowrap'>Active Filter</p>
+
+            <div className='flex flex-wrap items-center gap-2'>
+              <div className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm'>
+                <span>Women</span>
+                <button className='ml-1 hover:text-black font-bold cursor-pointer'>
+                  <IoMdClose />
+                </button>
+              </div>
+              <div className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm'>
+                <span>Black</span>
+                <button className='ml-1 hover:text-black font-bold cursor-pointer'>
+                  <IoMdClose />
+                </button>
+              </div>
+              <div className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm'>
+                <span>M</span>
+                <button className='ml-1 hover:text-black font-bold cursor-pointer'>
+                  <IoMdClose />
+                </button>
+              </div>
+              <div className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm'>
+                <span>Price: $25.00 - $125.00</span>
+                <button className='ml-1 hover:text-black font-bold cursor-pointer'>
+                  <IoMdClose />
+                </button>
+              </div>
+              <div className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm'>
+                <span>Kids</span>
+                <button className='ml-1 hover:text-black font-bold cursor-pointer'>
+                  <IoMdClose />
+                </button>
+              </div>
+              <div className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm'>
+                <span>Winterwear</span>
+                <button className='ml-1 hover:text-black font-bold cursor-pointer'>
+                  <IoMdClose />
+                </button>
+              </div>
+              <button className='text-sm underline ml-2 cursor-pointer hover:text-brand-brown whitespace-nowrap'>
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          {/* 3 Column Grid with Hover Icons via ProductItem */}
+
+          <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
+            {
+              filterProducts.map((item, index) => (
+                <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
+                // <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
+                // description={item.description} rating={item.rating || "4.8"}/>
+              ))
+            }
+          </div>
+
+          {/* Pagination Controls */}
+          {/* <div className='flex justify-center items-center gap-2 mt-12 mb-10 font-maison'>
           <button
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             className={`px-3 py-1 border rounded ${currentPage === 1 ? 'text-gray-300' : 'hover:bg-gray-100'}`}
@@ -224,6 +304,7 @@ const Collection = () => {
             &gt;
           </button>
         </div> */}
+        </div>
       </div>
     </div>
   )
