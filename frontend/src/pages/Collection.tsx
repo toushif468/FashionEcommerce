@@ -63,7 +63,7 @@ const Collection = () => {
     const value = e.target.value;
     setSize(curr =>
       curr.includes(value)
-        ? curr.filter(item => item !== value) :
+        ? curr.filter(item => item !== value) : //'s' !== 'M' 
         [...curr, value]
     )
   }
@@ -77,6 +77,7 @@ const Collection = () => {
     }
 
     if (category.length > 0) {
+      console.log(category)
       productsCopy = productsCopy.filter(item => category.includes(item.category));
     }
 
@@ -89,9 +90,13 @@ const Collection = () => {
       item.price >= priceRangefilters.min && item.price <= priceRangefilters.max
     );
 
-    // if (size.length > 0) {
-    //   productsCopy = productsCopy.filter(item => size.includes(item.sizes))
-    // }
+    // filter by size
+    if (size.length > 0) {
+      productsCopy = productsCopy.filter(item =>
+        item.sizes?.some(productSize => productSize && size.includes(productSize))
+      );
+    }
+    console.log(productsCopy)
 
     setFilterProducts(productsCopy);
   }
@@ -115,7 +120,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products, priceRangefilters.min, priceRangefilters.max]);
+  }, [category, subCategory, search, showSearch, products, size, priceRangefilters.min, priceRangefilters.max]);
 
 
   useEffect(() => {
