@@ -5,6 +5,7 @@ import ProductItem from '../components/ProductItem';
 import type { ProductType } from '../types/assets';
 import { IoMdClose } from "react-icons/io";
 import PriceFilter from '@/components/Filters/PriceFilter';
+import ColorFilter from '@/components/Filters/ColorFilter';
 
 const Collection = () => {
 
@@ -16,7 +17,7 @@ const Collection = () => {
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [size, setSize] = useState<string[]>([]);
-
+  const [color, setColor] = useState<string[]>([]);
   const [priceRangefilters, setPriceRangeFilters] = useState({
     min: 0,
     max: 500
@@ -67,7 +68,18 @@ const Collection = () => {
         [...curr, value]
     )
   }
+  const toggleColor = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setColor(curr =>
+      curr.includes(value)?
+      curr.filter(item => item !== value) :
+      [...curr, value]
+    );
+  }
 
+  useEffect(() => {
+    // console.log(color)
+  }, [color])
 
   const applyFilter = () => {
     let productsCopy = products.slice();
@@ -96,7 +108,6 @@ const Collection = () => {
         item.sizes?.some(productSize => productSize && size.includes(productSize))
       );
     }
-    console.log(productsCopy)
 
     setFilterProducts(productsCopy);
   }
@@ -187,15 +198,10 @@ const Collection = () => {
 
           {/* Static Color Filter */}
           <div className={`border border-gray-300 px-5 py-3 my-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-            <p className='mb-3 text-sm font-semibold tracking-wider text-primary'>COLOR</p>
-            <div className='flex flex-col gap-2'>
-              {['Black', 'Grey', 'Green', 'Red', 'Orange', 'Blue', 'Pink', 'White'].map(color => (
-                <p key={color} className='flex items-center gap-2 text-sm font-light font-maison'>
-                  <span className='w-3 h-3 rounded-full border border-gray-300' style={{ backgroundColor: color.toLowerCase() }}></span> {color}
-                </p>
-              ))}
-            </div>
+            <ColorFilter onFilterChange={toggleColor} selectedColors={color} />
           </div>
+
+
           {/* Static Size Filter */}
           <div className={`border border-gray-300 px-5 py-3 my-6 ${showFilter ? '' : 'hidden'} sm:block`}>
             <p className='mb-3 text-sm font-semibold tracking-wider text-primary uppercase'>Size</p>
