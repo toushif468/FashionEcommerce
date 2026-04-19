@@ -5,7 +5,7 @@ import userModel from "../models/userModel.js";
 
 
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET)
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' })
 }
 
 //route for user login
@@ -21,7 +21,7 @@ const loginUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch) {
-            const token = createToken(user._id)
+            const token = createToken(user._id,)
             return res.json({ success: true, token });
         }
         else {
@@ -83,7 +83,7 @@ const adminLogin = async (req, res) => {
         const { email, password } = req.body;
 
         if (email == process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            const token = jwt.sign(email + password, process.env.JWT_SECRET);
+            const token = jwt.sign(email + password, process.env.JWT_SECRET, { expiresIn: '1d' });
 
             res.json({ success: true, token })
         } else {

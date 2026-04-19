@@ -6,6 +6,7 @@ import type { ProductType } from '../types/assets';
 import { IoMdClose } from "react-icons/io";
 import PriceFilter from '@/components/Filters/PriceFilter';
 import ColorFilter from '@/components/Filters/ColorFilter';
+// import Title from '@/components/Title';
 
 const Collection = () => {
 
@@ -14,7 +15,7 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState<ProductType[]>([]);
 
   // Filtering States
-  const [category, setCategory] = useState<string[]>([]);
+  const [category, setCategory] = useState<string[]>([]); // [men]
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [size, setSize] = useState<string[]>([]);
   const [color, setColor] = useState<string[]>([]);
@@ -71,15 +72,15 @@ const Collection = () => {
   const toggleColor = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setColor(curr =>
-      curr.includes(value)?
-      curr.filter(item => item !== value) :
-      [...curr, value]
+      curr.includes(value) ?
+        curr.filter(item => item !== value) :
+        [...curr, value]
     );
   }
 
-  useEffect(() => {
-    // console.log(color)
-  }, [color])
+  // useEffect(() => {
+  //   console.log(color)
+  // }, [color])
 
   const applyFilter = () => {
     let productsCopy = products.slice();
@@ -88,8 +89,7 @@ const Collection = () => {
       productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
     }
 
-    if (category.length > 0) {
-      console.log(category)
+    if (category.length > 0) { // ['men']
       productsCopy = productsCopy.filter(item => category.includes(item.category));
     }
 
@@ -102,13 +102,17 @@ const Collection = () => {
       item.price >= priceRangefilters.min && item.price <= priceRangefilters.max
     );
 
+
+    if (color.length> 0) {
+      productsCopy = productsCopy.filter(item => item.colors?.some(productColor => productColor && color.includes(productColor)))
+    }
     // filter by size
     if (size.length > 0) {
       productsCopy = productsCopy.filter(item =>
         item.sizes?.some(productSize => productSize && size.includes(productSize))
       );
     }
-
+    console.log(productsCopy)
     setFilterProducts(productsCopy);
   }
 
@@ -220,7 +224,7 @@ const Collection = () => {
 
         {/* Right side */}
         <div className='flex-1'>
-          <div className='flex  justify-between items-center text-base sm:text-2xl mb-4'>
+          <div className='flex gap-4  justify-between items-center text-base sm:text-2xl mb-4'>
             <p className='text-sm text-primary'>Showing 1-12 of 240 results</p>
             {/* <Title text={'ALL COLLECTION'} /> */}
             <div>
@@ -233,7 +237,7 @@ const Collection = () => {
           </div>
 
           {/* all filters list */}
-          <div className='flex flex-wrap items-center gap-y-3 gap-x-4 my-5'>
+          {/* <div className='flex flex-wrap items-center gap-y-3 gap-x-4 my-5'>
             <p className='text-sm font-semibold whitespace-nowrap'>Active Filter</p>
 
             <div className='flex flex-wrap items-center gap-2'>
@@ -277,7 +281,69 @@ const Collection = () => {
                 Clear All
               </button>
             </div>
-          </div>
+          </div> */}
+
+          {/* all filters list */}
+          {(category.length > 0 || subCategory.length > 0 || size.length > 0 || color.length > 0) && (
+            <div className='flex flex-wrap items-center gap-y-3 gap-x-4 my-5'>
+              <p className='text-sm font-semibold whitespace-nowrap text-primary'>Active Filter</p>
+
+              <div className='flex flex-wrap items-center gap-2'>
+                {/* Dynamic Category Badges */}
+                {category.map(item => (
+                  <div key={item} className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm rounded-sm'>
+                    <span>{item}</span>
+                    <button onClick={() => setCategory(prev => prev.filter(c => c !== item))} className='ml-1 hover:text-black font-bold cursor-pointer'>
+                      <IoMdClose />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Dynamic Sub-Category Badges */}
+                {subCategory.map(item => (
+                  <div key={item} className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm rounded-sm'>
+                    <span>{item}</span>
+                    <button onClick={() => setSubCategory(prev => prev.filter(s => s !== item))} className='ml-1 hover:text-black font-bold cursor-pointer'>
+                      <IoMdClose />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Dynamic Size Badges */}
+                {size.map(item => (
+                  <div key={item} className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm rounded-sm'>
+                    <span>{item}</span>
+                    <button onClick={() => setSize(prev => prev.filter(s => s !== item))} className='ml-1 hover:text-black font-bold cursor-pointer'>
+                      <IoMdClose />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Dynamic Color Badges */}
+                {color.map(item => (
+                  <div key={item} className='flex items-center gap-2 bg-brand-amber px-3 py-2 text-sm rounded-sm'>
+                    <span>{item}</span>
+                    <button onClick={() => setColor(prev => prev.filter(c => c !== item))} className='ml-1 hover:text-black font-bold cursor-pointer'>
+                      <IoMdClose />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Clear All Button */}
+                <button
+                  onClick={() => {
+                    setCategory([]);
+                    setSubCategory([]);
+                    setSize([]);
+                    setColor([]);
+                  }}
+                  className='text-sm underline ml-2 cursor-pointer hover:text-brand-brown whitespace-nowrap font-medium'
+                >
+                  Clear All
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* 3 Column Grid with Hover Icons via ProductItem */}
 
