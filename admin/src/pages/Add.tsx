@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { assets, type Category, type Size, type SubCategory } from '../assets/assets'
+import { assets, type Category, type Size, type SubCategory, type Color } from '../assets/assets'
 import axios from 'axios';
 import { backendUrl } from '../App';
 import { toast } from 'react-toastify';
@@ -16,6 +16,7 @@ const Add = ({ token }: { token: string }) => {
   const [category, setCategory] = useState<Category>("Men");
   const [subCategory, setSubCategory] = useState<SubCategory>("Topwear");
   const [bestseller, setBestseller] = useState<boolean>(false);
+  const [color, setColor] = useState<Color[]>([]);
   const [sizes, setSizes] = useState<Size[]>([]);
 
   const onSubmitHandler = async (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -33,6 +34,7 @@ const Add = ({ token }: { token: string }) => {
       formData.append("category", category)
       formData.append("subCategory", subCategory)
       formData.append("bestseller", String(bestseller))
+      formData.append("color", JSON.stringify(color))
       formData.append("sizes", JSON.stringify(sizes))
 
       image1 && formData.append("image1", image1);
@@ -154,7 +156,43 @@ const Add = ({ token }: { token: string }) => {
           </div>
         </div>
       </div>
+      <div>
+        <p className='mb-2'>Colors</p>
+        <div className='flex gap-3'>
 
+          <div onClick={() => setColor(prev => prev.includes("Black") ? prev.filter(item => item !== "Black") : [...prev, "Black"])}>
+
+            <p className={`${color.includes("Black") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Black</p>
+          </div>
+
+          <div onClick={() => setColor(prev => prev.includes("Grey") ? prev.filter(item => item !== "Grey") : [...prev, "Grey"])} >
+            <p className={` ${color.includes("Grey") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Grey</p>
+          </div>
+
+          <div onClick={() => setColor(prev => prev.includes("Green") ? prev.filter(item => item !== "Green") : [...prev, "Green"])} >
+            <p className={` ${sizes.includes("Green") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Green</p>
+          </div>
+
+          <div onClick={() => setColor(prev => prev.includes("Red") ? prev.filter(item => item !== "Red") : [...prev, "Red"])}>
+            <p className={` ${sizes.includes("Red") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Red</p>
+          </div>
+
+          <div onClick={() => setColor(prev => prev.includes("Orange") ? prev.filter(item => item !== "Orange") : [...prev, "Orange"])}>
+            <p className={` ${sizes.includes("Orange") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Orange</p>
+          </div>
+                    <div onClick={() => setColor(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev, "Blue"])} >
+            <p className={` ${sizes.includes("Blue") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Blue</p>
+          </div>
+
+          <div onClick={() => setColor(prev => prev.includes("Pink") ? prev.filter(item => item !== "Pink") : [...prev, "Pink"])}>
+            <p className={` ${sizes.includes("XL") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>XL</p>
+          </div>
+
+          <div onClick={() => setColor(prev => prev.includes("White") ? prev.filter(item => item !== "White") : [...prev, "White"])}>
+            <p className={` ${sizes.includes("XXL") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>XXL</p>
+          </div>
+        </div>
+      </div>
       <div className='flex gap-2 mt-2'>
         <input onChange={() => setBestseller(prev => !prev)}
           checked={bestseller} type="checkbox" id='bestseller' />
