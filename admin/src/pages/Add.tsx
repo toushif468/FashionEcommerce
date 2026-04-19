@@ -162,34 +162,34 @@ const Add = ({ token }: { token: string }) => {
 
           <div onClick={() => setColor(prev => prev.includes("Black") ? prev.filter(item => item !== "Black") : [...prev, "Black"])}>
 
-            <p className={`${color.includes("Black") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Black</p>
+            <p className={`${color.includes("Black") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Black</p>
           </div>
 
           <div onClick={() => setColor(prev => prev.includes("Grey") ? prev.filter(item => item !== "Grey") : [...prev, "Grey"])} >
-            <p className={` ${color.includes("Grey") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Grey</p>
+            <p className={` ${color.includes("Grey") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Grey</p>
           </div>
 
           <div onClick={() => setColor(prev => prev.includes("Green") ? prev.filter(item => item !== "Green") : [...prev, "Green"])} >
-            <p className={` ${sizes.includes("Green") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Green</p>
+            <p className={` ${color.includes("Green") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Green</p>
           </div>
 
           <div onClick={() => setColor(prev => prev.includes("Red") ? prev.filter(item => item !== "Red") : [...prev, "Red"])}>
-            <p className={` ${sizes.includes("Red") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Red</p>
+            <p className={` ${color.includes("Red") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Red</p>
           </div>
 
           <div onClick={() => setColor(prev => prev.includes("Orange") ? prev.filter(item => item !== "Orange") : [...prev, "Orange"])}>
-            <p className={` ${sizes.includes("Orange") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Orange</p>
+            <p className={` ${color.includes("Orange") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Orange</p>
           </div>
           <div onClick={() => setColor(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev, "Blue"])} >
-            <p className={` ${sizes.includes("Blue") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Blue</p>
+            <p className={` ${color.includes("Blue") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Blue</p>
           </div>
 
           <div onClick={() => setColor(prev => prev.includes("Pink") ? prev.filter(item => item !== "Pink") : [...prev, "Pink"])}>
-            <p className={` ${sizes.includes("XL") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>XL</p>
+            <p className={` ${color.includes("Pink") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>Pink</p>
           </div>
 
           <div onClick={() => setColor(prev => prev.includes("White") ? prev.filter(item => item !== "White") : [...prev, "White"])}>
-            <p className={` ${sizes.includes("XXL") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>XXL</p>
+            <p className={` ${color.includes("White") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer rounded-full px-3 py-1 `}>White</p>
           </div>
         </div>
       </div>
