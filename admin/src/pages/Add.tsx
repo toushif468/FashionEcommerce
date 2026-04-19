@@ -180,7 +180,7 @@ const Add = ({ token }: { token: string }) => {
           <div onClick={() => setColor(prev => prev.includes("Orange") ? prev.filter(item => item !== "Orange") : [...prev, "Orange"])}>
             <p className={` ${sizes.includes("Orange") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Orange</p>
           </div>
-                    <div onClick={() => setColor(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev, "Blue"])} >
+          <div onClick={() => setColor(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev, "Blue"])} >
             <p className={` ${sizes.includes("Blue") ? "bg-pink-100" : "bg-slate-200"} cursor-pointer px-3 py-1 `}>Blue</p>
           </div>
 
