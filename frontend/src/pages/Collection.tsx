@@ -6,6 +6,7 @@ import type { ProductType } from '../types/assets';
 import { IoMdClose } from "react-icons/io";
 import PriceFilter from '@/components/Filters/PriceFilter';
 import ColorFilter from '@/components/Filters/ColorFilter';
+import GreyHeaderSection from '@/components/GreyHeaderSection';
 // import Title from '@/components/Title';
 
 const Collection = () => {
@@ -102,9 +103,10 @@ const Collection = () => {
       item.price >= priceRangefilters.min && item.price <= priceRangefilters.max
     );
 
-
-    if (color.length> 0) {
-      productsCopy = productsCopy.filter(item => item.colors?.some(productColor => productColor && color.includes(productColor)))
+    if (color.length > 0) {
+      productsCopy = productsCopy.filter(item =>
+        item.colors?.some(productColor => productColor && color.includes(productColor))
+      )
     }
     // filter by size
     if (size.length > 0) {
@@ -112,7 +114,6 @@ const Collection = () => {
         item.sizes?.some(productSize => productSize && size.includes(productSize))
       );
     }
-    console.log(productsCopy)
     setFilterProducts(productsCopy);
   }
 
@@ -135,29 +136,21 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products, size, priceRangefilters.min, priceRangefilters.max]);
+  }, [category, subCategory, search, showSearch, products, size, color, priceRangefilters.min, priceRangefilters.max]);
 
 
   useEffect(() => {
     sortProduct();
   }, [sortType]);
 
+  const path = [
+    { to: '/', text: 'Home' },
+  ]
 
   return (
     <div className='w-full border-t'>
 
-      <div className='bg-gray-50 h-45 w-full flex items-center justify-center'>
-        <div className='text-center'>
-          <h1 className='font-bold text-4xl md:text-4xl mb-3 text-primary tracking-tight'>
-            Shop
-          </h1>
-          <div className='flex gap-3 items-center justify-center text-sm font-medium text-muted-foreground'>
-            <p className='text-muted-foreground hover:text-brand-brown cursor-pointer transition-colors'>Home</p>
-            <span className='text-muted-foreground/50 text-sm'>/</span>
-            <p className='text-muted-foreground'>Shop</p>
-          </div>
-        </div>
-      </div>
+      <GreyHeaderSection path={path} title="Collection" />
       <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10  border-gray-200 '>
         {/* Left side  */}
         {/* Filter options */}
@@ -350,7 +343,7 @@ const Collection = () => {
           <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
             {
               filterProducts.map((item, index) => (
-                <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
+                <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} subCategory={item.subCategory}/>
                 // <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} category={item.category} 
                 // description={item.description} rating={item.rating || "4.8"}/>
               ))

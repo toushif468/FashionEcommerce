@@ -50,7 +50,7 @@ export interface ProductType {
   category: Category;
   subCategory: SubCategory;
   sizes: Size[];
-  colors: Color[]
+  colors: Color[];
   date: number;
   bestseller: boolean;
 }

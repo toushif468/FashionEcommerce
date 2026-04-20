@@ -8,28 +8,29 @@ interface ProductItemProps {
     image: string[];
     name: string;
     price: number;
+    subCategory: string;
     // description?: string;
     // rating?: string;
     // category?: string;
 }
 
-const ProductItem = ({ id, image, name, price }: ProductItemProps) => {
+const ProductItem = ({ id, image, name, price, subCategory }: ProductItemProps) => {
     const { currency } = useContext(ShopContext);
 
     return (
-        <div className='text-gray-700 cursor-pointer group'>
+        <Link to={`/product/${id}`} className='text-gray-700 cursor-pointer group'>
             {/* Image Container */}
             <div className='relative overflow-hidden bg-[#f5f5f5] rounded-sm'>
 
                 {/* Product Image */}
-                <Link to={`/product/${id}`}>
+                <div>
 
                     <img
                         className='hover:scale-110 transition duration-500 ease-in-out w-full h-full object-cover'
                         src={image[0]}
                         alt={name}
                     />
-                </Link>
+                </div>
                 {/* 50% Off Badge */}
                 <div className='absolute top-3 left-3 bg-white px-2 py-1 text-[10px] text-green-600 font-semibold shadow-sm'>
                     50% off
@@ -56,21 +57,21 @@ const ProductItem = ({ id, image, name, price }: ProductItemProps) => {
             </div>
 
             {/* Product Info */}
-            <div className='pt-3 flex flex-col gap-1'>
+            <div className='pt-3'>
                 <div className='flex justify-between items-center'>
-                    <p className='text-xs text-gray-500 font-maison uppercase tracking-wider'>category</p>
+                    <p className='text-xs text-gray-500 uppercase tracking-wider'>{subCategory}</p>
 
                     {/* --- STATIC RATING --- */}
                     <div className='flex items-center justify-between gap-1'>
                         <RiStarFill className='text-brand-amber' size={18} />
-                        <span className='text-base font-semibold text-secondary-foreground font-maison'>4.8</span>
+                        <span className='text-base font-semibold text-secondary-foreground'>4.8</span>
                     </div>
                 </div>
 
-                <p className='text-lg font-semibold text-brand-brown line-clamp-1'>{name}</p>
+                <p className='text-lg font-bold text-brand-brown line-clamp-1'>{name}</p>
 
-                <div className='flex items-center gap-2 mt-2'>
-                    <p className='text-base font-bold font-maison text-brand-brown'>
+                <div className='flex items-center gap-2 mt-4'>
+                    <p className='text-lg font-bold font-maison text-brand-brown'>
                         {currency}{price}
                     </p>
                     {/* Optional: Add a crossed out original price if you want it to look like the image */}
@@ -79,7 +80,7 @@ const ProductItem = ({ id, image, name, price }: ProductItemProps) => {
                     </p>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

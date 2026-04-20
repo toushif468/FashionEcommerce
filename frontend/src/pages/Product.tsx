@@ -5,6 +5,7 @@ import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 import { useParams, Link } from 'react-router-dom';
 import { FiHeart, FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed
+import GreyHeaderSection from '@/components/GreyHeaderSection';
 
 const Product = () => {
   const { productId } = useParams();
@@ -34,20 +35,16 @@ const Product = () => {
 
   const colors = ['Black', 'Grey', 'Green', 'Red', 'Orange', 'Blue', 'Pink', 'White'];
 
+  const path = [
+    { to: '/', text: 'Home' },
+    { to: '/collection', text: 'Collection' },
+  ]
+
   return productData ? (
     <div className='pt-0 transition-opacity ease-in duration-500 opacity-100'>
 
       {/* Gray Header Section */}
-      <div className='bg-[#f3f3f3] py-12 mb-10 flex flex-col items-center justify-center border-b border-gray-200'>
-        <h1 className='text-3xl sm:text-4xl font-maison font-bold mb-3 tracking-tight'>Product Details</h1>
-        <div className='flex items-center gap-2 text-sm font-maison text-gray-600'>
-          <Link to='/' className='hover:text-black transition-colors'>Home</Link>
-          <span>/</span>
-          <Link to='/collection' className='hover:text-black transition-colors'>Collection</Link>
-          <span>/</span>
-          <span className='text-gray-600 cursor-default'>Product Details</span>
-        </div>
-      </div>
+      <GreyHeaderSection path={path} title="Product Details" />
 
       <div className='px-4 sm:px-[5vw]'>
         <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row'>
@@ -68,9 +65,9 @@ const Product = () => {
           <div className='flex-1'>
             {/* Added category title "Coats" */}
             <p className='text-gray-400 text-sm font-maison mb-1'>Coats</p>
-            
+
             <h1 className='font-bold text-3xl font-maison'>{productData.name}</h1>
-            
+
             <div className='flex items-center gap-1 mt-2'>
               <div className='flex items-center gap-1'>
                 {[...Array(4)].map((_, i) => <img key={i} src={assets.star_icon} alt="" className="w-3" />)}
@@ -84,9 +81,9 @@ const Product = () => {
               <p className='text-sm font-bold font-maison mb-3'>Color : <span className='font-normal text-gray-500'>Brown</span></p>
               <div className='flex gap-2'>
                 {colors.map((color) => (
-                  <div 
-                    key={color} 
-                    className='w-6 h-6 rounded-full border border-gray-300 cursor-pointer hover:scale-110 transition-transform' 
+                  <div
+                    key={color}
+                    className='w-6 h-6 rounded-full border border-gray-300 cursor-pointer hover:scale-110 transition-transform'
                     style={{ backgroundColor: color.toLowerCase() }}
                     title={color}
                   ></div>
@@ -116,7 +113,7 @@ const Product = () => {
               </div>
 
               <button onClick={() => addToCart(productData._id, size)} className='bg-[#3f1700] text-white px-8 py-3.5 text-sm font-bold hover:bg-black transition-colors'>ADD TO CART</button>
-              
+
               <button className='bg-[#f0c070] text-black px-8 py-3.5 text-sm font-bold hover:bg-[#e0b060] transition-colors'>BUY NOW</button>
 
               <button className='p-3 border border-gray-300 hover:text-red-500 transition-colors'>
