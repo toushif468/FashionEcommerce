@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { assets, type Category, type Size, type SubCategory, type Color } from '../assets/assets'
 import axios from 'axios';
 import { backendUrl } from '../App';
