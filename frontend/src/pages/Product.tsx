@@ -3,7 +3,7 @@ import { ShopContext } from '../context/ShopContext';
 import type { ProductType, Size } from '../types/assets';
 import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
-import { useParams, Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { FiHeart, FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed
 import GreyHeaderSection from '@/components/GreyHeaderSection';
 
