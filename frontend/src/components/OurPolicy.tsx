@@ -8,11 +8,11 @@ const OurPolicy = () => {
             <div className='flex items-center gap-4'>
                 <div className='relative shrink-0'>
                     {/* Offset Amber Background */}
-                    <div className='absolute -bottom-1 -right-1 bg-brand-amber w-10 h-10 rounded-full -z-10 opacity-70'></div>
-                    <RiBox3Line className='w-10 h-10 lg:w-12 lg:h-12 text-brand-brown opacity-90' />
+                    <div className='absolute -bottom-0.5 -right-1 bg-brand-amber w-7 h-7 md:w-10 md:h-10 rounded-full -z-10 opacity-70'></div>
+                    <RiBox3Line className='w-10 h-10 lg:w-15 lg:h-15 text-brand-brown ' />
                 </div>
                 <div>
-                    <p className='font-bold text-gray-800 text-sm md:text-base font-maison'>Free Shipping</p>
+                    <p className='font-bold text-gray-800 text-sm md:text-lg font-maison'>Free Shipping</p>
                     <p className='text-gray-400 font-maison'>Free shipping for order above $180</p>
                 </div>
             </div>
@@ -20,11 +20,11 @@ const OurPolicy = () => {
             {/* Flexible Payment Policy */}
             <div className='flex items-center gap-4'>
                 <div className='relative shrink-0'>
-                    <div className='absolute -bottom-1 -right-1 bg-brand-amber w-10 h-10 rounded-full -z-10 opacity-70'></div>
-                    <RiWalletLine className='w-10 h-10 lg:w-12 lg:h-12 text-brand-brown opacity-90' />
+                    <div className='absolute -bottom-0.5 -right-1 bg-brand-amber w-7 h-7 md:w-10 md:h-10 rounded-full -z-10 opacity-70'></div>
+                    <RiWalletLine className='w-10 h-10 lg:w-15 lg:h-15 text-brand-brown' />
                 </div>
                 <div>
-                    <p className='font-bold text-gray-800 text-sm md:text-base font-maison'>Flexible Payment</p>
+                    <p className='font-bold text-gray-800 text-sm md:text-lg font-maison'>Flexible Payment</p>
                     <p className='text-gray-400'>Multiple secure payment options</p>
                 </div>
             </div>
@@ -32,11 +32,11 @@ const OurPolicy = () => {
             {/* Support Policy */}
             <div className='flex items-center gap-4'>
                 <div className='relative shrink-0'>
-                    <div className='absolute -bottom-1 -right-1 bg-brand-amber w-10 h-10 rounded-full -z-10 opacity-70'></div>
-                    <RiCustomerService2Line className='w-10 h-10 lg:w-12 lg:h-12 text-brand-brown opacity-90' />
+                    <div className='absolute -bottom-0.5 -right-1 bg-brand-amber w-7 h-7 md:w-10 md:h-10 rounded-full -z-10 opacity-70'></div>
+                    <RiCustomerService2Line className='w-10 h-10 lg:w-15 lg:h-15 text-brand-brown' />
                 </div>
                 <div>
-                    <p className='font-bold text-gray-800 text-sm md:text-base font-maison'>24x7 Support</p>
+                    <p className='font-bold text-gray-800 text-sm md:text-lg font-maison'>24x7 Support</p>
                     <p className='text-gray-400 font-maison'>We support online all days.</p>
                 </div>
             </div>

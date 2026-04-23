@@ -3,9 +3,10 @@ import { ShopContext } from '../context/ShopContext';
 import type { ProductType, Size } from '../types/assets';
 import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FiHeart, FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed
 import GreyHeaderSection from '@/components/GreyHeaderSection';
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 const Product = () => {
   const { productId } = useParams();
@@ -13,21 +14,33 @@ const Product = () => {
   const [productData, setProductData] = useState<ProductType | null>(null);
   const [image, setImage] = useState<string>('');
   const [size, setSize] = useState<Size | null>(null);
-  const [quantity, setQuantity] = useState<number>(1); // Quantity state for counter
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const fetchProductData = async () => {
-    products.map((item) => {
-      if (item._id === productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        return null;
-      }
-    })
-  }
+
 
   useEffect(() => {
-    fetchProductData();
+    const foundProduct = products.find((item) => item._id === productId);
+
+    if (foundProduct) {
+      setProductData(foundProduct);
+      setImage(foundProduct.image[0]);
+    }
   }, [productId, products]);
+
+
+  const handleNextImage = () => {
+    if (!productData) return;
+    const currIndex = productData.image.indexOf(image);
+    const nextIndex = (currIndex + 1) % productData.image.length;
+    setImage(productData.image[nextIndex]);
+  }
+
+  const handlePrevImage = () => {
+    if (!productData) return;
+    const currIndex = productData.image.indexOf(image);
+    const prevIndex = (currIndex - 1) % productData.image.length;
+    setImage(productData.image[prevIndex]);
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -35,30 +48,43 @@ const Product = () => {
 
   const colors = ['Black', 'Grey', 'Green', 'Red', 'Orange', 'Blue', 'Pink', 'White'];
 
-  const path = [
-    { to: '/', text: 'Home' },
-    { to: '/collection', text: 'Collection' },
-  ]
-
   return productData ? (
     <div className='pt-0 transition-opacity ease-in duration-500 opacity-100'>
 
       {/* Gray Header Section */}
-      <GreyHeaderSection path={path} title="Product Details" />
+      <GreyHeaderSection path={[
+        { to: '/', text: 'Home' },
+        { to: '/collection', text: 'Collection' }
+      ]} title="Products Details" />
 
       <div className='px-4 sm:px-[5vw]'>
         <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row'>
 
           {/* Product Images */}
-          <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
-            <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
+          <div className='flex-1 flex flex-col gap-3'>
+            <div className='relative group overflow-hidden bg-gray-50'>
+              <button onClick={handlePrevImage} className='absolute left-4 top-1/2 z-20 -translate-y-1/2  bg-white  text-foreground p-4  hover:bg-brand-amber'>
+                <FaAngleLeft className='size-5' />
+              </button>
+              <button onClick={handleNextImage} className='absolute right-5 top-1/2 z-20 -translate-y-1/2  bg-white  text-foreground p-4 hover:bg-brand-amber'>
+                <FaAngleRight className='size-5' />
+              </button>
+              <div className='w-full aspect-4/5 flex items-center justify-center'>
+                <img className='w-full h-full object-cover transition-all duration-300' src={image} alt="" />
+              </div>
+            </div>
+
+            {/* //thumbnail navigation */}
+            <div className='grid grid-cols-4 gap-3'>
               {productData.image.map((item, index) => (
-                <img onClick={() => setImage(item)} className='w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer border border-gray-100' src={item} key={index} alt="" />
+                <div key={index} onClick={() => setImage(item)} className={`relative cursor-pointer overflow-hidden border-2 transition-all duration-200 ${item === image ? 'border border-brand-brown' : 'border-transparent hover:border-gray-300'}`}>
+                  <img src={item} className='w-full h-full object-cover' alt={`Thumbnail ${index}`} />
+                  {/* Subtle overlay for inactive thumbnails */}
+                  {item !== image && <div className="absolute inset-0 bg-white/20 hover:bg-transparent"></div>}
+                </div>
               ))}
             </div>
-            <div className='w-full sm:w-[80%]'>
-              <img className='w-full h-auto' src={image} alt="" />
-            </div>
+
           </div>
 
           {/* Product Information */}
