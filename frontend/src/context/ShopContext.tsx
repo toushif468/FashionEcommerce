@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import type { ProductType, Size } from "../types/assets";
+import type { Color, ProductType, Size } from "../types/assets";
 // import { products } from "../assets/assets";
 import { toast } from "react-toastify";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
@@ -12,7 +12,9 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL as string;
 
 type CartItemsType = {
   [productId: string]: {
-    [size: string]: number;
+    [size: string]: {
+      [color: string]: number;
+    }
   };
 };
 
@@ -27,9 +29,9 @@ interface ShopContextType {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItemsType;
   setCartItems: React.Dispatch<React.SetStateAction<CartItemsType>>;
-  addToCart: (itemId: string, size: Size | null) => void;
+  addToCart: (itemId: string, size: Size | null, color: Color | null) => void;
   getCartCount: () => number;
-  updateQuantity: (itemId: string, size: Size, quantity: number) => void;
+  updateQuantity: (itemId: string, size: Size, color: Color, quantity: number) => void;
   getCartAmount: () => number;
 
   token: string;
@@ -87,29 +89,30 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     }
   }
 
-  const addToCart = async (itemId: string, size: Size | null) => {
-    if (!size) {
-      toast.error("Select Product Size");
+  const addToCart = async (itemId: string, size: Size | null, color: Color | null) => {
+    if (!size || !color) {
+      toast.error("Select Product Size or Color");
       return;
     }
 
     let cartData = structuredClone(cartItems);
 
-    if (cartData[itemId]) {
-      if (cartData[itemId][size]) {
-        cartData[itemId][size] += 1;
-      } else {
-        cartData[itemId][size] = 1;
-      }
-    } else {
+    if (!cartData[itemId]) {
       cartData[itemId] = {};
-      cartData[itemId][size] = 1;
+    }
+    if (!cartData[itemId][size]) {
+      cartData[itemId][size] = {};
+    }
+    if (cartData[itemId][size][color]) {
+      cartData[itemId][size][color] += 1;
+    } else {
+      cartData[itemId][size][color] = 1;
     }
     setCartItems(cartData);
 
     if (token) {
       try {
-        await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
+        await axios.post(backendUrl + '/api/cart/add', { itemId, size, color }, { headers: { token } })
       } catch (error) {
         console.log(error)
         // toast.error(error.message)`
@@ -121,26 +124,28 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     let totalCount = 0;
     for (const items in cartItems) {
       for (const item in cartItems[items]) {
-        try {
-          if (cartItems[items][item] > 0)
-            totalCount += cartItems[items][item];
-        } catch (error) {
-          console.error(error);
+        for (const color in cartItems[items][item]) {
+          try {
+            if (cartItems[items][item][color] > 0)
+              totalCount += cartItems[items][item][color];
+          } catch (error) {
+            console.error(error);
+          }
         }
       }
     }
     return totalCount;
   };
 
-  const updateQuantity = async (itemId: string, size: Size, quantity: number) => {
+  const updateQuantity = async (itemId: string, size: Size, color: Color, quantity: number) => {
     let cartData = structuredClone(cartItems);
-    if (size && cartData[itemId]) {
-      cartData[itemId][size] = quantity;
+    if (size && color && cartData[itemId]) {
+      cartData[itemId][size][color] = quantity;
       setCartItems(cartData);
 
       if (token) {
         try {
-          await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } })
+          await axios.post(backendUrl + '/api/cart/update', { itemId, size, color, quantity }, { headers: { token } })
 
         } catch (error) {
           console.log(error)
@@ -177,21 +182,27 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
   const getCartAmount = () => {
     let totalAmount = 0;
-    for (const items in cartItems) {
-      let itemInfo = products.find((product) => product._id === items);
-      for (const item in cartItems[items]) {
-        try {
-          if (cartItems[items][item] > 0) {
-            totalAmount += itemInfo!.price * cartItems[items][item];
-          }
-        } catch (error) {
+    for (const itemId in cartItems) {
+      let itemInfo = products.find((product) => product._id === itemId);
 
+      if (itemInfo) {
+        for (const size in cartItems[itemId]) {
+          for (const color in cartItems[itemId][size]) {
+            try {
+              const quantity = cartItems[itemId][size][color];
+              if (quantity > 0) {
+                totalAmount += itemInfo!.price * quantity;
+              }
+            } catch (error) {
+              console.error("Error calculating cart amount:", error);
+            }
+          }
         }
       }
-    }
 
+    }
     return totalAmount;
-  }
+  };
 
 
   useEffect(() => {

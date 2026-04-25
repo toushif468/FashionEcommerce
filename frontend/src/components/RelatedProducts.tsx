@@ -21,8 +21,9 @@ const RelatedProducts = ({ category, subCategory }: RelatedProductsProps) => {
 
   return (
     <div className='my-24'>
-      <div className='text-center text-3xl py-2'>
-        <Title text={'RELATED PRODUCTS'} />
+      <div className='text-center text-4xl mb-15'>
+        <p className='text-sm text-muted-foreground mb-3 uppercase tracking-widest'>Related Product</p>
+        <Title text={'Explore Related Products'} />
       </div>
 
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
