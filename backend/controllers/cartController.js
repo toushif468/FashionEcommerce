@@ -39,8 +39,23 @@ const updateCart = async (req, res) => {
         const userData = await userModel.findById(userId)
         let cartData = await userData.cartData || {};
 
-
-        cartData[itemId][size][color] = quantity
+        if (!cartData[itemId]) {
+            cartData[itemId] = {};
+        }
+        if (!cartData[itemId][size]) {
+            cartData[itemId][size] = {};
+        }
+        if (quantity === 0) {
+            delete cartData[itemId][size][color];
+            if (Object.keys(cartData[itemId][size]).length === 0) {
+                delete cartData[itemId][size];
+            }
+            if (Object.keys(cartData[itemId]).length === 0) {
+                delete cartData[itemId];
+            }
+        } else {
+            cartData[itemId][size][color] = quantity;
+        }
 
         await userModel.findByIdAndUpdate(userId, { cartData });
         res.json({ success: true, message: "Cart Updated" });

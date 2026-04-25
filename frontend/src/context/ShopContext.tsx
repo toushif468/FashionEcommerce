@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Color, ProductType, Size } from "../types/assets";
-// import { products } from "../assets/assets";
 import { toast } from "react-toastify";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import axios from "axios";

@@ -59,5 +59,6 @@ export default products;
 export type CartDataItem = {
   _id: string;
   size: Size;
+  color: Color;
   quantity: number;
 };

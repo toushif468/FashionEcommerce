@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext';
 import type { Color, ProductType, Size } from '../types/assets';
-import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 import { useParams } from 'react-router-dom';
 import { FiHeart, FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed

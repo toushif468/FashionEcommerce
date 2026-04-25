@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
-import type { CartDataItem, Size } from "../types/assets";
+import type { CartDataItem, Color, Size } from "../types/assets";
 import Title from '../components/Title';
 import { assets } from '../assets/assets';
 import CartTotal from '../components/CartTotal';
@@ -17,12 +17,15 @@ const Cart = () => {
       const tempData = [];
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
-          if (cartItems[items][item] > 0) {
-            tempData.push({
-              _id: items,
-              size: item as Size,
-              quantity: cartItems[items][item]
-            })
+          for (const color in cartItems[items][item]) {
+            if (cartItems[items][item][color] > 0) {
+              tempData.push({
+                _id: items,
+                size: item as Size,
+                color: color as Color,
+                quantity: cartItems[items][item][color]
+              })
+            }
           }
         }
       }
@@ -55,9 +58,9 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))} className='border border-gray-200 max-w-10 sm:max-w-20 pc-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
+                <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, item.color, Number(e.target.value))} className='border border-gray-200 max-w-10 sm:max-w-20 pc-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
 
-                <img onClick={() => updateQuantity(item._id, item.size, 0)} className='w-4 mr-4 cursor-pointer' src={assets.bin_icon} alt="" />
+                <img onClick={() => updateQuantity(item._id, item.size, item.color, 0)} className='w-4 mr-4 cursor-pointer' src={assets.bin_icon} alt="" />
               </div>
             )
 
