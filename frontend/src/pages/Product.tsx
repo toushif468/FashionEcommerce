@@ -140,7 +140,7 @@ const Product = () => {
               <p className='text-sm font-bold font-maison text-primary'>Size : <span className='font-normal text-gray-500'>{size || 'Select'}</span></p>
               <div className='flex gap-3'>
                 {productData.sizes.map((item, index) => (
-                  <button onClick={() => setSize(item)} className={`border py-3.5 px-7 text-base text-primary transition-all ${item === size ? 'bg-[#f0c070] border-[#f0c070] text-primary font-bold' : 'bg-white border-gray-200 hover:bg-muted'}`} key={index}>{item}</button>
+                  <button onClick={() => setSize(item)} className={`border py-3 px-7 text-base text-primary transition-all ${item === size ? 'bg-[#f0c070] border-[#f0c070] text-primary font-bold' : 'bg-white border-gray-200 hover:bg-muted'}`} key={index}>{item}</button>
                 ))}
               </div>
             </div>

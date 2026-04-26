@@ -30,6 +30,7 @@ interface ShopContextType {
   setCartItems: React.Dispatch<React.SetStateAction<CartItemsType>>;
   addToCart: (itemId: string, size: Size | null, color: Color | null) => void;
   getCartCount: () => number;
+  clearCart: () => void;
   updateQuantity: (itemId: string, size: Size, color: Color, quantity: number) => void;
   getCartAmount: () => number;
 
@@ -51,6 +52,7 @@ export const ShopContext = createContext<ShopContextType>({
   setCartItems: () => { },
   addToCart: async () => { },
   getCartCount: () => 0,
+  clearCart: async () => { },
   updateQuantity: async () => { },
   getCartAmount: () => 0,
   token: '',
@@ -161,6 +163,27 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   };
 
 
+  const clearCart = async () => {
+    setCartItems({});
+    if (token) {
+      try {
+        const response = await axios.post(backendUrl + '/api/cart/clear', {}, { headers: { token } })
+        if (response.data.success) {
+          toast.success("Cart cleared successfully");
+        } else {
+          toast.error(response.data.message || "Failed to clear cart on server");
+        }
+
+
+      } catch (error) {
+        console.log(error)
+        toast.error("Failed to clear cart on server");
+        getUserCart(token);
+      }
+    }
+  }
+
+
   const getUserCart = async (token: string) => {
     try {
       const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
@@ -232,6 +255,7 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     setCartItems,
     addToCart,
     getCartCount,
+    clearCart,
     updateQuantity,
     getCartAmount,
     navigate,

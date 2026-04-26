@@ -6,11 +6,8 @@ import type { ProductType } from '../types/assets';
 import { IoMdClose } from "react-icons/io";
 import PriceFilter from '@/components/Filters/PriceFilter';
 import ColorFilter from '@/components/Filters/ColorFilter';
-// import GreyHeaderSection from '@/components/GreyHeaderSection';
-import { Link } from 'react-router-dom';
 import GreyHeaderSection from '@/components/GreyHeaderSection';
 import OurPolicy from '@/components/OurPolicy';
-// import Title from '@/components/Title';
 
 const Collection = () => {
 
