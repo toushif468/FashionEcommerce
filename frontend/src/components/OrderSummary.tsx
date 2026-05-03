@@ -1,5 +1,4 @@
 import { ShopContext } from "@/context/ShopContext";
-import type { CartDataItem } from "@/types/assets";
 import { useContext } from "react";
 
 interface OrderSummaryProps {

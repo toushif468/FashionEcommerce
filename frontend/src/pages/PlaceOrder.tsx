@@ -1,4 +1,3 @@
-import { use, useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { ShopContext } from '../context/ShopContext'
 import type { ProductType } from '../types/assets'
@@ -8,8 +7,9 @@ import GreyHeaderSection from '@/components/GreyHeaderSection'
 import OrderSummary from '@/components/OrderSummary'
 import { FiChevronDown } from 'react-icons/fi' // Make sure to install/import this icon
 import { handleRazorpayPayment, handleStripePayment } from '@/utils/payment'
-import { BsCashStack, BsCreditCard } from "react-icons/bs";
+import { BsCashStack } from "react-icons/bs";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
+import { useContext, useState } from 'react'
 
 
 export const PlaceOrder = () => {

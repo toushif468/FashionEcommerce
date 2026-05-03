@@ -2,7 +2,7 @@ import  { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
 import axios from 'axios';
-import type { OrderItemType, OrderType, ProductType } from '../types/assets';
+import type { OrderItemType, OrderType } from '../types/assets';
 
 const Orders = () => {
 
