@@ -2,45 +2,11 @@ import  { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
 import axios from 'axios';
-import type { ProductType } from '../types/assets';
+import type { OrderItemType, OrderType, ProductType } from '../types/assets';
 
 const Orders = () => {
 
-  interface OrderItemType extends ProductType {
-    quantity: number;
-    size: string;
-    status: string;
-    payment: boolean;
-    paymentMethod: string;
-    date: number;
-  }
 
-  interface CartItemType extends ProductType {
-    quantity: number;
-    size: string;
-  }
-
-  interface OrderType {
-    _id: string;
-    userId: string;
-    items: CartItemType[];
-    amount: number;
-    address: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      street: string;
-      city: string;
-      state: string;
-      zipcode: string;
-      country: string;
-      phone: string;
-    };
-    status: string;
-    paymentMethod: string;
-    payment: boolean;
-    date: number;
-  }
 
   const { backendUrl, token, currency } = useContext(ShopContext);
 
@@ -93,6 +59,7 @@ const Orders = () => {
 
   return (
     <div className='border-t border-gray-300 pt-16'>
+      
       <div className='text-2xl'>
         <Title text={'MY ORDERS'} />
       </div>

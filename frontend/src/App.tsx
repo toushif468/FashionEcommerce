@@ -23,7 +23,7 @@ const App = () => {
   return (
     <div className='overflow-hidden'> {/* Parent wrapper */}
       <TopBar />
-      <div className='px-4 sm:px-[2vw] md:px-[3vw] lg:px-[5vw]'>
+      <div className='px-5 sm:px-[4vw] md:px-[5vw] lg:px-[8.5vw]'>
         <ToastContainer />
         <Navbar />
         <SearchBar />

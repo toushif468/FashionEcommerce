@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import type { CartDataItem, Color, Size } from "../types/assets";
-import Title from '../components/Title';
-// Import required icons
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { IoCloseOutline } from "react-icons/io5";
 import GreyHeaderSection from '@/components/GreyHeaderSection';
+import OurPolicy from '@/components/OurPolicy';
+import OrderSummary from '@/components/OrderSummary';
 
 const Cart = () => {
   // Grab necessary data from your context
-  const { products, currency, cartItems, updateQuantity, navigate, getCartAmount, getCartCount, delivery_fee, clearCart } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, clearCart } = useContext(ShopContext);
 
   const [cartData, setCartData] = useState<CartDataItem[]>([]);
 
@@ -35,22 +35,19 @@ const Cart = () => {
   }, [cartItems, products]);
 
   // Static/Context data for the summary
-  const subTotal = getCartAmount ? getCartAmount() : 0;
-  const itemsCount = getCartCount ? getCartCount() : cartData.length;
-  const shipping = subTotal > 0 && delivery_fee ? delivery_fee : 0;
-  const taxes = 0; // Static data for now
-  const couponDiscount = 100; // Static data matching the image
-  const total = subTotal + shipping + taxes - couponDiscount;
+  // const subTotal = getCartAmount ? getCartAmount() : 0;
+  // const itemsCount = getCartCount ? getCartCount() : cartData.length;
+  // const shipping = subTotal > 0 && delivery_fee ? delivery_fee : 0;
+  // const taxes = 0; // Static data for now
+  // const couponDiscount = 100; // Static data matching the image
+  // const total = subTotal + shipping + taxes - couponDiscount;
 
   return (
-    <div className='border-t border-gray-300 pt-10 sm:pt-14'>
+    <div className='border-t border-gray-300'>
       <GreyHeaderSection path={[
         { to: '/', text: 'Home' },
       ]} title='Shopping Cart' />
 
-      <div className='text-2xl mb-8 mt-6'>
-        <Title text={'YOUR CART'} />
-      </div>
 
       {/* Main Cart Layout: 2 Columns on Desktop */}
       <div className="flex flex-col lg:flex-row gap-10 mb-20">
@@ -165,7 +162,7 @@ const Cart = () => {
 
         {/* RIGHT SECTION: Order Summary */}
         <div className="w-full lg:w-[35%] xl:w-[30%]">
-          <div className="border border-gray-200 p-6 bg-white">
+          {/* <div className="border border-gray-200 p-6 bg-white">
             <h3 className="text-lg font-semibold border-b border-gray-200 pb-4 mb-6">Order Summary</h3>
 
             <div className="flex flex-col gap-4 text-sm text-primary mb-6">
@@ -202,10 +199,15 @@ const Cart = () => {
             >
               Proceed to Checkout
             </button>
-          </div>
+          </div> */}
+
+          <OrderSummary buttonText="Proceed to Checkout"
+            isSubmitType={false} />
         </div>
 
       </div>
+
+      <OurPolicy />
     </div>
   );
 }

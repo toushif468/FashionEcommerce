@@ -11,7 +11,7 @@ interface GreyHeaderSectionProps {
 }
 const GreyHeaderSection = ({ path, title }: GreyHeaderSectionProps) => {
     return (
-        <div className='bg-[#f3f3f3] py-12 mb-10 flex flex-col items-center justify-center border-b border-gray-200'>
+        <div className='bg-[#f3f3f3] py-12 mb-10 flex flex-col items-center justify-center'>
             {/* Dynamic Title */}
             <h1 className='text-3xl sm:text-4xl font-maison font-bold mb-3 tracking-tight'>
                 {title}

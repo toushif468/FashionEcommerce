@@ -62,3 +62,58 @@ export type CartDataItem = {
   color: Color;
   quantity: number;
 };
+
+export interface OrderItemType extends ProductType {
+    quantity: number;
+    size: string;
+    status: string;
+    payment: boolean;
+    paymentMethod: string;
+    date: number;
+  }
+
+export interface CartItemType extends ProductType {
+    quantity: number;
+    size: string;
+  }
+
+export interface OrderType {
+    _id: string;
+    userId: string;
+    items: CartItemType[];
+    amount: number;
+    address: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      street: string;
+      city: string;
+      state: string;
+      zipcode: string;
+      country: string;
+      phone: string;
+    };
+    status: string;
+    paymentMethod: string;
+    payment: boolean;
+    date: number;
+  }
+
+
+    export interface OrderItemType extends ProductType {
+      size: string;
+      quantity: number;
+    }
+  
+    export interface FormDataTypes {
+      firstName: string;
+      lastName: string;
+      companyName: string; // Added company name
+      country: string;
+      street: string;
+      city: string;
+      state: string;
+      zipcode: string;
+      phone: string;
+      email: string;
+    }
