@@ -2,7 +2,6 @@ import { assets } from '../assets/assets';
 import { FaFacebookF, FaYoutube, FaInstagram, FaTwitter } from "react-icons/fa";
 import { SiBlogger } from "react-icons/si";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { Columns } from 'lucide-react';
 
 const Footer = () => {
 
