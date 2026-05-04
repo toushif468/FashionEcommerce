@@ -34,6 +34,12 @@ const Footer = () => {
     },
   ];
 
+  const contactInfo = [
+    "01301729107",
+    "thasan202081@bscse.uiu.ac.bd",
+    "283, elephantroad, Dhaka 1205."
+  ]
+
   return (
     <footer className="w-full bg-brand-brown text-white pt-16 pb-6 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       {/* Changed to grid-cols-2 for mobile and grid-cols-5 for desktop/tablet */}
@@ -43,7 +49,7 @@ const Footer = () => {
         {/* Removed col-span-2 to ensure it fits side-by-side with the other 4 columns */}
         <div className="flex flex-col col-span-2 sm:col-span-3  md:col-span-4 lg:col-span-1">
           <div className="flex items-center gap-3 mb-4">
-            <img className='w-32 h-auto object-contain' src={assets.logo} alt="Logo" />
+            <img className='w-38 h-auto object-contain' src={assets.whiteLogo} alt="Logo" />
           </div>
           <p className="text-gray-300 text-xs leading-relaxed mb-6">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -68,8 +74,8 @@ const Footer = () => {
               <ul className="space-y-3 text-sm text-muted">
                 {
                   item.links.map((link) => (
-                    <li key={link.name} >
-                      <a href={link.href} className="hover:text-white transition-all">{link.name}</a>
+                    <li key={link.name} className=''>
+                      <a href={link.href} className="hover:text-brand-amber transition-all">{link.name}</a>
                     </li>
                   ))
                 }
@@ -81,24 +87,26 @@ const Footer = () => {
         {/* --- COLUMN 5: CONTACT INFO --- */}
         <div>
           <h5 className="text-base font-bold mb-6 tracking-wide">Contact Info</h5>
-          <ul className="space-y-4 text-xs text-muted">
-            <li>01301729107</li>
-            <li className="break-all">thasan202081@bscse.uiu.ac.bd</li>
-            <li>283, elephantroad, Dhaka 1205.</li>
+          <ul className="space-y-4 text-sm text-muted">
+            {
+              contactInfo.map((info) => (
+                <li className='hover:text-brand-amber' key={info}>{info}</li>
+              ))
+            }
           </ul>
         </div>
       </div>
 
       {/* --- BOTTOM SECTION --- */}
-      <div className="border-t border-white pt-6 mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-muted">
+      <div className="border-t border-brand-amber/30 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-muted">
         <p>Copyright © 2024 Clothing Website Design. All Rights Reserved.</p>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 text-brand-amber">
           <div className="flex items-center cursor-pointer hover:text-white">
-            English <RiArrowDropDownLine size={24} />
+            English <RiArrowDropDownLine size={25} />
           </div>
           <span className="text-muted">|</span>
           <div className="flex items-center cursor-pointer hover:text-white">
-            USD <RiArrowDropDownLine size={24} />
+            USD <RiArrowDropDownLine size={25} />
           </div>
         </div>
       </div>

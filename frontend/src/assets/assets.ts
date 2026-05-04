@@ -56,6 +56,7 @@ import p_img52 from './p_img52.png'
 
 
 import logo from './LOGO.svg'
+import whiteLogo from './LOGO2.svg'
 import hero_img from './hero_img.png'
 import hero_img1 from './hero_img1.png'
 import Heroupdated from './Heroupdated.png'
@@ -86,8 +87,10 @@ import type { Assets } from '../types/assets'
 
 
 
+
 export const assets: Assets = {
     logo,
+    whiteLogo,
     hero_img,
     hero_img1,
     Heroupdated,
