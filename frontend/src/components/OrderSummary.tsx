@@ -27,6 +27,7 @@ const OrderSummary = ({
 
     const handleAction = () => {
         if (onButtonClick) {
+            // console.log("On Button Click!!")
             onButtonClick();
         } else if (!isSubmitType) {
             navigate('/place-order');

@@ -9,14 +9,31 @@ import { FiChevronDown } from 'react-icons/fi' // Make sure to install/import th
 import { handleRazorpayPayment, handleStripePayment } from '@/utils/payment'
 import { BsCashStack } from "react-icons/bs";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
-import { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { Country, State, City, type IState, type ICountry, type ICity } from "country-state-city"
+
 
 
 export const PlaceOrder = () => {
 
+  // In checkout page we added two conditions address or payment and kept address as default
   const [checkoutStep, setCheckoutStep] = useState<'address' | 'payment'>('address');
+
   const [method, setMethod] = useState('cod');
+  const [deliveryOption, setDeliveryOption] = useState('same');
+
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<string>("")
+  const [selectedCity, setSelectedCity] = useState<string>("")
+
+
+  const [countries, setCountries] = useState<ICountry[]>([]);
+  const [states, setStates] = useState<IState[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
+
   const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
+
+
 
   interface OrderItemType extends ProductType {
     size: string;
@@ -50,7 +67,6 @@ export const PlaceOrder = () => {
   })
 
   // Added state for the radio toggle at the bottom
-  const [deliveryOption, setDeliveryOption] = useState('same');
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const name = event.target.name
@@ -74,13 +90,16 @@ export const PlaceOrder = () => {
         for (const size in cartItems[itemId]) {
           for (const color in cartItems[itemId][size]) {
             if (cartItems[itemId][size][color] > 0) {
-              const itemInfo = structuredClone(products.find(product => product._id === itemId))
-              if (itemInfo) {
+              const foundProduct = products.find(product => product._id === itemId);
+              if (foundProduct) {
+                const itemInfo = structuredClone(foundProduct)
                 orderItems.push({
                   ...itemInfo,
                   size: size,
                   quantity: cartItems[itemId][size][color],
                 });
+              } else {
+                console.warn(`Product with ID ${itemId} not found in product list.`);
               }
             }
           }
@@ -92,6 +111,7 @@ export const PlaceOrder = () => {
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
       }
+
       switch (method) {
         case 'cod':
           const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
@@ -130,6 +150,66 @@ export const PlaceOrder = () => {
 
   }
 
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const countryIsoCode = e.target.value;
+    console.log(countryIsoCode)
+    setSelectedCountry(countryIsoCode)
+
+    setSelectedState("")
+    setSelectedCity("")
+    setStates([])
+    setCities([])
+    setFormData(prev => ({ ...prev, state: "", city: "" }))
+
+    if (countryIsoCode) {
+      setStates(State.getStatesOfCountry(countryIsoCode));
+      const countryName = countries.find(c => c.isoCode === countryIsoCode)?.name || "";
+      setFormData(prev => ({ ...prev, country: countryName }))
+    }
+    else {
+      setStates([])
+    }
+  }
+
+
+  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const stateIsoCode = e.target.value;
+    setSelectedState(stateIsoCode);
+    setSelectedCity("")
+    setCities([])
+    setFormData(prev => ({ ...prev, city: "" }));
+
+    if (selectedCountry && stateIsoCode) {
+      setCities(City.getCitiesOfState(selectedCountry, stateIsoCode));
+
+      const stateName = states.find(s => s.isoCode === stateIsoCode)?.name || "";
+      setFormData(prev => ({ ...prev, state: stateName }))
+
+    } else {
+      setCities([])
+    }
+  }
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const cityName = e.target.value;
+    setSelectedCity(cityName);
+
+    if (selectedCountry && selectedState && cityName) {
+      setFormData(prev => ({ ...prev, city: cityName }))
+
+    }
+
+  }
+
+  useEffect(() => {
+    setCountries(Country.getAllCountries())
+  }, [])
+
+  useEffect(() => {
+    console.log(countries)
+    // console.log(selectedCity)
+    // console.log(states)
+  }, [countries])
   // Common input classes based on your design
   const labelClass = "text-sm font-semibold text-gray-800 mb-2 block";
   const inputClass = "border border-gray-200  py-4 px-4 w-full text-sm outline-none focus:border-brand-brown placeholder:text-muted-foreground/50";
@@ -172,12 +252,44 @@ export const PlaceOrder = () => {
               <div>
                 <label className={labelClass}>Country *</label>
                 <div className="relative">
-                  <select required onChange={onChangeHandler} name='country' value={formData.country} className={`${inputClass} appearance-none bg-white text-gray-500`}>
-                    <option value="" disabled hidden>Select Country</option>
-                    <option value="Bangladesh">Bangladesh</option>
-                    <option value="United States">United States</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    {/* Add more countries here */}
+                  <select required value={selectedCountry} onChange={handleCountryChange} name='country' className={`${inputClass} appearance-none bg-white text-gray-500`}>
+                    <option>Select Country</option>
+                    {countries.map((country: any) => (
+                      <option key={country.isoCode} value={country.isoCode}>{country.name}</option>
+                    ))}
+                  </select>
+                  <FiChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+                </div>
+              </div>
+
+              {/* State */}
+              <div>
+                <label className={labelClass}>State / Equivalents *</label>
+                <div className="relative">
+                  <select required onChange={handleStateChange} name='state' value={selectedState} className={`${inputClass} appearance-none bg-white text-gray-500`} disabled={!selectedCountry} >
+                    <option value="">Select State</option>
+                    {
+                      states.map((state: any) => (
+                        <option key={state.isoCode} value={state.isoCode}>
+                          {state.name}
+                        </option>
+                      ))
+                    }
+                  </select>
+                  <FiChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+                </div>
+              </div>
+
+              {/* City */}
+              <div>
+                <label className={labelClass}>City / Equivalents *</label>
+                <div className="relative">
+                  <select required onChange={handleCityChange} name='city' value={selectedCity} className={`${inputClass} appearance-none bg-white text-gray-500`} disabled={!selectedState}>
+                    <option value="">Select City</option>
+                    {cities.map((city: any) => (
+                      <option key={city.name} value={city.name}>
+                        {city.name}
+                      </option>))}
                   </select>
                   <FiChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
                 </div>
@@ -187,36 +299,6 @@ export const PlaceOrder = () => {
               <div>
                 <label className={labelClass}>Street Address *</label>
                 <input required onChange={onChangeHandler} name='street' value={formData.street} className={inputClass} type="text" placeholder='Enter Street Address' />
-              </div>
-
-              {/* City */}
-              <div>
-                <label className={labelClass}>City *</label>
-                <div className="relative">
-                  <select required onChange={onChangeHandler} name='city' value={formData.city} className={`${inputClass} appearance-none bg-white text-gray-500`}>
-                    <option value="" disabled hidden>Select City</option>
-                    <option value="Dhaka">Dhaka</option>
-                    <option value="New York">New York</option>
-                    <option value="London">London</option>
-                    {/* Add more cities here */}
-                  </select>
-                  <FiChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-                </div>
-              </div>
-
-              {/* State */}
-              <div>
-                <label className={labelClass}>State *</label>
-                <div className="relative">
-                  <select required onChange={onChangeHandler} name='state' value={formData.state} className={`${inputClass} appearance-none bg-white text-gray-500`}>
-                    <option value="" disabled hidden>Select State</option>
-                    <option value="Dhaka Division">Dhaka Division</option>
-                    <option value="New York">New York</option>
-                    <option value="England">England</option>
-                    {/* Add more states here */}
-                  </select>
-                  <FiChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-                </div>
               </div>
 
               {/* Zip Code */}
@@ -272,7 +354,8 @@ export const PlaceOrder = () => {
 
 
           {
-            checkoutStep === 'payment' && (
+            checkoutStep === 'payment' &&
+            <>
               <div className='flex flex-col mt-4 gap-4'>
                 <h2 className='text-2xl font-semibold text-gray-900 mb-4'>Select Payment Method</h2>
 
@@ -379,7 +462,7 @@ export const PlaceOrder = () => {
                 </div>
 
               </div>
-            )
+            </>
           }
 
         </div>

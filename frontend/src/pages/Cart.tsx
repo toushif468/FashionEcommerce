@@ -162,45 +162,6 @@ const Cart = () => {
 
         {/* RIGHT SECTION: Order Summary */}
         <div className="w-full lg:w-[35%] xl:w-[30%]">
-          {/* <div className="border border-gray-200 p-6 bg-white">
-            <h3 className="text-lg font-semibold border-b border-gray-200 pb-4 mb-6">Order Summary</h3>
-
-            <div className="flex flex-col gap-4 text-sm text-primary mb-6">
-              <div className="flex justify-between">
-                <p>Items</p>
-                <p className="font-medium text-muted-foreground">{itemsCount}</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Sub Total</p>
-                <p className="font-medium text-muted-foreground">{currency}{subTotal.toFixed(2)}</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Shipping</p>
-                <p className="font-medium text-muted-foreground">{currency}{shipping.toFixed(2)}</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Taxes</p>
-                <p className="font-medium text-muted-foreground">{currency}{taxes.toFixed(2)}</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Coupon Discount</p>
-                <p className="font-medium text-muted-foreground">-{currency}{couponDiscount.toFixed(2)}</p>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center border-t border-gray-200 pt-4 mb-8">
-              <p className="font-semibold text-primary">Total</p>
-              <p className="font-bold text-lg text-muted-foreground">{currency}{Math.max(0, total).toFixed(2)}</p>
-            </div>
-
-            <button
-              onClick={() => navigate('/place-order')}
-              className="w-full bg-brand-brown text-white py-3.5 text-sm font-medium hover:bg-brand-amber hover:text-primary transition"
-            >
-              Proceed to Checkout
-            </button>
-          </div> */}
-
           <OrderSummary buttonText="Proceed to Checkout"
             isSubmitType={false} />
         </div>
