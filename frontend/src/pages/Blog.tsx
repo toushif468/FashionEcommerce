@@ -41,8 +41,8 @@ const NewsBlogSection: React.FC = () => {
 
     return (
         <div className="max-w-7xl mx-auto py-20 px-4">
-            <div className="text-center mb-16 font-maison">
-                <p className="text-gray-800 text-sm tracking-widest uppercase mb-2">News & Blog</p>
+            <div className="text-center mb-16">
+                <p className="text-primary text-sm tracking-widest uppercase mb-2">News & Blog</p>
                 <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a]">Our Latest News & Blogs</h2>
             </div>
 

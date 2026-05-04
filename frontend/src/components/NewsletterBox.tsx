@@ -7,7 +7,7 @@ const NewsletterBox = () => {
 
   return (
     <div className="text-center py-16 px-4">
-      <p className="text-gray-800 text-base tracking-wide mb-3">Our Newsletter</p>
+      <p className="text-gray-800 text-base tracking-widest mb-3 uppercase ">Our Newsletter</p>
 
       <h2 className="text-xl md:text-4xl text-gray-800 font-bold leading-tight">
         Subscribe to Our Newsletter to Get <br className="hidden md:block" />
