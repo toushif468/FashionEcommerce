@@ -17,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import Verify from './pages/Verify'
 import TopBar from './components/TopBar'
 import Blog from './pages/Blog'
+import OrderSuccess from './pages/OrderSuccess'
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
           <Route path='/cart' element={<Cart />} />
           <Route path='/login' element={<Login />} />
           <Route path='/place-order' element={<PlaceOrder />} />
+          <Route path='/order-success/:orderId' element={<OrderSuccess />} />
           <Route path='/orders' element={<Orders />} />
           <Route path='/verify' element={<Verify />} />
         </Routes>

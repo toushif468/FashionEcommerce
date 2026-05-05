@@ -133,9 +133,10 @@ export const PlaceOrder = () => {
       switch (method) {
         case 'cod':
           const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
+          console.log(response)
           if (response.data.success) {
             setCartItems({})
-            navigate('/orders')
+            navigate(`/order-success/${response.data.orderId}`)
           } else {
             toast.error(response.data.message)
           }
