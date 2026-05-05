@@ -15,7 +15,7 @@ const OrderSuccess = () => {
         try {
             const response = await axios.post(backendUrl + '/api/order/userorder', { orderId }, { headers: { token } });
             if (response.data.success) {
-                // Assuming your backend returns an array or single object
+                console.log(response.data)
                 setOrder(response.data.order);
             }
         } catch (error) {
