@@ -183,6 +183,19 @@ const allOrders = async (req, res) => {
 }
 
 
+//single success user order
+const userOrder = async (req, res) => {
+    try {
+        const { orderId } = req.body;
+        const orderDetails = await orderModel.findById(orderId);
+        console.log(orderDetails)
+
+        res.json({ success: true, orderDetails })
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+}
+
 
 //User Order data for Frontend
 const userOrders = async (req, res) => {
@@ -213,4 +226,4 @@ const updateStatus = async (req, res) => {
 }
 
 
-export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus, verifyStripe, verifyRazorpay }
+export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrder, userOrders, updateStatus, verifyStripe, verifyRazorpay }
