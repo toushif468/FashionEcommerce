@@ -9,7 +9,7 @@ import { FiChevronDown } from 'react-icons/fi' // Make sure to install/import th
 import { handleRazorpayPayment, handleStripePayment } from '@/utils/payment'
 import { BsCashStack } from "react-icons/bs";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useMemo } from 'react'
 import { Country, State, City, type IState, type ICountry, type ICity } from "country-state-city"
 
 
@@ -30,6 +30,23 @@ export const PlaceOrder = () => {
   const [countries, setCountries] = useState<ICountry[]>([]);
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
+
+  const countryData = useMemo(() => {
+    const activeCountryObj = countries.find(c => c.isoCode === selectedCountry);
+
+    return {
+      code: activeCountryObj ? `+${activeCountryObj.phonecode}` : "",
+      flag: activeCountryObj && selectedCountry ? (
+        <img
+          src={`https://flagcdn.com/w40/${selectedCountry.toLowerCase()}.png`}
+          className="w-6 h-auto object-contain rounded-sm"
+          alt="flag"
+        />
+      ) : (
+        <span className="text-xl">🌐</span>
+      )
+    };
+  }, [selectedCountry, countries])
 
   const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
 
@@ -106,8 +123,9 @@ export const PlaceOrder = () => {
         }
       }
 
+      const fullPhoneNumber = `${countryData.code}${formData.phone}`
       let orderData = {
-        address: formData,
+        address: { ...formData, phone: fullPhoneNumber },
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
       }
@@ -205,14 +223,13 @@ export const PlaceOrder = () => {
     setCountries(Country.getAllCountries())
   }, [])
 
-  useEffect(() => {
-    console.log(countries)
-    // console.log(selectedCity)
-    // console.log(states)
-  }, [countries])
+
+
+
+
   // Common input classes based on your design
   const labelClass = "text-sm font-semibold text-gray-800 mb-2 block";
-  const inputClass = "border border-gray-200  py-4 px-4 w-full text-sm outline-none focus:border-brand-brown placeholder:text-muted-foreground/50";
+  const inputClass = "border border-gray-200 py-4 px-4 w-full text-sm outline-none focus:border-brand-brown placeholder:text-muted-foreground/50";
 
   return (
     <form id='checkout-form' onSubmit={checkoutStep === 'address' ? handleAddressSubmit : handlePaymentSubmit} className='border-t border-gray-300'>
@@ -229,7 +246,6 @@ export const PlaceOrder = () => {
             checkoutStep === 'address' &&
             <>
               <h2 className='text-2xl font-semibold text-gray-900 mb-2'>Billing Details</h2>
-
               {/* First & Last Name */}
               <div className='flex flex-col sm:flex-row gap-6'>
                 <div className='flex-1'>
@@ -310,7 +326,27 @@ export const PlaceOrder = () => {
               {/* Phone */}
               <div>
                 <label className={labelClass}>Phone *</label>
-                <input required onChange={onChangeHandler} name='phone' value={formData.phone} className={inputClass} type="text" placeholder='Enter Phone Number' inputMode='numeric' pattern='[0-9]+' />
+                <div className='flex border border-gray-200 focus-within:border-brand-brown bg-white transition-all'>
+
+                  {/* prefix Blocks: FLag & Code */}
+                  <div className='flex items-center gap-3 bg-gray-50 px-4 border-r border-gray-200 text-gray-200 select-none min-w-25'>
+                    {countryData.flag}
+                    <span className='text-sm font-medium text-primary'>{countryData.code}</span>
+                  </div>
+
+                  <input
+                    required
+                    onChange={onChangeHandler}
+                    name='phone'
+                    value={formData.phone}
+                    className="flex-1 px-4 py-4 text-sm outline-none placeholder:text-muted-foreground/50 bg-transparent"
+                    type="text"
+                    placeholder='Enter Phone Number'
+                    inputMode='numeric'
+                    pattern='[0-9]+'
+                    disabled={!selectedCountry}
+                  />
+                </div>
               </div>
 
               {/* Email */}
