@@ -17,7 +17,7 @@ const TrackOrder = () => {
     });
     const [loading, setLoading] = useState(false);
 
-    const { navigate, backendUrl, token } = useContext(ShopContext);
+    const { backendUrl, token } = useContext(ShopContext);
 
     const handleTrackOrder = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
