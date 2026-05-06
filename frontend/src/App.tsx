@@ -17,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import Verify from './pages/Verify'
 import TopBar from './components/TopBar'
 import Blog from './pages/Blog'
+import Wishlist from './pages/Wishlist'
 import OrderSuccess from './pages/OrderSuccess'
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/blog' element={<Blog />} />
+          <Route path='/wishlist' element={<Wishlist />} />
           <Route path='/product/:productId' element={<Product />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/login' element={<Login />} />
