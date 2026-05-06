@@ -209,6 +209,28 @@ const userOrders = async (req, res) => {
     }
 }
 
+//track order
+const trackOrder = async (req, res) => {
+    try {
+        const { orderId, billingEmail } = req.body;
+        const user = await userModel.findOne({ email: billingEmail });
+        if (!user) {
+            res.json({ success: false, message: 'No account found with this email.' });
+        }
+
+        const order = await orderModel.findOne({ _id: orderId, userId: user._id.toString() });
+        if (!order) {
+            res.json({ success: false, message: "Order not found or doesn't belong to this email." })
+        }
+
+        res.json({ success: true, order });
+
+    } catch (error) {
+        console.error("Tracking Error:", error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
 
 //update order status from admin panel
 const updateStatus = async (req, res) => {
@@ -225,4 +247,4 @@ const updateStatus = async (req, res) => {
 }
 
 
-export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrder, userOrders, updateStatus, verifyStripe, verifyRazorpay }
+export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrder, userOrders, updateStatus, verifyStripe, verifyRazorpay, trackOrder }

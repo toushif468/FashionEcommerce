@@ -19,6 +19,7 @@ import TopBar from './components/TopBar'
 import Blog from './pages/Blog'
 import Wishlist from './pages/Wishlist'
 import OrderSuccess from './pages/OrderSuccess'
+import TrackOrder from './pages/TrackOrder'
 
 const App = () => {
 
@@ -42,6 +43,7 @@ const App = () => {
           <Route path='/place-order' element={<PlaceOrder />} />
           <Route path='/order-success/:orderId' element={<OrderSuccess />} />
           <Route path='/orders' element={<Orders />} />
+          <Route path='track-order' element={<TrackOrder />} />
           <Route path='/verify' element={<Verify />} />
         </Routes>
       </div>

@@ -60,7 +60,7 @@ const OrderSuccess = () => {
                                 Order ID
                             </span>
                             <span className="font-bold text-primary truncate">
-                                #{order._id.slice(-8).toUpperCase()}
+                                #{order._id}
                             </span>
                         </div>
 
