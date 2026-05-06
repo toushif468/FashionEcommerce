@@ -87,7 +87,7 @@ const Footer = () => {
         {/* --- COLUMN 5: CONTACT INFO --- */}
         <div>
           <h5 className="text-base font-bold mb-6 tracking-wide">Contact Info</h5>
-          <ul className="space-y-4 text-sm text-muted">
+          <ul className="space-y-4 text-sm text-muted wrap-break-word">
             {
               contactInfo.map((info) => (
                 <li className='hover:text-brand-amber' key={info}>{info}</li>

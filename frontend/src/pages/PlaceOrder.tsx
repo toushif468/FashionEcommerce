@@ -12,6 +12,25 @@ import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 import React, { useContext, useState, useEffect, useMemo } from 'react'
 import { Country, State, City, type IState, type ICountry, type ICity } from "country-state-city"
 
+interface OrderItemType extends ProductType {
+  size: string;
+  color: string;
+  quantity: number;
+}
+
+interface FormDataTypes {
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  country: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  phone: string;
+  email: string;
+}
+
 
 
 export const PlaceOrder = () => {
@@ -30,6 +49,20 @@ export const PlaceOrder = () => {
   const [countries, setCountries] = useState<ICountry[]>([]);
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
+  const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
+
+  const [formData, setFormData] = useState<FormDataTypes>({
+    firstName: '',
+    lastName: '',
+    companyName: '',
+    email: '',
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    country: '',
+    phone: '',
+  });
 
   const countryData = useMemo(() => {
     const activeCountryObj = countries.find(c => c.isoCode === selectedCountry);
@@ -48,40 +81,17 @@ export const PlaceOrder = () => {
     };
   }, [selectedCountry, countries])
 
-  const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
 
 
 
-  interface OrderItemType extends ProductType {
-    size: string;
-    quantity: number;
-  }
+  // useEffect(() => {
+  //   console.log("cartItems")
+  //   console.log(cartItems)
+  // }, [])
 
-  interface FormDataTypes {
-    firstName: string;
-    lastName: string;
-    companyName: string;
-    country: string;
-    street: string;
-    city: string;
-    state: string;
-    zipcode: string;
-    phone: string;
-    email: string;
-  }
 
-  const [formData, setFormData] = useState<FormDataTypes>({
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    email: '',
-    street: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    country: '',
-    phone: '',
-  })
+
+
 
   // Added state for the radio toggle at the bottom
 
@@ -113,6 +123,7 @@ export const PlaceOrder = () => {
                 orderItems.push({
                   ...itemInfo,
                   size: size,
+                  color: color,
                   quantity: cartItems[itemId][size][color],
                 });
               } else {
@@ -133,7 +144,6 @@ export const PlaceOrder = () => {
       switch (method) {
         case 'cod':
           const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
-          console.log(response)
           if (response.data.success) {
             setCartItems({})
             navigate(`/order-success/${response.data.orderId}`)
@@ -171,7 +181,6 @@ export const PlaceOrder = () => {
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const countryIsoCode = e.target.value;
-    console.log(countryIsoCode)
     setSelectedCountry(countryIsoCode)
 
     setSelectedState("")

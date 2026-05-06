@@ -36,37 +36,67 @@ const OrderSuccess = () => {
         <div className="pb-20">
             <GreyHeaderSection path={[{ to: '/', text: 'Home' }]} title='Order Completed' />
 
-            <div className="max-w-5xl mx-auto px-4 mt-16 text-center">
+            <div className="xl:max-w-6xl mx-auto mt-16 text-center">
                 {/* Success Icon */}
                 <div className="flex justify-center mb-6">
-                    <div className="bg-orange-100 p-4 rounded-full">
-                        <FiCheckCircle size={40} className="text-orange-500" />
+                    <div className="bg-brand-amber p-4 rounded-full">
+                        <FiCheckCircle size={40} className="text-primary" />
                     </div>
                 </div>
 
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Your order is completed!</h1>
+                <h1 className="text-3xl font-bold text-primary mb-2">Your order is completed!</h1>
                 <p className="text-gray-500 mb-10">Thank you. Your Order has been received.</p>
 
                 {/* THE YELLOW INFO BAR (Matches image_10ec1d.png) */}
-                <div className="grid grid-cols-1 md:grid-cols-5 bg-[#FDF0D1] rounded-sm mb-12 overflow-hidden border border-orange-100">
-                    <div className="p-6 text-left border-r border-orange-200/50">
-                        <p className="text-xs text-gray-500 uppercase font-bold mb-1">Order ID</p>
-                        <p className="font-semibold text-gray-800">#{order._id.slice(-8).toUpperCase()}</p>
+                <div className="bg-brand-amber mb-12 overflow-hidden p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8 ">
+
+                    {/* Info Grid */}
+                    <div className="grid grid-cols-2 gap-y-8 gap-x-4 md:grid-cols-4 flex-1">
+
+                        {/* Order ID */}
+                        <div className="flex flex-col gap-1 pl-4 text-start">
+                            <span className="text-xs tracking-widest text-primary/60 uppercase font-semibold">
+                                Order ID
+                            </span>
+                            <span className="font-bold text-primary truncate">
+                                #{order._id.slice(-8).toUpperCase()}
+                            </span>
+                        </div>
+
+                        {/* Payment Method */}
+                        <div className="flex flex-col gap-1 border-l border-primary/10 pl-4 text-start">
+                            <span className="text-xs tracking-widest text-primary/60 uppercase font-semibold">
+                                Payment
+                            </span>
+                            <span className="font-bold text-primary">
+                                {order.paymentMethod === 'COD' ? "Cash on delivery" : order.paymentMethod}
+                            </span>
+                        </div>
+
+                        {/* Transaction ID */}
+                        <div className="flex flex-col gap-1 md:border-l border-primary/10 pl-4 text-start">
+                            <span className="text-xs tracking-widest text-primary/60 uppercase font-semibold">
+                                Transaction ID
+                            </span>
+                            <span className="font-bold text-primary truncate">
+                                {order.paymentId || "N/A"}
+                            </span>
+                        </div>
+
+                        {/* Date */}
+                        <div className="flex flex-col gap-1 border-l border-primary/10 pl-4 text-start">
+                            <span className="text-xs tracking-widest text-primary/60 uppercase font-semibold">
+                                Estimated Delivery Date
+                            </span>
+                            <span className="font-bold text-primary">
+                                {new Date(order.date).toLocaleDateString()}
+                            </span>
+                        </div>
                     </div>
-                    <div className="p-6 text-left border-r border-orange-200/50">
-                        <p className="text-xs text-gray-500 uppercase font-bold mb-1">Payment Method</p>
-                        <p className="font-semibold text-gray-800 uppercase">{order.paymentMethod}</p>
-                    </div>
-                    <div className="p-6 text-left border-r border-orange-200/50">
-                        <p className="text-xs text-gray-500 uppercase font-bold mb-1">Transaction ID</p>
-                        <p className="font-semibold text-gray-800">{order.paymentId || "N/A"}</p>
-                    </div>
-                    <div className="p-6 text-left border-r border-orange-200/50">
-                        <p className="text-xs text-gray-500 uppercase font-bold mb-1">Date</p>
-                        <p className="font-semibold text-gray-800">{new Date(order.date).toLocaleDateString()}</p>
-                    </div>
-                    <div className="p-6 flex items-center justify-center bg-brown-900">
-                        <button className="bg-[#462814] text-white px-4 py-2 text-xs font-bold rounded-sm hover:bg-black transition">
+
+                    {/* Action Button */}
+                    <div className="flex items-center shrink-0">
+                        <button className="w-full lg:w-auto bg-brand-brown text-white px-8 py-4 text-xs uppercase tracking-tighter font-bold hover:bg-primary transition-all duration-300 active:scale-95">
                             Download Invoice
                         </button>
                     </div>
@@ -74,20 +104,25 @@ const OrderSuccess = () => {
 
                 {/* ORDER DETAILS TABLE */}
                 <div className="text-left">
-                    <h3 className="text-xl font-semibold mb-6">Order Details</h3>
-                    <div className="border border-gray-100 rounded-sm">
-                        <div className="grid grid-cols-2 p-4 bg-gray-50 font-bold text-sm border-b border-gray-100">
+                    <div className="border border-gray-200 p-5">
+                        <div className="pb-4 font-bold text-lg border-b border-gray-200">
+                            <span>Order Details</span>
+                        </div>
+                        <div className="grid grid-cols-2 pt-4 font-semibold text-sm text-primary">
                             <span>Products</span>
                             <span className="text-right">Sub Total</span>
                         </div>
 
                         {order.items.map((item: any, index: number) => (
-                            <div key={index} className="grid grid-cols-2 p-4 items-center border-b border-gray-50">
-                                <div className="flex gap-4 items-center">
-                                    <img src={item.image[0]} className="w-16 h-16 object-cover bg-gray-50" alt="" />
+                            <div key={index} className="grid grid-cols-3 py-4 items-center ">
+
+                                <div className="col-span-2 flex gap-4 items-center">
+                                    <img src={item.image[0]} className="w-16 h-auto object-cover bg-gray-50" alt="" />
                                     <div>
-                                        <p className="font-medium text-gray-800">{item.name}</p>
-                                        <p className="text-xs text-gray-400">Size: {item.size}</p>
+                                        <p className="font-semibold text-primary">{item.name}</p>
+                                        <p className="text-xs sm:text-sm text-muted-foreground font-bold mt-1 sm:mt-2">
+                                            Color: <span className="text-muted-foreground font-normal">{item.color}</span> | Size: <span className="text-muted-foreground font-normal">{item.size}</span>
+                                        </p>
                                     </div>
                                 </div>
                                 <p className="text-right font-medium">{currency}{item.price * item.quantity}</p>
@@ -95,12 +130,22 @@ const OrderSuccess = () => {
                         ))}
 
                         {/* Summary Rows */}
-                        <div className="p-4 space-y-3">
-                            <div className="flex justify-between text-sm">
-                                <span className="text-gray-500">Shipping</span>
-                                <span className='font-medium'>{currency}0.00</span>
+                        <div className="">
+                            <div className='border-t border-gray-200'>
+                                <div className=" flex justify-between text-sm py-3">
+                                    <span className="text-primary font-semibold">Shipping</span>
+                                    <span className='font-medium'>{currency}0.00</span>
+                                </div>
+                                <div className=" flex justify-between text-sm py-3">
+                                    <span className="text-primary font-semibold">Taxes</span>
+                                    <span className='font-medium'>0.00</span>
+                                </div>
+                                <div className=" flex justify-between text-sm py-3">
+                                    <span className="text-primary font-semibold">Coupon Discount</span>
+                                    <span className='font-medium'>0.00</span>
+                                </div>
                             </div>
-                            <div className="flex justify-between text-lg font-bold pt-3 border-t border-gray-100">
+                            <div className="flex justify-between text-lg font-bold py-3 border-t border-gray-200">
                                 <span>Total</span>
                                 <span className="text-gray-900">{currency}{order.amount}</span>
                             </div>
