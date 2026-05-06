@@ -16,7 +16,7 @@ const OrderSuccess = () => {
         try {
             const response = await axios.post(backendUrl + '/api/order/userorder', { orderId }, { headers: { token } });
             if (response.data.success) {
-                console.log(response.data)
+                console.log("Order success page: ", response.data)
                 setOrder(response.data.order);
             }
         } catch (error) {
@@ -59,7 +59,7 @@ const OrderSuccess = () => {
                             <span className="text-xs tracking-widest text-primary/60 uppercase font-semibold">
                                 Order ID
                             </span>
-                            <span className="font-bold text-primary truncate">
+                            <span className="font-bold text-primary ">
                                 #{order._id}
                             </span>
                         </div>
