@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FiCheckCircle } from 'react-icons/fi';
 import GreyHeaderSection from '@/components/GreyHeaderSection';
+import OurPolicy from '@/components/OurPolicy';
 
 const OrderSuccess = () => {
     const { orderId } = useParams(); // Gets the ID from the URL
@@ -36,7 +37,7 @@ const OrderSuccess = () => {
         <div className="pb-20">
             <GreyHeaderSection path={[{ to: '/', text: 'Home' }]} title='Order Completed' />
 
-            <div className="xl:max-w-6xl mx-auto mt-16 text-center">
+            <div className="xl:max-w-6xl mx-auto my-16 text-center">
                 {/* Success Icon */}
                 <div className="flex justify-center mb-6">
                     <div className="bg-brand-amber p-4 rounded-full">
@@ -48,7 +49,7 @@ const OrderSuccess = () => {
                 <p className="text-gray-500 mb-10">Thank you. Your Order has been received.</p>
 
                 {/* THE YELLOW INFO BAR (Matches image_10ec1d.png) */}
-                <div className="bg-brand-amber mb-12 overflow-hidden p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8 ">
+                <div className="bg-brand-amber mb-12 overflow-hidden p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8 ">
 
                     {/* Info Grid */}
                     <div className="grid grid-cols-2 gap-y-8 gap-x-4 md:grid-cols-4 flex-1">
@@ -153,6 +154,7 @@ const OrderSuccess = () => {
                     </div>
                 </div>
             </div>
+            <OurPolicy />
         </div>
     );
 };
