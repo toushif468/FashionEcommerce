@@ -213,21 +213,28 @@ const userOrders = async (req, res) => {
 const trackOrder = async (req, res) => {
     try {
         const { orderId, billingEmail } = req.body;
-        const user = await userModel.findOne({ email: billingEmail });
-        if (!user) {
-            res.json({ success: false, message: 'No account found with this email.' });
-        }
 
-        const order = await orderModel.findOne({ _id: orderId, userId: user._id.toString() });
+        // Search using the ID and the email inside the address object
+        // We use "address.email" to target that specific field
+        const order = await orderModel.findOne({
+            _id: orderId,
+            "address.email": billingEmail
+        });
+
         if (!order) {
-            res.json({ success: false, message: "Order not found or doesn't belong to this email." })
+            return res.json({
+                success: false,
+                message: "No order found with that ID and Email combination."
+            });
         }
 
+        // If found, return the order data
         res.json({ success: true, order });
 
     } catch (error) {
         console.error("Tracking Error:", error);
-        res.json({ success: false, message: error.message });
+        // If the orderId format is wrong, Mongoose throws an error
+        res.json({ success: false, message: "Invalid Order ID format." });
     }
 }
 
