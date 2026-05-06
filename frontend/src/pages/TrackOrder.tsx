@@ -1,4 +1,4 @@
-import React, { useContext, useState, type ChangeEvent, type FormEvent } from 'react'
+import { useContext, useState, type ChangeEvent } from 'react'
 import GreyHeaderSection from '@/components/GreyHeaderSection'
 import OurPolicy from '@/components/OurPolicy'
 import { ShopContext } from '@/context/ShopContext';
@@ -19,7 +19,7 @@ const TrackOrder = () => {
 
     const { navigate, backendUrl, token } = useContext(ShopContext);
 
-    const handleTrackOrder = async (e: FormEvent<HTMLFormElement>) => {
+    const handleTrackOrder = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 

@@ -1,7 +1,5 @@
 import GreyHeaderSection from '@/components/GreyHeaderSection'
-import React, { useContext, useEffect, useState } from 'react'
-import { FiShoppingCart, FiSearch, FiX } from 'react-icons/fi'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import productImg from '../assets/p_img2_2.png';
 import { IoCloseOutline } from 'react-icons/io5'
@@ -39,7 +37,7 @@ const WishlistPage = () => {
                 <GreyHeaderSection path={[{ to: '/', text: 'Home' }]} title='Wishlist' />
 
                 {/* MAIN WISHLIST CONTENT */}
-                <main className="flex-grow bg-white">
+                <main className="grow bg-white">
                     <div className="max-w-7xl mx-auto py-16">
 
                         {/* AMBER COLUMN HEADER */}
