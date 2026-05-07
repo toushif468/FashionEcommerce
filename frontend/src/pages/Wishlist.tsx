@@ -108,12 +108,15 @@ const WishlistPage = () => {
                                             </p>
 
                                             {/* Mobile Only Stock */}
-                                            <p className="text-sm font-medium text-emerald-500 mt-1">
-                                                Instock
-                                            </p>
-                                            <p className="text-sm text-gray-600">
-                                                $64.00
-                                            </p>
+                                            <div className='flex items-center gap-2'>
+                                                <p className="text-sm font-medium text-emerald-500 ">
+                                                    Instock
+                                                </p>
+                                                <p className="text-sm text-gray-600">
+                                                    $64.00
+                                                </p>
+                                            </div>
+
                                         </div>
 
                                     </div>
