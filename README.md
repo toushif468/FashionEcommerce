@@ -116,7 +116,7 @@ npm run server
 
 ### 🔗 Live URLs
 
-  - 🛍️ **Customer Storefront**: [https://cotton-rock.vercel.app]([https://www.google.com/search?q=https://cotton-rock.vercel.app](https://fashion-ecommerce-frontend-t5zl.onrender.com/))
+  - 🛍️ **Customer Storefront**: [https://cotton-rock.vercel.app]([https://fashion-ecommerce-frontend-t5zl.onrender.com/))
   - 🛠️ **Admin Dashboard**: [https://cotton-rock-admin.vercel.app](https://www.google.com/search?q=https://cotton-rock-admin.vercel.app)
 
 -----
