@@ -116,8 +116,6 @@ npm run server
 
 ### 🔗 Live URLs
   
-  - 🛍️ **Customer Storefront**: [https://cotton-rock.vercel.app](https://cotton-rock.vercel.app)
-  - 🛠️ **Admin Dashboard**: [https://cotton-rock-admin.vercel.app](https://cotton-rock-admin.vercel.app)
   - 🌐 **Live Project (Render)**: [https://fashion-ecommerce-frontend-t5zl.onrender.com/](https://fashion-ecommerce-frontend-t5zl.onrender.com/)
 
 ### 🧪 Test Credentials
@@ -128,12 +126,12 @@ Explore the platform using these sample accounts:
 
 ```txt
 📧 Email: shopper@cottonrock.com  
-🔑 Password: 123
+🔑 Password: 12345678
 ```
 
 #### 🛡️ Administrator
 
 ```txt
 📧 Email: admin@cottonrock.com  
-🔑 Password: 123
+🔑 Password: 12345678
 ```
