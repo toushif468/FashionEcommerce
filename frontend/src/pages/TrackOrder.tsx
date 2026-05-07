@@ -18,7 +18,7 @@ const TrackOrder = () => {
     });
     const [loading, setLoading] = useState(false);
     const [orderData, setOrderData] = useState<any>(null);
-    const { backendUrl, token, currency } = useContext(ShopContext);
+    const { backendUrl, token } = useContext(ShopContext);
 
     const handleTrackOrder = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -51,14 +51,16 @@ const TrackOrder = () => {
 
     // Status mapping for the progress bar
     const statusSteps = [
-        { label: 'Order Placed', icon: <LuClipboardCheck size={24} /> },
-        { label: 'Accepted', icon: <LuPackageSearch size={24} /> },
-        { label: 'In Progress', icon: <LuPackageCheck size={24} /> },
-        { label: 'On the Way', icon: <LuTruck size={24} /> },
-        { label: 'Delivered', icon: <LuHouse size={24} /> },
+        { label: 'Order Placed', icon: <LuClipboardCheck size={40} /> },
+        { label: 'Accepted', icon: <LuPackageSearch size={40} /> },
+        { label: 'In Progress', icon: <LuPackageCheck size={40} /> },
+        { label: 'On the Way', icon: <LuTruck size={40} /> },
+        { label: 'Delivered', icon: <LuHouse size={40} /> },
     ];
 
     const currentStatusIndex = statusSteps.findIndex(s => s.label === orderData?.status);
+    console.log("index")
+    console.log(currentStatusIndex)
 
     return (
         <div className="w-full">
@@ -91,77 +93,84 @@ const TrackOrder = () => {
                         {/* Order ID Header */}
                         <div>
                             <h2 className="text-2xl font-bold text-primary">Order Status</h2>
-                            <p className="text-gray-500 mt-2">Order ID : <span className="font-semibold text-black">#{orderData._id}</span></p>
+                            <p className="text-muted-foreground mt-2">Order ID : <span className="font-semibold text-black">#{orderData._id}</span></p>
                         </div>
 
                         {/* Status Timeline - Matching image_760819.png */}
-                        <div className="border border-gray-200 px-8 py-7 ">
+                        <div className="border border-gray-200 px-6 py-6 ">
                             <div className="relative flex justify-between">
 
                                 {/* Background Grey Line */}
-                                <div className="absolute top-[91.5px] left-[10%] right-[10%] h-[6px] bg-[#f0f0f0] rounded-full -z-0" />
+                                <div className="absolute top-1/2 -translate-y-1/2 left-[10%] right-[10%] h-[6px] bg-[#f0f0f0] rounded-full -z-0" />
 
                                 {/* Active Dark Line */}
                                 <div
-                                    className="absolute top-[91.5px] left-[10%] h-[6px] bg-[#222] rounded-full transition-all duration-500 -z-0"
+                                    className="absolute top-1/2 -translate-y-1/2 left-[10%] h-[6px] bg-[#222] rounded-full transition-all duration-500 -z-0"
                                     style={{ width: `${(currentStatusIndex / (statusSteps.length - 1)) * 80}%` }}
                                 />
-                
+
                                 {statusSteps.map((step, index) => {
                                     const isCompleted = index <= currentStatusIndex;
 
                                     return (
-                                        <div key={index} className="flex flex-col items-center z-10 w-full">
-                                            {/* 1. Icon with Yellow Accent */}
-                                            <div className="relative mb-3">
-                                                {/* This mimics the yellow circle behind the icon in your image */}
-                                                {isCompleted && index < 2 && (
-                                                    <div className="absolute -right-1 bottom-0 w-4 h-4 bg-[#fdbd5d] rounded-full -z-10 opacity-70" />
-                                                )}
-                                                <span className={`${isCompleted ? 'text-[#222]' : 'text-[#999]'}`}>
-                                                    {step.icon}
-                                                </span>
+                                        // 1. Changed to a CSS Grid with 3 equal rows
+                                        <div key={index} className="grid grid-rows-3 gap-2 items-center z-10 w-full min-h-[160px]">
+
+                                            {/* --- TOP ROW (Icon & Label) --- */}
+                                            {/* items-end pushes the content to the bottom of this grid cell */}
+                                            <div className="flex flex-col items-center justify-end h-full">
+                                                <div className="relative mb-2">
+                                                    {isCompleted && (
+                                                        <div className="absolute -right-1 bottom-0 w-[60%] h-[60%] bg-[#fdbd5d] rounded-full -z-10 opacity-70" />
+                                                    )}
+                                                    <span className={`${isCompleted ? 'text-[#222]' : 'text-[#999]'}`}>
+                                                        {step.icon}
+                                                    </span>
+                                                </div>
+                                                <p className={`text-base font-medium ${isCompleted ? 'text-[#222]' : 'text-[#999]'}`}>
+                                                    {step.label}
+                                                </p>
                                             </div>
 
-                                            {/* 2. Status Label */}
-                                            <p className={`text-[14px] font-medium mb-6 ${isCompleted ? 'text-[#222]' : 'text-[#999]'}`}>
-                                                {step.label}
-                                            </p>
-
-                                            {/* 3. Checkbox Indicator */}
-                                            <div className={`w-7 h-7 rounded-md flex items-center justify-center mb-6 transition-colors ${isCompleted ? 'bg-[#222]' : 'bg-[#f0f0f0]'}`}>
-                                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M1 5.5L5 9.5L13 1.5" stroke={isCompleted ? "white" : "#d1d1d1"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
+                                            {/* --- MIDDLE ROW (Checkbox) --- */}
+                                            {/* Naturally centered in the middle grid cell */}
+                                            <div className="flex items-center justify-center h-full">
+                                                <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${isCompleted ? 'bg-[#222]' : 'bg-[#f0f0f0]'}`}>
+                                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M1 5.5L5 9.5L13 1.5" stroke={isCompleted ? "white" : "white"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
+                                                </div>
                                             </div>
 
-                                            {/* 4. Date and Time */}
-                                            <div className="text-center space-y-1">
-                                                <p className={`text-[13px] ${isCompleted ? 'text-[#222] font-semibold' : 'text-[#999]'}`}>
+                                            {/* --- BOTTOM ROW (Date & Time) --- */}
+                                            {/* items-start pushes the content to the top of this grid cell */}
+                                            <div className="flex flex-col items-center justify-start text-center space-y-1 ">
+                                                <p className={`text-base ${isCompleted ? 'text-primary font-semibold' : 'text-[#999]'}`}>
                                                     {index === 0 ? "20 Feb 2024" : isCompleted ? "20 Feb 2024" : `Expected`}
                                                 </p>
-                                                <p className={`text-[13px] ${isCompleted ? 'text-[#222] font-semibold' : 'text-[#999]'}`}>
-                                                    {index === 0 ? "11:00 AM" : isCompleted ? "11:15 AM" : step.expectedDate}
+                                                <p className={`text-base ${isCompleted ? 'text-primary/90 font-normal' : 'text-[#999]'}`}>
+                                                    {index === 0 ? "11:00 AM" : isCompleted ? "11:15 AM" : "30 Feb 2024"}
                                                 </p>
                                             </div>
+
                                         </div>
                                     );
                                 })}
                             </div>
                         </div>
                         {/* Product List */}
-                        <div className="border rounded-sm overflow-hidden">
-                            <div className="bg-white px-8 py-5 border-b font-bold text-lg">Products</div>
+                        <div className="border pt-6 px-6 overflow-hidden">
+                            <div className="bg-white pb-5 border-b font-bold text-lg">Products</div>
                             <div className="divide-y">
                                 {orderData.items.map((item: any, index: number) => (
-                                    <div key={index} className="p-8 flex items-center gap-6">
+                                    <div key={index} className="py-6 flex items-center gap-6">
                                         <img src={item.image[0]} alt={item.name} className="w-20 h-24 object-cover" />
                                         <div className="flex-grow">
-                                            <h4 className="font-bold text-lg text-primary">{item.name}</h4>
-                                            <p className="text-gray-500 text-sm mt-1">
-                                                Color: <span className="font-medium text-black">{item.color || 'N/A'}</span> |
-                                                Size: <span className="font-medium text-black">{item.size}</span> |
-                                                {item.quantity} Qty.
+                                            <h4 className="font-semibold text-lg text-primary">{item.name}</h4>
+                                            <p className="text-muted-foreground text-base mt-1">
+                                                Color : <span className="font-medium text-primary">{item.color || 'N/A'}</span> |
+                                                Size : <span className="font-medium text-primary">{item.size}</span> |
+                                                <span className="font-medium text-primary"> {item.quantity}</span> Qty.
                                             </p>
                                         </div>
                                         {/* <div className="text-xl font-bold">{currency}{item.price}</div> */}
@@ -170,7 +179,7 @@ const TrackOrder = () => {
                             </div>
                         </div>
 
-                        <button onClick={() => setOrderData(null)} className="text-brand-brown font-bold underline">Track another order</button>
+                        <button onClick={() => setOrderData(null)} className="text-brand-brown text-lg font-semibold cursor-pointer underline">Track another order</button>
                     </div>
                 )}
             </main>
