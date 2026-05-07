@@ -106,7 +106,7 @@ const TrackOrder = () => {
                                     className="absolute top-[91.5px] left-[10%] h-[6px] bg-[#222] rounded-full transition-all duration-500 -z-0"
                                     style={{ width: `${(currentStatusIndex / (statusSteps.length - 1)) * 80}%` }}
                                 />
-
+                
                                 {statusSteps.map((step, index) => {
                                     const isCompleted = index <= currentStatusIndex;
 
