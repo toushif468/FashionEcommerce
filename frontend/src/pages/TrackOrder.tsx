@@ -82,7 +82,7 @@ const TrackOrder = () => {
                                 <label className="block text-sm font-bold text-primary mb-2">Billing Email *</label>
                                 <input type="email" name='billingEmail' required placeholder="Enter Email Address" value={orderSearchInfo.billingEmail} onChange={handleTrackOrderChange} className="w-full border border-gray-200 py-4 px-6 text-sm focus:outline-none focus:border-brand-brown" />
                             </div>
-                            <button type="submit" disabled={loading} className="bg-brand-brown text-white px-8 py-4 text-sm font-semibold uppercase hover:bg-primary transition-colors disabled:opacity-50">
+                            <button type="submit" disabled={loading} className="bg-brand-brown text-white px-8 py-4 text-sm font-semibold uppercase hover:bg-primary transition-colors disabled:opacity-100">
                                 {loading ? "Searching..." : "Track Order"}
                             </button>
                         </form>
@@ -96,30 +96,52 @@ const TrackOrder = () => {
                             <p className="text-muted-foreground mt-2">Order ID : <span className="font-semibold text-black">#{orderData._id}</span></p>
                         </div>
 
-                        {/* Status Timeline - Matching image_760819.png */}
-                        <div className="border border-gray-200 px-6 py-6 ">
-                            <div className="relative flex justify-between">
+                        {/* Status Timeline Container */}
+                        <div className="border border-gray-200 px-6 py-10 md:py-6">
+                            <div className="relative flex flex-col md:flex-row justify-between gap-10 md:gap-0">
 
-                                {/* Background Grey Line */}
-                                <div className="absolute top-1/2 -translate-y-1/2 left-[10%] right-[10%] h-[6px] bg-[#f0f0f0] rounded-full -z-0" />
-
-                                {/* Active Dark Line */}
+                                {/* --- DESKTOP HORIZONTAL LINES (Hidden on Mobile) --- */}
+                                <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[10%] right-[10%] h-[2.5px] bg-[#f0f0f0] -z-0" />
                                 <div
-                                    className="absolute top-1/2 -translate-y-1/2 left-[10%] h-[6px] bg-[#222] rounded-full transition-all duration-500 -z-0"
+                                    className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[10%] h-[2.5px] bg-[#222] transition-all duration-500 -z-0"
                                     style={{ width: `${(currentStatusIndex / (statusSteps.length - 1)) * 80}%` }}
                                 />
 
                                 {statusSteps.map((step, index) => {
                                     const isCompleted = index <= currentStatusIndex;
+                                    const isLast = index === statusSteps.length - 1;
 
                                     return (
-                                        // 1. Changed to a CSS Grid with 3 equal rows
-                                        <div key={index} className="grid grid-rows-3 gap-2 items-center z-10 w-full min-h-[160px]">
+                                        <div
+                                            key={index}
+                                            className="relative grid grid-cols-[40px_1fr_auto] md:grid-cols-1 md:grid-rows-3 items-center z-10 w-full md:min-h-[160px] gap-4 md:gap-2"
+                                        >
+                                            {/* --- MOBILE VERTICAL LINE --- */}
+                                            {/* This line connects the checkboxes vertically on small screens */}
+                                            {!isLast && (
+                                                <div className="md:hidden absolute left-[19px] top-10 w-[2.5px] h-full bg-[#f0f0f0] -z-10">
+                                                    {isCompleted && index < currentStatusIndex && (
+                                                        <div className="absolute top-0 w-full h-full bg-[#222]" />
+                                                    )}
+                                                </div>
+                                            )}
 
-                                            {/* --- TOP ROW (Icon & Label) --- */}
-                                            {/* items-end pushes the content to the bottom of this grid cell */}
-                                            <div className="flex flex-col items-center justify-end h-full">
-                                                <div className="relative mb-2">
+                                            {/* --- 1. THE CHECKBOX (Column 1 on Mobile / Row 2 on Desktop) --- */}
+                                            {/* On Desktop, we use order classes to move it to the middle row */}
+                                            <div className="flex items-center justify-center h-full md:order-2 ">
+                                                <div className='bg-white md:p-3'>
+                                                    <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${isCompleted ? 'bg-[#222]' : 'bg-[#f0f0f0]'}`}>
+                                                        <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
+                                                            <path d="M1 5.5L5 9.5L13 1.5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* --- 2. STATUS DETAILS (Column 2 on Mobile / Row 1 on Desktop) --- */}
+                                            <div className="flex flex-row md:flex-col items-center md:justify-end md:pb-4 h-full md:order-1 gap-3 md:gap-0">
+                                                {/* Icon - Hidden or minimized on mobile if preferred, or kept next to text */}
+                                                <div className="relative md:mb-2">
                                                     {isCompleted && (
                                                         <div className="absolute -right-1 bottom-0 w-[60%] h-[60%] bg-[#fdbd5d] rounded-full -z-10 opacity-70" />
                                                     )}
@@ -127,28 +149,17 @@ const TrackOrder = () => {
                                                         {step.icon}
                                                     </span>
                                                 </div>
-                                                <p className={`text-base font-medium ${isCompleted ? 'text-[#222]' : 'text-[#999]'}`}>
+                                                <p className={`text-sm md:text-base font-medium ${isCompleted ? 'text-[#222]' : 'text-[#999]'}`}>
                                                     {step.label}
                                                 </p>
                                             </div>
 
-                                            {/* --- MIDDLE ROW (Checkbox) --- */}
-                                            {/* Naturally centered in the middle grid cell */}
-                                            <div className="flex items-center justify-center h-full">
-                                                <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${isCompleted ? 'bg-[#222]' : 'bg-[#f0f0f0]'}`}>
-                                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 5.5L5 9.5L13 1.5" stroke={isCompleted ? "white" : "white"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-
-                                            {/* --- BOTTOM ROW (Date & Time) --- */}
-                                            {/* items-start pushes the content to the top of this grid cell */}
-                                            <div className="flex flex-col items-center justify-start text-center space-y-1 ">
-                                                <p className={`text-base ${isCompleted ? 'text-primary font-semibold' : 'text-[#999]'}`}>
+                                            {/* --- 3. DATE & TIME (Column 3 on Mobile / Row 3 on Desktop) --- */}
+                                            <div className="flex flex-col items-end md:items-center justify-start md:pt-4 text-right md:text-center md:order-3">
+                                                <p className={`text-xs md:text-sm ${isCompleted ? 'text-primary font-semibold' : 'text-[#999]'}`}>
                                                     {index === 0 ? "20 Feb 2024" : isCompleted ? "20 Feb 2024" : `Expected`}
                                                 </p>
-                                                <p className={`text-base ${isCompleted ? 'text-primary/90 font-normal' : 'text-[#999]'}`}>
+                                                <p className={`text-xs md:text-sm ${isCompleted ? 'text-primary/70' : 'text-[#999]'}`}>
                                                     {index === 0 ? "11:00 AM" : isCompleted ? "11:15 AM" : "30 Feb 2024"}
                                                 </p>
                                             </div>
