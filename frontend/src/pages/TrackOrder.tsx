@@ -66,7 +66,7 @@ const TrackOrder = () => {
         <div className="w-full">
             <GreyHeaderSection path={[{ to: '/', text: 'Home' }]} title="Track Your Order" />
 
-            <main className="max-w-7xl mx-auto px-6 py-14">
+            <main className="max-w-7xl mx-auto py-14">
                 {!orderData ? (
                     /* --- SEARCH FORM --- */
                     <div className="max-w-4xl">
