@@ -29,4 +29,5 @@ const addToWishlist = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-export default addToWishlist
+
+export default addToWishlist;
