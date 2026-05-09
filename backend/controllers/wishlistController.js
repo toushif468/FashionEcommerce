@@ -22,12 +22,25 @@ const addToWishlist = async (req, res) => {
             size: size || "",
             color: color || "",
         })
-        await newItem.save()
-        return res.json({ success: true, message: "Added to wishlist" })
+        await newItem.save();
+
+        return res.json({ success: true, newItem, message: "Added to wishlist" })
 
     } catch (error) {
         res.json({ success: false, message: error.message })
     }
 }
 
-export default addToWishlist;
+const getUserWishlist = async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+
+        const wishlistData = await wishlistModel.find({ userId }).sort({ date: -1 });
+        res.json({ success: true, wishlist: wishlistData })
+    } catch (error) {
+        res.json({ success: false, message: error.message })
+    }
+}
+
+export { getUserWishlist, addToWishlist };
