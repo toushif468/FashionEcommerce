@@ -5,11 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import productImg from '../assets/p_img2_2.png';
 import { IoCloseOutline } from 'react-icons/io5';
 
-
-// ---------------------------------------------------------
-// 2. MAIN WISHLIST PAGE IMPLEMENTATION
-// ---------------------------------------------------------
-
 const WishlistPage = () => {
     // const { token, backendUrl, currency, navigate } = useContext(ShopContext);
     // const [wishlistData, setWishlistData] = useState<any[]>([]);
@@ -17,10 +12,6 @@ const WishlistPage = () => {
     const handleCopyLink = () => {
         toast.success("Wishlist link copied to clipboard!");
     }
-
-    // Shared grid layout for perfect alignment between header and rows
-    // const gridLayout = "grid grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px]";
-
     return (
         <div className='w-full border-t font-sans'>
             <div className="flex flex-col ">
