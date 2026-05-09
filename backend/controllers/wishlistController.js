@@ -35,7 +35,10 @@ const getUserWishlist = async (req, res) => {
     try {
         const { userId } = req.body;
 
-        const wishlistData = await wishlistModel.find({ userId }).sort({ date: -1 });
+        const wishlistData = await wishlistModel.find({ userId })
+            .populate('productId')
+            .sort({ date: -1 });
+            
         res.json({ success: true, wishlist: wishlistData })
     } catch (error) {
         res.json({ success: false, message: error.message })

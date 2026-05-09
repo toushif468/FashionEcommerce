@@ -4,11 +4,31 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import productImg from '../assets/p_img2_2.png';
 import { IoCloseOutline } from 'react-icons/io5';
+import axios from 'axios';
+import { ShopContext } from '@/context/ShopContext';
+import { useContext, useEffect } from 'react';
 
 const WishlistPage = () => {
-    // const { token, backendUrl, currency, navigate } = useContext(ShopContext);
+    const { token, backendUrl } = useContext(ShopContext);
     // const [wishlistData, setWishlistData] = useState<any[]>([]);
 
+    const fetchWishlist = async () => {
+        if (!token) return;
+
+        try {
+
+            const response = await axios.post(`${backendUrl}/api/wishlist/get`, {}, { headers: { token: token } });
+            if (response.data.success) {
+                setWishlistData(response.data.wishlist);
+                console.log(response.data)
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
+    useEffect(() => {
+        fetchWishlist();
+    }, [token]);
     const handleCopyLink = () => {
         toast.success("Wishlist link copied to clipboard!");
     }
@@ -176,3 +196,7 @@ const WishlistPage = () => {
 }
 
 export default WishlistPage;
+
+function setWishlistData(wishlist: any) {
+    throw new Error('Function not implemented.');
+}
