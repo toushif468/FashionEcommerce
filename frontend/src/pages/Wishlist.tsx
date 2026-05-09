@@ -29,8 +29,8 @@ const WishlistPage = () => {
 
             const response = await axios.post(`${backendUrl}/api/wishlist/get`, {}, { headers: { token: token } });
             if (response.data.success) {
-                setWishlistData(response.data.wishlist);
                 console.log(response.data)
+                setWishlistData(response.data.wishlist);
             }
         } catch (error: any) {
             toast.error(error.message);

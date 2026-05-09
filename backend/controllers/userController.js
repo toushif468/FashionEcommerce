@@ -44,6 +44,10 @@ const registrationUser = async (req, res) => {
         const { name, email, password } = req.body;
         // checking user already exists or not
 
+        if (!name || !email || !password) {
+            return res.json({ success: false, message: "Name, Email and Password are required" });
+        }
+
         const exists = await userModel.findOne({ email });
         if (exists) {
             return res.json({ success: false, message: "User already exists" });
