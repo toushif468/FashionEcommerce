@@ -1,16 +1,26 @@
-// import React, from 'react';
 import GreyHeaderSection from '@/components/GreyHeaderSection';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import productImg from '../assets/p_img2_2.png';
 import { IoCloseOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+interface WishlistItem {
+    _id: string;
+    productId: {
+        _id: string;
+        name: string;
+        price: number;
+        image: string[];
+    };
+    color: string;
+    size: string;
+    date: string;
+}
 const WishlistPage = () => {
     const { token, backendUrl } = useContext(ShopContext);
-    // const [wishlistData, setWishlistData] = useState<any[]>([]);
+    const [wishlistData, setWishlistData] = useState<WishlistItem[]>([]);
 
     const fetchWishlist = async () => {
         if (!token) return;
@@ -26,12 +36,15 @@ const WishlistPage = () => {
             toast.error(error.message);
         }
     };
+
     useEffect(() => {
         fetchWishlist();
     }, [token]);
+
     const handleCopyLink = () => {
         toast.success("Wishlist link copied to clipboard!");
     }
+    
     return (
         <div className='w-full border-t font-sans'>
             <div className="flex flex-col ">
@@ -63,98 +76,102 @@ const WishlistPage = () => {
 
                         {/* WISHLIST ITEMS LIST */}
                         <div className="flex flex-col w-full mb-12">
-                            {/* Static Example Row (Map your wishlistData here) */}
-                            <div className={`grid grid-cols-[auto_2fr_0.8fr_0.7fr] md:grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] py-6 items-center gap-4 border-b border-gray-200`}>
+                            {
+                                wishlistData.map((item) => (
+                                    <div key={item._id} className={`grid grid-cols-[auto_2fr_0.8fr_0.7fr] md:grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] py-6 items-center gap-4 border-b border-gray-200`}>
 
-                                {/* 1. Delete Icon */}
-                                <button className="text-gray-500 hover:text-brand-brown transition md:block">
-                                    <IoCloseOutline size={22} />
-                                </button>
+                                        {/* 1. Delete Icon */}
+                                        <button className="text-gray-500 hover:text-brand-brown transition md:block">
+                                            <IoCloseOutline size={22} />
+                                        </button>
 
-                                {/* 2. Product Info */}
-                                <div className='flex items-center gap-4'>
+                                        {/* 2. Product Info */}
+                                        <div className='flex items-center gap-4'>
 
-                                    <img
-                                        className="w-20 sm:w-24 object-cover"
-                                        src={productImg}
-                                        alt="Light Brown Sweater"
-                                    />
+                                            <img
+                                                className="w-20 sm:w-24 object-cover"
+                                                src={item.productId.image[0]}
+                                                alt="Light Brown Sweater"
+                                            />
 
-                                    <div className="flex flex-col">
+                                            <div className="flex flex-col">
 
-                                        <p className="text-base font-bold text-brand-brown">
-                                            Light Brown Sweater
-                                        </p>
-
-                                        {/* Desktop Version */}
-                                        <p className="hidden md:block text-sm text-gray-500 mt-0.5">
-                                            Color:
-                                            <span className="text-sm text-muted-foreground font-bold ml-1">
-                                                Red
-                                            </span>
-
-                                            {" | "}
-
-                                            Size:
-                                            <span className="text-gray-700 ml-1">
-                                                XXL
-                                            </span>
-                                        </p>
-
-                                        {/* Mobile Version */}
-                                        <div className="flex flex-col md:hidden text-sm text-gray-500 mt-1">
-
-                                            <p>
-                                                Color:
-                                                <span className="text-muted-foreground font-bold ml-1">
-                                                    Red
-                                                </span>
-                                            </p>
-
-                                            <p>
-                                                Size:
-                                                <span className="text-gray-700 ml-1">
-                                                    XXL
-                                                </span>
-                                            </p>
-
-                                            {/* Mobile Only Stock */}
-                                            <div className='flex items-center gap-2'>
-                                                <p className="text-sm font-medium text-emerald-500 ">
-                                                    Instock
+                                                <p className="text-base font-bold text-brand-brown">
+                                                    {item.productId.name}
                                                 </p>
-                                                <p className="text-sm text-gray-600">
-                                                    $64.00
+
+                                                {/* Desktop Version */}
+                                                <p className="hidden md:block text-sm text-gray-500 mt-0.5">
+                                                    Color:
+                                                    <span className="text-sm text-muted-foreground font-bold ml-1">
+                                                        {item.color}
+                                                    </span>
+
+                                                    {" | "}
+
+                                                    Size:
+                                                    <span className="text-gray-700 ml-1">
+                                                        {item.size}
+                                                    </span>
                                                 </p>
+
+                                                {/* Mobile Version */}
+                                                <div className="flex flex-col md:hidden text-sm text-gray-500 mt-1">
+
+                                                    <p>
+                                                        Color:
+                                                        <span className="text-muted-foreground font-bold ml-1">
+                                                            {item.size}
+                                                        </span>
+                                                    </p>
+
+                                                    <p>
+                                                        Size:
+                                                        <span className="text-gray-700 ml-1">
+                                                            {item.size}
+                                                        </span>
+                                                    </p>
+
+                                                    {/* Mobile Only Stock */}
+                                                    <div className='flex items-center gap-2'>
+                                                        <p className="text-sm font-medium text-emerald-500 ">
+                                                            Instock
+                                                        </p>
+                                                        <p className="text-sm text-gray-600">
+                                                            {item.productId.price}
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
 
                                         </div>
 
+                                        {/* 3. Price */}
+                                        <p className="hidden md:block text-sm mt-2 font-semibold text-gray-800">
+                                            {item.productId.price}
+                                        </p>
+
+                                        {/* 4. Date Added */}
+                                        <p className=" text-sm text-gray-600">
+                                            {item.date}
+                                        </p>
+
+                                        {/* 5. Stock Status */}
+                                        <p className="hidden md:block text-sm font-medium text-emerald-500">
+                                            Instock
+                                        </p>
+
+                                        {/* 6. Add to Cart */}
+                                        <button className="bg-brand-brown text-white py-4 w-full text-sm font-medium hover:bg-black transition ">
+                                            Add to Cart
+                                        </button>
                                     </div>
 
-                                </div>
 
-                                {/* 3. Price */}
-                                <p className="hidden md:block text-sm mt-2 font-semibold text-gray-800">
-                                    $64.00
-                                </p>
-
-                                {/* 4. Date Added */}
-                                <p className=" text-sm text-gray-600">
-                                    18 February 2024
-                                </p>
-
-                                {/* 5. Stock Status */}
-                                <p className="hidden md:block text-sm font-medium text-emerald-500">
-                                    Instock
-                                </p>
-
-                                {/* 6. Add to Cart */}
-                                <button className="bg-brand-brown text-white py-4 w-full text-sm font-medium hover:bg-black transition ">
-                                    Add to Cart
-                                </button>
-                            </div>
-                            {/* End Example Row */}
+                                ))
+                            }
                         </div>
 
                         {/* BOTTOM ACTIONS BAR */}
@@ -197,6 +214,3 @@ const WishlistPage = () => {
 
 export default WishlistPage;
 
-function setWishlistData(wishlist: any) {
-    throw new Error('Function not implemented.');
-}
