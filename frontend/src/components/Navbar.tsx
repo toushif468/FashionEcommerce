@@ -62,6 +62,7 @@ const Navbar = () => {
                 <p className='cursor-pointer hover:text-brand-amber'>My profile</p>
                 <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-brand-amber '>Orders</p>
                 <p onClick={() => navigate('/track-order')} className='cursor-pointer hover:text-brand-amber '>Track Order</p>
+                <p onClick={() => navigate('/my-account')} className='cursor-pointer hover:text-brand-amber '>My Account</p>
                 <p onClick={logout} className='cursor-pointer hover:text-brand-amber font-maison'>Logout</p>
               </div>
             </div>

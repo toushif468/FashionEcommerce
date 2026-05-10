@@ -5,7 +5,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import GreyHeaderSection from '@/components/GreyHeaderSection'
 import OrderSummary from '@/components/OrderSummary'
-import { FiChevronDown } from 'react-icons/fi' // Make sure to install/import this icon
+import { FiChevronDown } from 'react-icons/fi' 
 import { handleRazorpayPayment, handleStripePayment } from '@/utils/payment'
 import { BsCashStack } from "react-icons/bs";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
@@ -35,7 +35,6 @@ interface FormDataTypes {
 
 export const PlaceOrder = () => {
 
-  // In checkout page we added two conditions address or payment and kept address as default
   const [checkoutStep, setCheckoutStep] = useState<'address' | 'payment'>('address');
 
   const [method, setMethod] = useState('cod');
@@ -83,17 +82,6 @@ export const PlaceOrder = () => {
 
 
 
-
-  // useEffect(() => {
-  //   console.log("cartItems")
-  //   console.log(cartItems)
-  // }, [])
-
-
-
-
-
-  // Added state for the radio toggle at the bottom
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const name = event.target.name

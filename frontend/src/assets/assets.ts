@@ -82,6 +82,7 @@ import razorpay from './razorpay.svg'
 import gPay from './gPay.svg'
 import masterCard from './masterCard.svg'
 import visa from './visa.svg'
+import portfolio from './portfolio.jpg'
 import type Product from '../types/assets'
 import type { Assets } from '../types/assets'
 
@@ -116,6 +117,7 @@ export const assets: Assets = {
     gPay,
     masterCard,
     visa,
+    portfolio,
     razorpay_logo: '',
     stripe_logo: ''
 }

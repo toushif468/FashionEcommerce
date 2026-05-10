@@ -20,6 +20,7 @@ import Blog from './pages/Blog'
 import Wishlist from './pages/Wishlist'
 import OrderSuccess from './pages/OrderSuccess'
 import TrackOrder from './pages/TrackOrder'
+import MyAccount from './pages/MyAccount'
 
 const App = () => {
 
@@ -45,6 +46,7 @@ const App = () => {
           <Route path='/orders' element={<Orders />} />
           <Route path='track-order' element={<TrackOrder />} />
           <Route path='/verify' element={<Verify />} />
+          <Route path='/my-account' element={<MyAccount />} />
         </Routes>
       </div>
       <Footer />

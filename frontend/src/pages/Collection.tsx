@@ -152,22 +152,7 @@ const Collection = () => {
 
 
       <GreyHeaderSection path={path} title='Collection' />
-      {/* <div className='bg-[#f3f3f3] py-12 mb-10 flex flex-col items-center justify-center border-b border-gray-200'>
-        <h1 className='text-3xl sm:text-4xl font-maison font-bold mb-3 tracking-tight'>
-          Shop
-        </h1>
 
-        <div className='flex items-center gap-2 text-sm font-maison text-gray-600'>
-
-          <div>
-            <Link to={'/'} className='hover:text-black transition-colors'>
-              Home
-            </Link>
-            <span>/</span>
-          </div>
-          <span className='text-gray-600 cursor-default'>Collection</span>
-        </div>
-      </div> */}
 
 
       <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10  border-gray-200 '>
