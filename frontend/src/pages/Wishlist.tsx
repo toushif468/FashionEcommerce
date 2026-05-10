@@ -81,7 +81,7 @@ const WishlistPage = () => {
                                     <div key={item._id} className={`grid grid-cols-[auto_2fr_0.8fr_0.7fr] md:grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] py-6 items-center gap-4 border-b border-gray-200`}>
 
                                         {/* 1. Delete Icon */}
-                                        <button className="text-gray-500 hover:text-brand-brown transition md:block">
+                                        <button  className="text-gray-500 hover:text-brand-brown transition md:block">
                                             <IoCloseOutline size={22} />
                                         </button>
 

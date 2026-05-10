@@ -1,3 +1,4 @@
+import userModel from "../models/userModel.js";
 import wishlistModel from "../models/wishlistModel.js";
 
 const addToWishlist = async (req, res) => {
@@ -57,26 +58,31 @@ const clearWishlist = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 }
-const updateWishlist = async (req, res) => {
+
+const clearOne = async (req, res) => {
     try {
-        const { userId, productId, size, color } = req.body;
-        const exist = await wishlistModel.findOne({
-            userId,
-            productId,
-            size,
-            color
-        })
-        if (exist) return res.json({ success: false, message: "Item already exist" })
-        const newWishlistItem = new wishlistModel({
-            userId,
-            productId,
-            size,
-            color
-        })
-        await newWishlistItem.save()
-        res.json({ success: true, message: "Add to wishlist successfully" });
+
+        const { wishlistId, userId } = req.body;
+        if (!wishlistId) {
+            return res.json({ success: false, message: "Wishlist Item ID is required" });
+        }
+        const deletedItem = await wishlistModel.findOneAndDelete({
+            _id: wishlistId,
+            userId: userId
+        });
+        if (!deletedItem) {
+            return res.json({
+                success: false,
+                message: "Item not found or you don't have permission to delete it"
+            });
+        }
+
+
+        res.json({ success: true, message: "Individual product is deleted." })
     } catch (error) {
         res.json({ success: false, message: error.message });
+
     }
 }
-export { getUserWishlist, addToWishlist, clearWishlist };
+
+export { getUserWishlist, addToWishlist, clearWishlist, clearOne };
