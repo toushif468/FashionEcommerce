@@ -6,6 +6,6 @@ const wishlistRouter = express.Router()
 
 wishlistRouter.post('/add', authUser, addToWishlist);
 wishlistRouter.post('/get', authUser, getUserWishlist);
-wishlistRouter.post('/clear', authUser, clearWishlist);
+wishlistRouter.post('/clear-all', authUser, clearWishlist);
 
 export default wishlistRouter
