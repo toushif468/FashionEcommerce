@@ -37,8 +37,8 @@ const getUserWishlist = async (req, res) => {
 
         const wishlistData = await wishlistModel.find({ userId })
             .populate({
-                path: 'productId', 
-                select:'name image price',
+                path: 'productId',
+                select: 'name image price',
             })
             .sort({ date: -1 });
 
@@ -47,5 +47,15 @@ const getUserWishlist = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+export const clearWishlist = async (req, res) => {
+    try {
+        const { userId } = req.body
+        await wishlistModel.deleteMany({ userId });
+        res.json({ success: true, message: "Wishlist cleared successfully" });
+        
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+}
 
-export { getUserWishlist, addToWishlist };
+export { getUserWishlist, addToWishlist, clearWishlist };
