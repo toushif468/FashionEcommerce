@@ -29,22 +29,30 @@ const WishlistPage = () => {
 
             const response = await axios.post(`${backendUrl}/api/wishlist/get`, {}, { headers: { token: token } });
             if (response.data.success) {
-                console.log(response.data)
+                // console.log(response.data)
                 setWishlistData(response.data.wishlist);
             }
         } catch (error: any) {
             toast.error(error.message);
         }
     };
-
+    const deleteOneItem = async (wishlistId: string) => {
+        try {
+            console.log(wishlistId)
+            const response = await axios.post(`${backendUrl}/api/wishlist/clear`, { wishlistId }, { headers: { token: token } })
+            if (response.data.success) {
+                console.log(response.data)
+                setWishlistData((prev) => prev.filter(item => item._id !== wishlistId))
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    }
     useEffect(() => {
         fetchWishlist();
     }, [token]);
 
-    const handleCopyLink = () => {
-        toast.success("Wishlist link copied to clipboard!");
-    }
-    
+
     return (
         <div className='w-full border-t font-sans'>
             <div className="flex flex-col ">
@@ -81,7 +89,7 @@ const WishlistPage = () => {
                                     <div key={item._id} className={`grid grid-cols-[auto_2fr_0.8fr_0.7fr] md:grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] py-6 items-center gap-4 border-b border-gray-200`}>
 
                                         {/* 1. Delete Icon */}
-                                        <button  className="text-gray-500 hover:text-brand-brown transition md:block">
+                                        <button onClick={() => deleteOneItem(item._id)} className="text-gray-500 hover:text-brand-brown transition md:block">
                                             <IoCloseOutline size={22} />
                                         </button>
 
@@ -187,7 +195,7 @@ const WishlistPage = () => {
                                     className="w-full md:w-64 border border-gray-200 bg-white h-[44px] px-4 text-sm text-gray-600 outline-none "
                                 />
                                 <button
-                                    onClick={handleCopyLink}
+                                    onClick={() => { toast.success("Wishlist link copied to clipboard!"); }}
                                     className="bg-brand-brown text-white h-[44px] px-8 text-sm font-medium hover:bg-black transition ">
                                     Copy
                                 </button>
