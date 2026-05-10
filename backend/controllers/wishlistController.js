@@ -47,12 +47,12 @@ const getUserWishlist = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-export const clearWishlist = async (req, res) => {
+const clearWishlist = async (req, res) => {
     try {
         const { userId } = req.body
         await wishlistModel.deleteMany({ userId });
         res.json({ success: true, message: "Wishlist cleared successfully" });
-        
+
     } catch (error) {
         res.json({ success: false, message: error.message });
     }
