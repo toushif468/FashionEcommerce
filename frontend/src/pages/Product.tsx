@@ -3,31 +3,24 @@ import { ShopContext } from '../context/ShopContext';
 import type { Color, ProductType, Size } from '../types/assets';
 import RelatedProducts from '../components/RelatedProducts';
 import { useParams } from 'react-router-dom';
-import { FiHeart, FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed
+import { FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import GreyHeaderSection from '@/components/GreyHeaderSection';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 import OurPolicy from '@/components/OurPolicy';
+import axios from 'axios';
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart, backendUrl, token } = useContext(ShopContext);
   const [productData, setProductData] = useState<ProductType | null>(null);
   const [image, setImage] = useState<string>('');
   const [size, setSize] = useState<Size | null>(null);
   const [color, setColor] = useState<Color | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const [isHeartFill, setIsHeartFill] = useState<boolean>(false);
 
-
-
-  useEffect(() => {
-    const foundProduct = products.find((item) => item._id === productId);
-
-    if (foundProduct) {
-      setProductData(foundProduct);
-      setImage(foundProduct.image[0]);
-    }
-  }, [productId, products]);
 
 
   const handleNextImage = () => {
@@ -43,6 +36,24 @@ const Product = () => {
     const prevIndex = (currIndex - 1 + productData.image.length) % productData.image.length;
     setImage(productData.image[prevIndex]);
   }
+
+  const addToWishlist = async () => {
+    const response = await axios.post(`${backendUrl}/api/wishlist/add`, { productId, size, color }, { headers: { token: token } });
+    console.log(response.data)
+    if (response.data.success) {
+
+      setIsHeartFill(true);
+    }
+  }
+
+  useEffect(() => {
+    const foundProduct = products.find((item) => item._id === productId);
+
+    if (foundProduct) {
+      setProductData(foundProduct);
+      setImage(foundProduct.image[0]);
+    }
+  }, [productId, products]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -91,9 +102,9 @@ const Product = () => {
           {/* Product Information */}
           <div className='flex-1'>
             {/* Added category title "Coats" */}
-            <p className='text-muted-foreground text-sm font-maison mb-1'>{productData.subCategory}</p>
+            <p className='text-muted-foreground text-sm  mb-1'>{productData.subCategory}</p>
 
-            <h1 className='font-bold text-3xl font-maison'>{productData.name}</h1>
+            <h1 className='font-bold text-3xl'>{productData.name}</h1>
 
             <div className='flex items-center gap-1 mt-2'>
               <div className='flex items-center gap-1'>
@@ -109,7 +120,7 @@ const Product = () => {
 
             {/* Added Color Section */}
             <div className='mt-6'>
-              <p className='text-sm font-bold font-maison mb-3 text-primary'>
+              <p className='text-sm font-bold mb-3 text-primary'>
                 Color : <span className='font-normal text-muted-foreground'>{color}</span>
               </p>
               <div className='flex gap-2'>
@@ -137,7 +148,7 @@ const Product = () => {
 
 
             <div className='flex flex-col gap-4 my-8'>
-              <p className='text-sm font-bold font-maison text-primary'>Size : <span className='font-normal text-gray-500'>{size || 'Select'}</span></p>
+              <p className='text-sm font-bold text-primary'>Size : <span className='font-normal text-gray-500'>{size || 'Select'}</span></p>
               <div className='flex gap-3'>
                 {productData.sizes.map((item, index) => (
                   <button onClick={() => setSize(item)} className={`border py-3 px-7 text-base text-primary transition-all ${item === size ? 'bg-[#f0c070] border-[#f0c070] text-primary font-bold' : 'bg-white border-gray-200 hover:bg-muted'}`} key={index}>{item}</button>
@@ -158,8 +169,11 @@ const Product = () => {
 
               <button className='bg-[#f0c070] text-primary px-8 py-3.5 text-sm font-bold hover:bg-[#e0b060] transition-colors'>BUY NOW</button>
 
-              <button className='p-3.5 border border-gray-200 hover:text-red-500 transition-colors'>
-                <FiHeart size={20} />
+              <button onClick={() => addToWishlist()} className='p-3.5 border border-gray-200 hover:text-red-500 transition-colors'>
+                {
+                  isHeartFill ?
+                    <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />
+                }
               </button>
             </div>
 

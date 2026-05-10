@@ -38,10 +38,8 @@ const WishlistPage = () => {
     };
     const deleteOneItem = async (wishlistId: string) => {
         try {
-            console.log(wishlistId)
             const response = await axios.post(`${backendUrl}/api/wishlist/clear`, { wishlistId }, { headers: { token: token } })
             if (response.data.success) {
-                console.log(response.data)
                 setWishlistData((prev) => prev.filter(item => item._id !== wishlistId))
             }
         } catch (error: any) {
