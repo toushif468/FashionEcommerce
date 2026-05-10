@@ -57,5 +57,26 @@ const clearWishlist = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 }
-
+const updateWishlist = async (req, res) => {
+    try {
+        const { userId, productId, size, color } = req.body;
+        const exist = await wishlistModel.findOne({
+            userId,
+            productId,
+            size,
+            color
+        })
+        if (exist) return res.json({ success: false, message: "Item already exist" })
+        const newWishlistItem = new wishlistModel({
+            userId,
+            productId,
+            size,
+            color
+        })
+        await newWishlistItem.save()
+        res.json({ success: true, message: "Add to wishlist successfully" });
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+}
 export { getUserWishlist, addToWishlist, clearWishlist };
