@@ -32,6 +32,7 @@ const addToWishlist = async (req, res) => {
     }
 }
 
+
 const getUserWishlist = async (req, res) => {
     try {
         const { userId } = req.body;
