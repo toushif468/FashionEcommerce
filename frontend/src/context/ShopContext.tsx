@@ -33,7 +33,10 @@ interface ShopContextType {
   clearCart: () => void;
   updateQuantity: (itemId: string, size: Size, color: Color, quantity: number) => void;
   getCartAmount: () => number;
-
+  wishlistData: any[];
+  setWishlistData: React.Dispatch<React.SetStateAction<any[]>>;
+  getWishlistData: () => Promise<void>;
+  toggleWishlist: (productId: string, size: Size | null, color: Color | null) => Promise<void>;
   token: string;
   setToken: React.Dispatch<React.SetStateAction<string>>;
   navigate: NavigateFunction;
@@ -58,6 +61,10 @@ export const ShopContext = createContext<ShopContextType>({
   token: '',
   setToken: () => { },
   navigate: () => { },
+  wishlistData: [],
+  setWishlistData: () => { },
+  getWishlistData: async () => { },
+  toggleWishlist: async () => { },
 });
 
 interface ShopContextProviderProps {
@@ -73,7 +80,55 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemsType>({});
   const [token, setToken] = useState<string>('');
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [wishlistData, setWishlistData] = useState<any[]>([]);
   const navigate = useNavigate();
+
+
+  // Wishlist
+  const getWishlistData = async () => {
+    if (!token) return;
+    try {
+      const response = await axios.post(`${backendUrl}/api/wishlist/get`, {}, { headers: { token } });
+      if (response.data.success) {
+        setWishlistData(response.data.wishlist);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+
+
+  const toggleWishlist = async (productId: string, size: Size | null, color: Color | null) => {
+    if (!token) { toast.error("toggleWishlist"); return }
+    const isExisting = wishlistData.find(item => item.productId._id === productId)
+    try {
+
+      if (isExisting) {
+        // REMOVE Logic
+        const response = await axios.post(`${backendUrl}/api/wishlist/clear`, { wishlistId: isExisting._id }, { headers: { token } });
+        if (response.data.success) {
+          setWishlistData(prev => prev.filter(item => item._id !== isExisting._id));
+          toast.success("Removed from wishlist");
+        }
+      } else {
+        //add logic
+        const response = await axios.post(`${backendUrl}/api/wishlist/add`, { productId, size, color }, { headers: { token } });
+        if (response.data.success) {
+          getWishlistData();
+          toast.success("Added to wishlist");
+        }
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+
+  useEffect(() => {
+    if (token) getWishlistData();
+  }, [token]);
+
 
 
   const getProductsData = async () => {
@@ -261,7 +316,11 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
     navigate,
     token,
     setToken,
-    backendUrl
+    backendUrl,
+    wishlistData,
+    setWishlistData,
+    getWishlistData,
+    toggleWishlist,
   };
 
   return (

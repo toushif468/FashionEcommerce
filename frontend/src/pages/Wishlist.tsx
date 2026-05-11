@@ -4,38 +4,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IoCloseOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
-interface WishlistItem {
-    _id: string;
-    productId: {
-        _id: string;
-        name: string;
-        price: number;
-        image: string[];
-    };
-    color: string;
-    size: string;
-    date: string;
-}
+
 const WishlistPage = () => {
-    const { token, backendUrl } = useContext(ShopContext);
-    const [wishlistData, setWishlistData] = useState<WishlistItem[]>([]);
+    const { token, backendUrl, currency, getWishlistData, wishlistData, setWishlistData } = useContext(ShopContext);
 
-    const fetchWishlist = async () => {
-        if (!token) return;
-
-        try {
-
-            const response = await axios.post(`${backendUrl}/api/wishlist/get`, {}, { headers: { token: token } });
-            if (response.data.success) {
-                // console.log(response.data)
-                setWishlistData(response.data.wishlist);
-            }
-        } catch (error: any) {
-            toast.error(error.message);
-        }
-    };
     const deleteOneItem = async (wishlistId: string) => {
         try {
             const response = await axios.post(`${backendUrl}/api/wishlist/clear`, { wishlistId }, { headers: { token: token } })
@@ -47,22 +21,30 @@ const WishlistPage = () => {
         }
     }
     useEffect(() => {
-        fetchWishlist();
+        getWishlistData();
     }, [token]);
 
-
+    // 2. Function to clear entire wishlist
+    const clearWishlist = async () => {
+        try {
+            const response = await axios.post(`${backendUrl}/api/wishlist/clear`, {}, { headers: { token } });
+            if (response.data.success) {
+                setWishlistData([]);
+                toast.success("Wishlist cleared");
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
     return (
         <div className='w-full border-t font-sans'>
             <div className="flex flex-col ">
 
-                {/* REUSABLE GREY HEADER SECTION */}
                 <GreyHeaderSection path={[{ to: '/', text: 'Home' }]} title='Wishlist' />
 
-                {/* MAIN WISHLIST CONTENT */}
                 <main className="grow bg-white">
                     <div className="max-w-7xl mx-auto  ">
 
-                        {/* AMBER COLUMN HEADER */}
                         <div className={`hidden md:grid grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] bg-brand-amber/80 gap-4 py-4 items-center `}>
                             <div></div> {/* Empty for X icon */}
                             <div className="text-start">
@@ -102,38 +84,38 @@ const WishlistPage = () => {
 
                                             <div className="flex flex-col">
 
-                                                <p className="text-base font-bold text-brand-brown">
+                                                <p className="text-base font-bold text-primary">
                                                     {item.productId.name}
                                                 </p>
 
                                                 {/* Desktop Version */}
-                                                <p className="hidden md:block text-sm text-gray-500 mt-0.5">
+                                                <p className="hidden md:block text-sm text-muted-foreground mt-0.5 font-bold">
                                                     Color:
-                                                    <span className="text-sm text-muted-foreground font-bold ml-1">
-                                                        {item.color}
+                                                    <span className="text-sm text-muted-foreground font-base ml-1 font-normal">
+                                                        {item.color ? item.color : "N/A"}
                                                     </span>
 
                                                     {" | "}
 
                                                     Size:
-                                                    <span className="text-gray-700 ml-1">
-                                                        {item.size}
+                                                    <span className="text-muted-foreground ml-1 font-normal">
+                                                        {item.size ? item.size : "N/A"}
                                                     </span>
                                                 </p>
 
                                                 {/* Mobile Version */}
-                                                <div className="flex flex-col md:hidden text-sm text-gray-500 mt-1">
+                                                <div className="flex flex-col md:hidden text-sm text-muted-foreground mt-1">
 
-                                                    <p>
+                                                    <p className='font-bold'>
                                                         Color:
-                                                        <span className="text-muted-foreground font-bold ml-1">
-                                                            {item.size}
+                                                        <span className="text-muted-foreground font-normal ml-1">
+                                                            {item.size ? item.size : "N/A"}
                                                         </span>
                                                     </p>
 
-                                                    <p>
+                                                    <p className='font-bold'>
                                                         Size:
-                                                        <span className="text-gray-700 ml-1">
+                                                        <span className="ml-1">
                                                             {item.size}
                                                         </span>
                                                     </p>
@@ -144,7 +126,7 @@ const WishlistPage = () => {
                                                             Instock
                                                         </p>
                                                         <p className="text-sm text-gray-600">
-                                                            {item.productId.price}
+                                                            {currency}{item.productId.price}
                                                         </p>
                                                     </div>
 
@@ -156,12 +138,16 @@ const WishlistPage = () => {
 
                                         {/* 3. Price */}
                                         <p className="hidden md:block text-sm mt-2 font-semibold text-gray-800">
-                                            {item.productId.price}
+                                            {currency}{item.productId.price}
                                         </p>
 
                                         {/* 4. Date Added */}
-                                        <p className=" text-sm text-gray-600">
-                                            {item.date}
+                                        <p className="text-sm text-gray-600">
+                                            {new Date(item.date).toLocaleDateString('en-GB', {
+                                                day: 'numeric',
+                                                month: 'long',
+                                                year: 'numeric',
+                                            })}
                                         </p>
 
                                         {/* 5. Stock Status */}
@@ -201,7 +187,7 @@ const WishlistPage = () => {
 
                             {/* Right Part: Action Section */}
                             <div className="flex items-center gap-6 shrink-0">
-                                <button className="text-sm font-semibold text-brand-brown underline underline-offset-4 decoration-gray-300 hover:text-black transition">
+                                <button onClick={clearWishlist} className="text-sm font-semibold text-brand-brown underline underline-offset-4 decoration-gray-300 hover:text-black transition">
                                     Clear Wishlist
                                 </button>
                                 <button className="bg-brand-brown text-white h-[44px] px-8 text-sm font-medium hover:bg-black transition ">
@@ -209,7 +195,6 @@ const WishlistPage = () => {
                                 </button>
                             </div>
                         </div>
-
 
                     </div>
                 </main>

@@ -3,17 +3,17 @@ import { ShopContext } from '../context/ShopContext';
 import type { Color, ProductType, Size } from '../types/assets';
 import RelatedProducts from '../components/RelatedProducts';
 import { useParams } from 'react-router-dom';
-import { FiPlus, FiMinus } from 'react-icons/fi'; // Ensure react-icons is installed
+import { FiPlus, FiMinus } from 'react-icons/fi';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import GreyHeaderSection from '@/components/GreyHeaderSection';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 import OurPolicy from '@/components/OurPolicy';
-import axios from 'axios';
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart, backendUrl, token } = useContext(ShopContext);
+  const { products, currency, addToCart, toggleWishlist, wishlistData } = useContext(ShopContext);
+
   const [productData, setProductData] = useState<ProductType | null>(null);
   const [image, setImage] = useState<string>('');
   const [size, setSize] = useState<Size | null>(null);
@@ -22,7 +22,15 @@ const Product = () => {
   const [isHeartFill, setIsHeartFill] = useState<boolean>(false);
 
 
+  // Check if product is already in wishlist
+  useEffect(() => {
+    const isItemInWishlist = wishlistData.some(item => item.productId._id === productId || item.productId === productId);
+    setIsHeartFill(isItemInWishlist);
+  }, [productId, wishlistData]);
 
+  const handleWishlistToggle = async () => {
+    await toggleWishlist(productId!, size, color);
+  };
   const handleNextImage = () => {
     if (!productData) return;
     const currIndex = productData.image.indexOf(image);
@@ -37,14 +45,6 @@ const Product = () => {
     setImage(productData.image[prevIndex]);
   }
 
-  const addToWishlist = async () => {
-    const response = await axios.post(`${backendUrl}/api/wishlist/add`, { productId, size, color }, { headers: { token: token } });
-    console.log(response.data)
-    if (response.data.success) {
-
-      setIsHeartFill(true);
-    }
-  }
 
   useEffect(() => {
     const foundProduct = products.find((item) => item._id === productId);
@@ -168,11 +168,10 @@ const Product = () => {
               <button onClick={() => addToCart(productData._id, size, color)} className='bg-[#3f1700] text-white px-8 py-3.5 text-sm font-bold hover:bg-primary transition-colors'>ADD TO CART</button>
 
               <button className='bg-[#f0c070] text-primary px-8 py-3.5 text-sm font-bold hover:bg-[#e0b060] transition-colors'>BUY NOW</button>
-
-              <button onClick={() => addToWishlist()} className='p-3.5 border border-gray-200 hover:text-red-500 transition-colors'>
-                {
-                  isHeartFill ?
-                    <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />
+              <button onClick={handleWishlistToggle} className='p-2.5 border border-gray-200 text-red-500 transition-colors'>
+                {isHeartFill
+                  ? <AiFillHeart size={26} />
+                  : <AiOutlineHeart size={26} />
                 }
               </button>
             </div>
@@ -202,7 +201,7 @@ const Product = () => {
 
         <OurPolicy />
       </div>
-    </div>
+    </div >
   ) : <div className='opacity-0'></div>
 }
 

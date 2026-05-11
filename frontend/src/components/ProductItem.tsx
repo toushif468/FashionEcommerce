@@ -71,11 +71,11 @@ const ProductItem = ({ id, image, name, price, subCategory }: ProductItemProps) 
                 <p className='text-lg font-bold text-brand-brown line-clamp-1'>{name}</p>
 
                 <div className='flex items-center gap-2 mt-4'>
-                    <p className='text-lg font-bold font-maison text-brand-brown'>
+                    <p className='text-lg font-bold text-brand-brown'>
                         {currency}{price}
                     </p>
                     {/* Optional: Add a crossed out original price if you want it to look like the image */}
-                    <p className='text-base text-gray-400 line-through font-maison'>
+                    <p className='text-base text-gray-400 line-through'>
                         {currency}{price * 2}
                     </p>
                 </div>
