@@ -66,15 +66,15 @@ const WishlistPage = () => {
                         <div className="flex flex-col w-full mb-12">
                             {
                                 wishlistData.map((item) => (
-                                    <div key={item._id} className={`grid grid-cols-[auto_2fr_0.8fr_0.7fr] md:grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] py-6 items-center gap-4 border-b border-gray-200`}>
+                                    <div key={item._id} className={`grid grid-cols-[auto_1fr] md:grid-cols-[40px_3fr_1fr_1.5fr_1fr_140px] py-6 items-center gap-4 border-b border-gray-200`}>
 
                                         {/* 1. Delete Icon */}
-                                        <button onClick={() => deleteOneItem(item._id)} className="text-gray-500 hover:text-brand-brown transition md:block">
-                                            <IoCloseOutline size={22} />
+                                        <button onClick={() => deleteOneItem(item._id)} className="text-primary hover:text-brand-amber transition self-start sm:self-center">
+                                            <IoCloseOutline size={24} />
                                         </button>
 
                                         {/* 2. Product Info */}
-                                        <div className='flex items-center gap-4'>
+                                        <div className='flex items-start md:items-center gap-4'>
 
                                             <img
                                                 className="w-20 sm:w-24 object-cover"
@@ -89,7 +89,7 @@ const WishlistPage = () => {
                                                 </p>
 
                                                 {/* Desktop Version */}
-                                                <p className="hidden md:block text-sm text-muted-foreground mt-0.5 font-bold">
+                                                <p className="hidden md:block text-sm text-muted-foreground mt-0.5 font-semibold">
                                                     Color:
                                                     <span className="text-sm text-muted-foreground font-base ml-1 font-normal">
                                                         {item.color ? item.color : "N/A"}
@@ -106,28 +106,41 @@ const WishlistPage = () => {
                                                 {/* Mobile Version */}
                                                 <div className="flex flex-col md:hidden text-sm text-muted-foreground mt-1">
 
-                                                    <p className='font-bold'>
+                                                    <p className='font-semibold text-sm'>
                                                         Color:
-                                                        <span className="text-muted-foreground font-normal ml-1">
+                                                        <span className="text-muted-foreground ml-1">
+                                                            {item.color ? item.color : "N/A"}
+                                                        </span>
+                                                        {" | "}
+                                                        Size:
+                                                        <span className="ml-1">
                                                             {item.size ? item.size : "N/A"}
                                                         </span>
                                                     </p>
 
-                                                    <p className='font-bold'>
-                                                        Size:
-                                                        <span className="ml-1">
-                                                            {item.size}
-                                                        </span>
-                                                    </p>
-
                                                     {/* Mobile Only Stock */}
-                                                    <div className='flex items-center gap-2'>
-                                                        <p className="text-sm font-medium text-emerald-500 ">
-                                                            Instock
-                                                        </p>
-                                                        <p className="text-sm text-gray-600">
+                                                    <div className='flex items-center gap-2 mt-2'>
+
+                                                        <p className=" text-primary gap-3">
                                                             {currency}{item.productId.price}
                                                         </p>
+
+                                                        <p className=" font-medium text-sm text-emerald-500 ">
+                                                            Instock
+                                                        </p>
+                                                    </div>
+                                                    <div className='flex items-center gap-2 mt-3 justify-between'>
+                                                        <p className="text-sm text-muted-for w-full">
+                                                            {new Date().toLocaleDateString('en-GB', {
+                                                                day: 'numeric',
+                                                                month: 'long',
+                                                                year: 'numeric',
+                                                            })}
+                                                        </p>
+                                                        {/* 6. Add to Cart */}
+                                                        <button className=" bg-brand-brown text-white py-3 px-3 w-full text-xs font-medium hover:bg-black transition ">
+                                                            Add to Cart
+                                                        </button>
                                                     </div>
 
                                                 </div>
@@ -137,12 +150,12 @@ const WishlistPage = () => {
                                         </div>
 
                                         {/* 3. Price */}
-                                        <p className="hidden md:block text-sm mt-2 font-semibold text-gray-800">
+                                        <p className="hidden md:block text-sm mt-2 font-normal text-primary">
                                             {currency}{item.productId.price}
                                         </p>
 
                                         {/* 4. Date Added */}
-                                        <p className="text-sm text-gray-600">
+                                        <p className="hidden md:block text-sm text-muted-foreground">
                                             {new Date(item.date).toLocaleDateString('en-GB', {
                                                 day: 'numeric',
                                                 month: 'long',
@@ -156,9 +169,10 @@ const WishlistPage = () => {
                                         </p>
 
                                         {/* 6. Add to Cart */}
-                                        <button className="bg-brand-brown text-white py-4 w-full text-sm font-medium hover:bg-black transition ">
+                                        <button className="hidden md:block bg-brand-brown text-white py-4 px-6 w-full text-sm font-medium hover:bg-black transition ">
                                             Add to Cart
                                         </button>
+
                                     </div>
 
 
