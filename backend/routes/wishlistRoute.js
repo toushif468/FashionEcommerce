@@ -1,6 +1,6 @@
 import express from 'express'
 import authUser from '../middleware/auth.js'
-import { addBulkToCart, addToWishlist, clearOne, clearWishlist, getUserWishlist } from '../controllers/wishlistController.js'
+import {addToWishlist, clearOne, clearWishlist, getUserWishlist } from '../controllers/wishlistController.js'
 
 const wishlistRouter = express.Router()
 
