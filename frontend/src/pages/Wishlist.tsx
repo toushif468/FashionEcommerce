@@ -5,10 +5,11 @@ import { IoCloseOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { ShopContext } from '@/context/ShopContext';
 import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
 const WishlistPage = () => {
-    const { token, backendUrl, currency, getWishlistData, wishlistData, setWishlistData } = useContext(ShopContext);
+    const { token, backendUrl, currency, getWishlistData, wishlistData, setWishlistData, addToCart } = useContext(ShopContext);
 
     const deleteOneItem = async (wishlistId: string) => {
         try {
@@ -23,6 +24,7 @@ const WishlistPage = () => {
     useEffect(() => {
         getWishlistData();
     }, [token]);
+
 
     // 2. Function to clear entire wishlist
     const clearWishlist = async () => {
@@ -84,9 +86,12 @@ const WishlistPage = () => {
 
                                             <div className="flex flex-col">
 
-                                                <p className="text-base font-bold text-primary">
+                                                <Link
+                                                    to={`/product/${item.productId._id}`}
+                                                    className="text-base font-bold text-primary border-b-2 border-transparent hover:underline transition-all duration-300 inline-block"
+                                                >
                                                     {item.productId.name}
-                                                </p>
+                                                </Link>
 
                                                 {/* Desktop Version */}
                                                 <p className="hidden md:block text-sm text-muted-foreground mt-0.5 font-semibold">
@@ -129,7 +134,7 @@ const WishlistPage = () => {
                                                             Instock
                                                         </p>
                                                     </div>
-                                                    <div className='flex items-center gap-2 mt-3 justify-between'>
+                                                    <div className='flex items-center gap-2 mt-3 justify-end'>
                                                         <p className="text-sm text-muted-for w-full">
                                                             {new Date().toLocaleDateString('en-GB', {
                                                                 day: 'numeric',
@@ -138,7 +143,7 @@ const WishlistPage = () => {
                                                             })}
                                                         </p>
                                                         {/* 6. Add to Cart */}
-                                                        <button className=" bg-brand-brown text-white py-3 px-3 w-full text-xs font-medium hover:bg-black transition ">
+                                                        <button onClick={() => addToCart(item.productId, item.size, item.color)} className=" bg-brand-brown text-white py-3 px-6 min-w-[120px] text-xs font-medium hover:bg-black transition  text-center">
                                                             Add to Cart
                                                         </button>
                                                     </div>
@@ -169,7 +174,7 @@ const WishlistPage = () => {
                                         </p>
 
                                         {/* 6. Add to Cart */}
-                                        <button className="hidden md:block bg-brand-brown text-white py-4 px-6 w-full text-sm font-medium hover:bg-black transition ">
+                                        <button onClick={() => addToCart(item.productId._id, item.size, item.color)} className="hidden md:block bg-brand-brown text-white py-3 px-6 w-full text-sm font-medium hover:bg-black transition ">
                                             Add to Cart
                                         </button>
 
@@ -204,7 +209,7 @@ const WishlistPage = () => {
                                 <button onClick={clearWishlist} className="text-sm font-semibold text-brand-brown underline underline-offset-4 decoration-gray-300 hover:text-black transition">
                                     Clear Wishlist
                                 </button>
-                                <button className="bg-brand-brown text-white h-[44px] px-8 text-sm font-medium hover:bg-black transition ">
+                                <button  className="bg-brand-brown text-white h-[44px] px-8 text-sm font-medium hover:bg-black transition ">
                                     Add All to Cart
                                 </button>
                             </div>
