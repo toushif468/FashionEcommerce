@@ -26,11 +26,15 @@ const WishlistPage = () => {
         if (wishlistData.length === 0) {
             return toast.info("Your wishlist is empty!");
         }
+        if (!token) {
+            toast.error("Please sign in first");
+            return;
+        }
         try {
             const addPromises = wishlistData.map(item =>
-                addToCart(item.product._id, item.size, item.color)
+                addToCart(item.productId._id, item.size, item.color)
             )
-
+            console.log(addPromises)
             await Promise.all(addPromises);
             toast.success("All items moved to your cart!");
 
@@ -49,6 +53,7 @@ const WishlistPage = () => {
                 setWishlistData([]);
                 toast.success("Wishlist cleared");
             }
+
         } catch (error: any) {
             toast.error(error.message);
         }
@@ -81,7 +86,7 @@ const WishlistPage = () => {
                             <div className="text-start">
                                 <span className="font-semibold text-brand-brown">Stock Status</span>
                             </div>
-                            <div></div> 
+                            <div></div>
                         </div>
 
                         <div className="flex flex-col w-full mb-12">

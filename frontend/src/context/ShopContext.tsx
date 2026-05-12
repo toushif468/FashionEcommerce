@@ -100,7 +100,7 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
 
   const toggleWishlist = async (productId: string, size: Size | null, color: Color | null) => {
-    if (!token) { toast.error("toggleWishlist"); return }
+    if (!token) { toast.error("Please Login first"); return }
     const isExisting = wishlistData.find(item => item.productId._id === productId)
     try {
 
@@ -169,7 +169,8 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
 
     if (token) {
       try {
-        await axios.post(backendUrl + '/api/cart/add', { itemId, size, color }, { headers: { token } })
+        await axios.post(backendUrl + '/api/cart/add', { itemId, size, color }, { headers: { token } }) 
+
       } catch (error) {
         console.log(error)
         // toast.error(error.message)`
@@ -288,15 +289,13 @@ const ShopContextProvider = ({ children }: ShopContextProviderProps) => {
   }, [])
 
   useEffect(() => {
-    // FIXED: Added a null check and provided a fallback empty string
 
     const storedToken = localStorage.getItem('token');
     if (!token && storedToken) {
       setToken(storedToken);
       getUserCart(storedToken);
     }
-  }, [token]); // Added token dependency for safety
-
+  }, [token]);
 
 
   const value: ShopContextType = {
