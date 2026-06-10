@@ -1,7 +1,3 @@
-Here is your updated `README.md` file with all instances of **COTTON ROCK** smoothly replaced with **Vintage Vibes**, including the corresponding repo names, live URLs, and test credential emails.
-
----
-
 # Vintage Vibes
 
 **Vintage Vibes** is a premium fashion e-commerce platform designed to provide a high-end, seamless shopping experience. Focused on quality apparel and intuitive design, it bridges the gap between style and technology, offering customers a sophisticated way to explore collections and manage their personal style.
