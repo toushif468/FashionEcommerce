@@ -41,7 +41,7 @@ const MyAccount = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10">
+        <div className="max-w-7xl mx-auto py-10">
             <GreyHeaderSection path={[
                 { to: '/', text: 'Home' },
             ]} title='My Account' />
@@ -49,7 +49,7 @@ const MyAccount = () => {
             <div className="flex flex-col md:flex-row gap-10 mb-3">
 
                 {/* left side */}
-                <div className="w-full md:w-1/4 flex flex-col gap-2">
+                <div className="w-full md:w-2/5 flex flex-col gap-2">
                     {
                         menuItems.map((item) => (
                             <button onClick={() => setActiveTab(item)} key={item} className={`w-full text-left px-6 py-4 text-base font-medium transition-all border border-gray-100 ${activeTab === item ? 'bg-brand-amber text-primary font-semibold' : 'bg-white text-muted-foreground hover:bg-muted/30'}`}>
@@ -61,7 +61,7 @@ const MyAccount = () => {
 
 
                 {/* right side */}
-                <div className="w-full md:3/4">
+                <div className="w-full md:3/5">
                     {renderComponent()}
                 </div>
             </div>

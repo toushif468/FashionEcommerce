@@ -9,9 +9,9 @@ export interface Assets {
   logo: string;
   hero_img: string;
   Heroupdated: string;
-  HeroV2:string,
+  HeroV2: string,
   HeroV3png: string,
-  HEROV4:string,
+  HEROV4: string,
   cart_icon: string;
   dropdown_icon: string;
   exchange_icon: string;
@@ -33,7 +33,7 @@ export interface Assets {
 export type Category = "Men" | "Women" | "Kids";
 export type SubCategory = "Topwear" | "Bottomwear" | "Winterwear";
 export type Size = "S" | "M" | "L" | "XL" | "XXL" | null;
-export type Color = "Black" | "Grey" | "Green" | "Red" | "Orange" | "Blue" | "Pink" | "White" ;
+export type Color = "Black" | "Grey" | "Green" | "Red" | "Orange" | "Blue" | "Pink" | "White";
 
 export interface RelatedProductsProps {
   category: Category;
@@ -64,56 +64,59 @@ export type CartDataItem = {
 };
 
 export interface OrderItemType extends ProductType {
-    quantity: number;
-    size: string;
-    status: string;
-    payment: boolean;
-    paymentMethod: string;
-    date: number;
-  }
+  quantity: number;
+  size: string;
+  status: string;
+  payment: boolean;
+  paymentMethod: string;
+  date: number;
+}
 
 export interface CartItemType extends ProductType {
-    quantity: number;
-    size: string;
-  }
+  quantity: number;
+  size: string;
+}
 
 export interface OrderType {
-    _id: string;
-    userId: string;
-    items: CartItemType[];
-    amount: number;
-    address: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      street: string;
-      city: string;
-      state: string;
-      zipcode: string;
-      country: string;
-      phone: string;
-    };
-    status: string;
-    paymentMethod: string;
-    payment: boolean;
-    date: number;
-  }
+  _id: string;
+  userId: string;
+  items: CartItemType[];
+  amount: number;
+  address: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    street: string;
+    city: string;
+    state: string;
+    zipcode: string;
+    country: string;
+    phone: string;
+  };
+  status: string;
+  paymentMethod: string;
+  payment: boolean;
+  date: number;
+}
 
 
-    export interface OrderItemType extends ProductType {
-      size: string;
-      quantity: number;
-    }
-  
-    export interface FormDataTypes {
-      firstName: string;
-      lastName: string;
-      companyName: string; // Added company name
-      country: string;
-      street: string;
-      city: string;
-      state: string;
-      zipcode: string;
-      phone: string;
-      email: string;
-    }
+export interface OrderItemType extends ProductType {
+  size: string;
+  quantity: number;
+}
+
+export interface FormDataTypes {
+  firstName: string;
+  lastName: string;
+  companyName: string; // Added company name
+  country: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  phone: string;
+  email: string;
+}
+
+
+

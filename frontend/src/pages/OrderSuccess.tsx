@@ -59,7 +59,7 @@ const OrderSuccess = () => {
                             <span className="text-xs tracking-widest text-primary/60 uppercase font-semibold">
                                 Order ID
                             </span>
-                            <span className="font-bold text-primary ">
+                            <span className="font-bold text-primary wrap-break-word">
                                 #{order._id}
                             </span>
                         </div>
